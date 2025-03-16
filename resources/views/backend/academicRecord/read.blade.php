@@ -51,7 +51,7 @@
                         <div class="relative">
                             <select name="month" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                                 <option value="">-- Select Month --</option>
-                                @foreach (range(1, 12) as $month)
+                                @foreach (range(2, 12) as $month)
                                     <option value="{{ str_pad($month, 2, '0', STR_PAD_LEFT) }}">
                                         {{ date('F', mktime(0, 0, 0, $month, 1)) }}
                                     </option>
