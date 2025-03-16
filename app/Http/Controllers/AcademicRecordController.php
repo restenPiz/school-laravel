@@ -8,7 +8,7 @@ class AcademicRecordController extends Controller
 {
     public function index()
     {
-        return view('backend.attendance.index');
+        return view('backend.academicRecord.read');
     }
 
     public function create()
