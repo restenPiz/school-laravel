@@ -14,7 +14,7 @@
 <body class="bg-gray-100 font-sans antialiased">
     <div id="app-2">
 
-        @include('layouts.navbar')
+        {{-- @include('layouts.navbar') --}}
         
         <div class="main flex flex-wrap justify-end mt-16">
             
