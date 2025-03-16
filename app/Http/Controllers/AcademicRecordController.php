@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Student;
 use Illuminate\Http\Request;
 
 class AcademicRecordController extends Controller
 {
     public function index()
     {
-        return view('backend.academicRecord.read');
+        $students = Student::all();
+        return view('backend.academicRecord.read', compact('students'));
     }
 
     public function create()
