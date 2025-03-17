@@ -84,5 +84,33 @@
 
             </div>
         </div>
+
+        <div class="mt-8 bg-white rounded-lg shadow-lg p-6">
+            @foreach ($fees as $fee)
+                <tr class="border-b">
+                    <td class="py-2 px-4">{{ $fee->student->user->name }}</td>
+                    <td class="py-2 px-4">{{ $fee->class->class_name }}</td>
+                    <td class="py-2 px-4">{{ $fee->amount_due }} MZN</td>
+                    <td class="py-2 px-4">{{ $fee->penalty_fee }} MZN</td>
+                    <td class="py-2 px-4">{{ date('d-m-Y', strtotime($fee->due_date)) }}</td>
+                    <td class="py-2 px-4">
+                        @if ($fee->status == 'Pago')
+                            <span class="bg-green-500 text-white px-2 rounded">Pago</span>
+                        @elseif ($fee->status == 'Atrasado')
+                            <span class="bg-red-500 text-white px-2 rounded">Atrasado</span>
+                        @else
+                            <span class="bg-yellow-500 text-white px-2 rounded">Pendente</span>
+                        @endif
+                    </td>
+                    <td class="py-2 px-4">
+                        <form action="{{ route('fees.pay', $fee->id) }}" method="POST">
+                            @csrf
+                            <input type="number" name="amount" placeholder="Valor" class="border p-1 rounded w-20">
+                            <button type="submit" class="bg-blue-500 text-white px-2 rounded">Pagar</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        </div>
     </div>
 @endsection

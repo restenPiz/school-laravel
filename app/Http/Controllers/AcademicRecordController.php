@@ -26,19 +26,22 @@ class AcademicRecordController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'student_id' => 'required|exists:students,id',
-            'class_id' => 'required|exists:grades,id',
+            'student_id' => 'required',
+            'class_id' => 'required',
             'payment_type' => 'required|in:monthly,quartely,yearly',
             'due_date' => 'required|date',
             'amount_due' => 'required|numeric|min:0',
         ]);
 
         $fee = new fees();
-        $fee->student_id = $request->student_id;
-        $fee->class_id = $request->class_id;
-        $fee->payment_type = $request->payment_type;
-        $fee->due_date = $request->due_date;
-        $fee->amount_due = $request->amount_due;
+        $fee->student_id = $request->input('student_id');
+        $fee->class_id = $request->input('class_id');
+        $fee->payment_type = $request->input('payment_type');
+        $fee->due_date = $request->input('due_date');
+        $fee->amount_due = $request->input('amount_due');
+        $fee->amount_paid = 0;
+        $fee->penalty_fee = 0;
+        $fee->status = 'Pendente';
         $fee->save();
 
         return redirect()->back()->with('success', 'Propina registrada com sucesso!');
