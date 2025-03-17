@@ -38,6 +38,10 @@ Route::group(['middleware' => ['auth','role:Admin']], function ()
     Route::get('attendance', 'AttendanceController@index')->name('attendance.index');
     Route::resource('academicRecord', 'AcademicRecordController');
 
+    //*User Routes
+
+    Route::get('/user', 'UserController@create')->name('user.create');
+
 });
 
 Route::group(['middleware' => ['auth','role:Teacher']], function () 
