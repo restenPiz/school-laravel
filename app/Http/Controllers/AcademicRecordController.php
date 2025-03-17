@@ -59,46 +59,24 @@ class AcademicRecordController extends Controller
     }
     public function generateRecords(Request $request)
     {
-        $year = $request->input('year');
-        $month = $request->input('month');
-        $class = $request->input('class');
-        $studentId = $request->input('student'); // O estudante selecionado
+        $request->validate([
+            'student_id' => 'required|exists:students,id',
+            'class_id' => 'required|exists:classes,id',
+            'payment_type' => 'required|in:monthly,quartely,yearly',
+            'due_date' => 'required|date',
+            'amount_due' => 'required|numeric|min:0',
+        ]);
 
-        if (!$studentId) {
-            return back()->with('error', 'Selecione um estudante.');
-        }
+        $fee = new Fee();
+        $fee->student_id = $request->student_id;
+        $fee->class_id = $request->class_id;
+        $fee->payment_type = $request->payment_type;
+        $fee->due_date = $request->due_date;
+        $fee->amount_due = $request->amount_due;
+        $fee->save();
 
-        // Buscar o estudante
-        $student = Student::with('user')->find($studentId);
-        if (!$student) {
-            return back()->with('error', 'Estudante não encontrado.');
-        }
+        return redirect()->route('fees.create')->with('success', 'Propina registrada com sucesso!');
 
-        // Buscar os pagamentos do estudante filtrando por ano e classe
-        $query = fees::where('student_id', $studentId)
-            ->whereYear('due_date', $year);
-
-        if ($class) {
-            $query->where('class_id', $class);
-        }
-
-        // Buscar os pagamentos
-        $records = $query->get();
-
-        // Verificar se o estudante já pagou no mês selecionado
-        $status = 'Pendente';
-        foreach ($records as $record) {
-            $mesesPagos = $this->getCoveredMonths($record);
-            if (in_array($month, $mesesPagos)) {
-                $status = 'Pago';
-                break;
-            }
-        }
-
-        // Enviar os dados para a sessão
-        session()->flash('records', compact('student', 'status', 'year', 'month'));
-
-        return back();
         // $year = $request->input('year');
         // $class = $request->input('class');
         // $student = $request->input('student');
