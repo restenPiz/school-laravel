@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\fees;
 use App\Grade;
 use App\Student;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AcademicRecordController extends Controller
@@ -61,35 +62,41 @@ class AcademicRecordController extends Controller
         $year = $request->input('year');
         $month = $request->input('month');
         $class = $request->input('class');
-        $student = $request->input('student');
+        $studentId = $request->input('student'); // O estudante selecionado
 
-        // Consulta para buscar os pagamentos
-        $query = fees::query(); // Certifique-se de que o model está correto
+        if (!$studentId) {
+            return back()->with('error', 'Selecione um estudante.');
+        }
 
-        if ($year) {
-            $query->whereYear('due_date', $year);
+        // Buscar o estudante
+        $student = Student::with('user')->find($studentId);
+        if (!$student) {
+            return back()->with('error', 'Estudante não encontrado.');
         }
-        if ($month) {
-            $query->whereMonth('due_date', $month);
-        }
+
+        // Buscar os pagamentos do estudante filtrando por ano e classe
+        $query = Fees::where('student_id', $studentId)
+            ->whereYear('due_date', $year);
+
         if ($class) {
             $query->where('class_id', $class);
         }
-        if ($student) {
-            $query->where('student_id', $student);
-        }
 
-        // Buscar os pagamentos com informações do estudante e classe
-        $records = $query->with(['student.user', 'class'])->get();
+        // Buscar os pagamentos
+        $records = $query->get();
 
-        // Criar um array com os meses pagos
-        $payments = [];
+        // Verificar se o estudante já pagou no mês selecionado
+        $status = 'Pendente';
         foreach ($records as $record) {
-            $payments[$record->student_id][\Carbon\Carbon::parse($record->due_date)->format('m')] = $record->amount;
+            $mesesPagos = $this->getCoveredMonths($record);
+            if (in_array($month, $mesesPagos)) {
+                $status = 'Pago';
+                break;
+            }
         }
 
-        session()->flash('records', $records);
-        session()->flash('payments', $payments);
+        // Enviar os dados para a sessão
+        session()->flash('records', compact('student', 'status', 'year', 'month'));
 
         return back();
         // $year = $request->input('year');
@@ -124,6 +131,21 @@ class AcademicRecordController extends Controller
         // session()->flash('pendingMonths', $pendingMonths);
 
         // return back()->with('success', 'Records generated successfully!');
+    }
+    private function getCoveredMonths($record)
+    {
+        $startMonth = Carbon::parse($record->due_date)->month;
+
+        switch ($record->payment_type) {
+            case 'monthly':
+                return [$startMonth]; // Apenas um mês
+            case 'quartely':
+                return [$startMonth, $startMonth + 1, $startMonth + 2]; // Três meses consecutivos
+            case 'yearly':
+                return range(1, 12); // Todo o ano
+            default:
+                return [];
+        }
     }
 
     public function show($id)
