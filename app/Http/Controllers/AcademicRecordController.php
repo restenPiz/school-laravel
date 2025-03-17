@@ -75,7 +75,7 @@ class AcademicRecordController extends Controller
         }
 
         // Buscar os pagamentos do estudante filtrando por ano e classe
-        $query = Fees::where('student_id', $studentId)
+        $query = fees::where('student_id', $studentId)
             ->whereYear('due_date', $year);
 
         if ($class) {

@@ -81,34 +81,38 @@
             </form>
         </div>
         @if(session('records'))
+            @php
+                $student = session('records')['student'];
+                $status = session('records')['status'];
+                $year = session('records')['year'];
+                $month = session('records')['month'];
+            @endphp
+
             <div class="mt-8 bg-white rounded border-b-4 border-gray-300">
                 <div class="flex flex-wrap items-center uppercase text-sm font-semibold bg-gray-600 text-white rounded-tl rounded-tr">
-                    <div class="w-2/12 px-4 py-3">Student Name</div>
-                    <div class="w-2/12 px-4 py-3">Payment Type</div>
+                    <div class="w-4/12 px-4 py-3">Student Name</div>
+                    <div class="w-2/12 px-4 py-3">Year</div>
                     <div class="w-2/12 px-4 py-3">Month</div>
-                    <div class="w-2/12 px-4 py-3">Amount</div>
                     <div class="w-2/12 px-4 py-3">Status</div>
                 </div>
 
-                @foreach ($students as $student)
-                    <div class="flex flex-wrap items-center text-gray-700 border-t-2 border-l-4 border-r-4 border-gray-300">
-                        <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $student->user->name }}</div>
-                        <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $student->payment_type }}</div>
-                        <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ date('F', mktime(0, 0, 0, $month, 1)) }}</div>
-                        <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $student->amount }}</div>
-                        <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
-                            @if(session('records')[$student->id][$month] ?? false)
-                                <span class="bg-green-200 text-sm mr-1 mb-1 px-2 border rounded-full">Pago</span>
-                            @else
-                                <span class="bg-red-200 text-sm mr-1 mb-1 px-2 border rounded-full">Pendente</span>
-                            @endif
-                        </div>
+                <div class="flex flex-wrap items-center text-gray-700 border-t-2 border-gray-300">
+                    <div class="w-4/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $student->user->name }}</div>
+                    <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $year }}</div>
+                    <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ date('F', mktime(0, 0, 0, $month, 1)) }}</div>
+                    <div class="w-2/12 px-4 py-3 text-sm font-semibold">
+                        @if($status === 'Pago')
+                            <span class="bg-green-200 text-sm px-2 border rounded-full">Pago</span>
+                        @else
+                            <span class="bg-red-200 text-sm px-2 border rounded-full">Pendente</span>
+                        @endif
                     </div>
-                @endforeach
+                </div>
             </div>
         @else
-            <p class="text-gray-600 font-bold">No records found</p>
+            <p class="text-gray-600 font-bold mt-4">Nenhum registro encontrado.</p>
         @endif
+
 
 
 
