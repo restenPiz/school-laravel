@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\fees;
 use App\User;
 use App\Grade;
 use App\Parents;
@@ -116,8 +117,9 @@ class StudentController extends Controller
     public function show(Student $student)
     {
         $class = Grade::with('subjects')->where('id', $student->class_id)->first();
-        
-        return view('backend.students.show', compact('class','student'));
+        $fees = fees::findOrFail($student);
+
+        return view('backend.students.show', compact('class', 'student', 'fees'));
     }
 
     /**
