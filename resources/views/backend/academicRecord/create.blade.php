@@ -16,28 +16,30 @@
         </div>
         <!-- Log on to codeastro.com for more projects -->
         <div class="table w-full mt-8 bg-white rounded">
-            <form action="{{ route('parents.store') }}" method="POST" class="w-full max-w-xl px-6 py-12" enctype="multipart/form-data">
+            <form action="{{ route('academicRecord.store') }}" method="POST" class="w-full max-w-xl px-6 py-12" enctype="multipart/form-data">
                 @csrf
 
+                <!-- Tipo de Pagamento -->
                 <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">
-                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
+                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                             Payment Type
                         </label>
                     </div>
                     <div class="md:w-2/3">
                         <select name="payment_type" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                             <option value="">--Select Payment Type--</option>
-                            <option value="monthly">Monthly</option> 
+                            <option value="monthly">Monthly</option>
                             <option value="quartely">Quarterly</option>
                             <option value="yearly">Yearly</option>
                         </select>
                     </div>
                 </div>
 
+                <!-- Ano -->
                 <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">
-                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
+                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                             Year
                         </label>
                     </div>
@@ -50,51 +52,51 @@
                         </select>
                     </div>
                 </div>
-                
+
+                <!-- Data de Vencimento -->
                 <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">
-                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
+                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                             Due Date
                         </label>
                     </div>
                     <div class="md:w-2/3">
-                         <input type="date" name="due_date" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
+                        <input type="date" name="due_date" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
                     </div>
                 </div>
 
+                <!-- Seleção de Classe -->
                 <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">
-                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
+                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                             Classes
                         </label>
                     </div>
                     <div class="md:w-2/3">
-                        <select type="hidden" name="grade" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                        <select id="class-select" name="grade" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                             <option value="">--Select Their Class--</option>
                             @foreach ($classes as $class)
-                                <option value="{{ $class->id }}">{{$class->class_name}}</option>
+                                <option value="{{ $class->id }}">{{ $class->class_name }}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
 
-                <!-- Log on to codeastro.com for more projects -->
+                <!-- Seleção de Estudante (Começa desabilitado) -->
                 <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">
-                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
+                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                             Student
                         </label>
                     </div>
                     <div class="md:w-2/3">
-                        <select type="hidden" name="student_id" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                        <select id="student-select" name="student_id" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" disabled>
                             <option value="">--Select Student--</option>
-                            @foreach ($students as $student)
-                                <option value="{{ $student->id }}">{{$student->user->name}}</option>
-                            @endforeach
                         </select>
                     </div>
                 </div>
 
+                <!-- Botão de Envio -->
                 <div class="md:flex md:items-center">
                     <div class="md:w-1/3"></div>
                     <div class="md:w-2/3">
@@ -103,8 +105,35 @@
                         </button>
                     </div>
                 </div>
-            </form>        
+            </form>
+   
         </div>
         <!-- Log on to codeastro.com for more projects -->
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let classSelect = document.getElementById("class-select");
+            let studentSelect = document.getElementById("student-select");
+
+            classSelect.addEventListener("change", function() {
+                let classId = this.value;
+
+                if (classId) {
+                    fetch(`/get-students-by-class/${classId}`) // Endpoint que retorna estudantes de uma classe
+                        .then(response => response.json())
+                        .then(data => {
+                            studentSelect.innerHTML = '<option value="">--Select Student--</option>'; // Limpa antes de adicionar
+                            data.students.forEach(student => {
+                                studentSelect.innerHTML += `<option value="${student.id}">${student.name}</option>`;
+                            });
+                            studentSelect.disabled = false; // Habilita o campo
+                        })
+                        .catch(error => console.error("Erro ao carregar estudantes:", error));
+                } else {
+                    studentSelect.innerHTML = '<option value="">--Select Student--</option>';
+                    studentSelect.disabled = true; // Desabilita novamente
+                }
+            });
+        });
+    </script>
 @endsection

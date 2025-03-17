@@ -42,6 +42,9 @@ Route::group(['middleware' => ['auth','role:Admin']], function ()
 
     Route::get('/user', 'UserController@create')->name('user.create');
 
+    //*Student routes responsible for search the students connected by grade
+    Route::get('/get-students-by-class/{classId}', 'StudentController@getStudentsByClass');
+
 });
 
 Route::group(['middleware' => ['auth','role:Teacher']], function () 

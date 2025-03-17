@@ -13,11 +13,18 @@ use Illuminate\Validation\Rule;
 
 class StudentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function getStudentsByClass($classId)
+    {
+        $students = Student::where('class_id', $classId)->get(['id', 'user_id']); // Ajuste conforme sua modelagem
+        $students = $students->map(function ($student) {
+            return [
+                'id' => $student->id,
+                'name' => $student->user->name
+            ];
+        });
+
+        return response()->json(['students' => $students]);
+    }
     public function index()
     {
         $students = Student::with('class')->latest()->paginate(10);
