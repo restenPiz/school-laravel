@@ -26,11 +26,11 @@
                         </label>
                     </div>
                     <div class="md:w-2/3">
-                        <select name="month" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                        <select name="payment_type" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                             <option value="">--Select Payment Type--</option>
-                            <option value="1">Monthly</option> 
-                            <option value="2">Quarterly</option>
-                            <option value="3">Annual</option>
+                            <option value="monthly">Monthly</option> 
+                            <option value="quartely">Quarterly</option>
+                            <option value="yearly">Yearly</option>
                         </select>
                     </div>
                 </div>
@@ -58,16 +58,7 @@
                         </label>
                     </div>
                     <div class="md:w-2/3">
-                        {{-- <select name="month" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                            <option value="">-- Select Month --</option>
-                            @foreach (range(2, 12) as $month)
-                                <option value="{{ str_pad($month, 2, '0', STR_PAD_LEFT) }}">
-                                    {{ date('F', mktime(0, 0, 0, $month, 1)) }}
-                                </option>
-                            @endforeach
-                        </select> --}}
-                        
-                            <input type="date" name="due_date" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
+                         <input type="date" name="due_date" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
                     </div>
                 </div>
 
@@ -78,7 +69,7 @@
                         </label>
                     </div>
                     <div class="md:w-2/3">
-                        <select type="hidden" name="month" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                        <select type="hidden" name="grade" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                             <option value="">--Select Their Class--</option>
                             @foreach ($classes as $class)
                                 <option value="{{ $class->id }}">{{$class->class_name}}</option>
@@ -95,7 +86,7 @@
                         </label>
                     </div>
                     <div class="md:w-2/3">
-                        <select type="hidden" name="month" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                        <select type="hidden" name="student_id" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                             <option value="">--Select Student--</option>
                             @foreach ($students as $student)
                                 <option value="{{ $student->id }}">{{$student->user->name}}</option>

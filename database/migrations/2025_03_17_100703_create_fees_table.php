@@ -13,6 +13,7 @@ class CreateFeesTable extends Migration
             $table->foreignId('student_id')->constrained()->onDelete('cascade');
             $table->decimal('amount', 10, 2);
             $table->date('due_date');
+            $table->date('year');
             $table->enum('payment_type', ['monthly', 'quarterly', 'yearly'])->default('monthly');
             $table->enum('status', ['pending', 'paid', 'overdue'])->default('pending');
             $table->timestamps();
