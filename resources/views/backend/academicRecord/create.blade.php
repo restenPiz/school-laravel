@@ -54,18 +54,20 @@
                 <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">
                         <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
-                            Month
+                            Due Date
                         </label>
                     </div>
                     <div class="md:w-2/3">
-                        <select name="month" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                        {{-- <select name="month" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                             <option value="">-- Select Month --</option>
                             @foreach (range(2, 12) as $month)
                                 <option value="{{ str_pad($month, 2, '0', STR_PAD_LEFT) }}">
                                     {{ date('F', mktime(0, 0, 0, $month, 1)) }}
                                 </option>
                             @endforeach
-                        </select>
+                        </select> --}}
+                        
+                            <input type="date" name="due_date" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
                     </div>
                 </div>
 
