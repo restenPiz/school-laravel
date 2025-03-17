@@ -13,6 +13,7 @@ use Illuminate\Validation\Rule;
 
 class StudentController extends Controller
 {
+    //?Method to return with student datas 
     public function getStudentsByClass($classId)
     {
         $students = Student::where('class_id', $classId)->get(['id', 'user_id']); // Ajuste conforme sua modelagem
