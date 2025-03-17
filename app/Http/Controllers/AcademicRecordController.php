@@ -12,9 +12,13 @@ class AcademicRecordController extends Controller
 {
     public function index()
     {
-        $students = Student::all();
-        $classes = Grade::all();
-        return view('backend.academicRecord.read', compact('students', 'classes'));
+        //     $students = Student::all();
+        //     $classes = Grade::all();
+        //     return view('backend.academicRecord.read', compact('students', 'classes'));
+        // }
+        $fees = fees::all();
+
+        return response()->json($fees);
     }
     public function create()
     {
@@ -26,7 +30,7 @@ class AcademicRecordController extends Controller
     {
         $request->validate([
             'student_id' => 'required|exists:students,id',
-            'class_id' => 'required|exists:classes,id',
+            'class_id' => 'required|exists:grades,id',
             'payment_type' => 'required|in:monthly,quartely,yearly',
             'due_date' => 'required|date',
             'amount_due' => 'required|numeric|min:0',
