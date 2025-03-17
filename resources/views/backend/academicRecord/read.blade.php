@@ -20,13 +20,8 @@
         </div>
         <!-- Log on to codeastro.com for more projects -->
         <div class="w-full mt-8 bg-white rounded">
-            <form action="{{ route('attendance.index') }}" method="GET" class="md:flex md:items-center md:justify-between px-6 py-6 pb-0">
-                <div class="md:flex md:items-center mb-6 text-gray-700 uppercase font-bold">
-                    <div>
-                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
-                            Year
-                        </label>
-                    </div>
+            <form action="{{ route('generateRecords') }}" method="GET" class="md:flex md:items-center md:justify-between px-6 py-6 pb-0">
+                <div class="md:flex md:items-center mb-6 text-gray-700 uppercase font-bold w-full ">
                     <div class="block text-gray-600 font-bold">
                         <div class="relative">
                             <select name="year" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -41,12 +36,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="md:flex md:items-center mb-6 text-gray-700 uppercase font-bold">
-                    <div>
-                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
-                            Month
-                        </label>
-                    </div>
+                <div class="md:flex md:items-center mb-6 text-gray-700 uppercase font-bold w-full">
                     <div class="block text-gray-600 font-bold">
                         <div class="relative">
                             <select name="month" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -63,12 +53,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="md:flex md:items-center mb-6 text-gray-700 uppercase font-bold">
-                    <div>
-                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
-                            Course
-                        </label>
-                    </div>
+                <div class="md:flex md:items-center mb-6 text-gray-700 uppercase font-bold w-full">
                     <div class="block text-gray-600 font-bold">
                         <div class="relative">
                             <select id="class-select" name="month" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
@@ -83,21 +68,21 @@
                         </div>
                     </div>
                 </div>
-                <div class="md:flex md:items-center mb-6 text-gray-700 uppercase font-bold">
-                    <button class="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">Generate</button>
-                </div>
-            </form>
-            <!-- Log on to codeastro.com for more projects -->
-            <div class="w-full px-6 py-6">
-                <div class="relative">
-                    <select id="student-select" name="month" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" disabled>
-                        <option value="">--Select Student--</option>
-                    </select>
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                <div class=" md:items-center mb-6 w-full px-6 py-6">
+                    <div class="relative">
+                        <select id="student-select" name="month" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" disabled>
+                            <option value="">--Select Student--</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                        </div>
                     </div>
-                </div>
-            </div>   
+                </div> 
+                
+                <div class=" md:items-center mb-6 text-gray-700 uppercase font-bold">
+                    <button class="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">Generate</button>
+                </div> 
+            </form> 
         </div>
         <!-- Log on to codeastro.com for more projects -->
     </div>
