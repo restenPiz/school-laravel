@@ -10,14 +10,17 @@ class fees extends Model
     protected $table = 'fees';
 
     protected $fillable = [
-        'payment_type',
-        'year',
-        'due_date',
-        'class_id',
         'student_id',
-        'amount',
+        'class_id',
+        'payment_type',
+        'amount_due',
+        'amount_paid',
+        'penalty_fee',
+        'due_date',
         'status'
     ];
+
+    protected $dates = ['due_date'];
 
     public function student()
     {
@@ -26,6 +29,18 @@ class fees extends Model
 
     public function class()
     {
-        return $this->belongsTo(Grade::class, 'class_id');
+        return $this->belongsTo(Grade::class);
+    }
+
+    public function calculatePenalty()
+    {
+        $today = Carbon::now();
+        $dueDate = Carbon::parse($this->due_date);
+
+        if ($this->status !== 'Pago' && $today->greaterThan($dueDate)) {
+            $daysLate = $today->diffInDays($dueDate);
+            $this->penalty_fee = $daysLate * 100; // Exemplo: 100 MZN/dia de atraso
+            $this->status = 'Atrasado';
+        }
     }
 }
