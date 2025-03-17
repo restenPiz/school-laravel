@@ -59,34 +59,39 @@ class AcademicRecordController extends Controller
     public function generateRecords(Request $request)
     {
         $year = $request->input('year');
-        $month = $request->input('month');
         $class = $request->input('class');
         $student = $request->input('student');
 
-        $query = fees::query();
+        $propinas = fees::where('year', $year)
+            ->when($class, fn($query) => $query->where('class_id', $class))
+            ->when($student, fn($query) => $query->where('student_id', $student))
+            ->get();
 
-        if ($year) {
-            $query->whereYear('created_at', $year);
+        $paidMonths = [];
+
+        foreach ($propinas as $propina) {
+            $dueDate = \Carbon\Carbon::parse($propina->due_date);
+
+            if ($propina->payment_type === 'monthly') {
+                $paidMonths[] = $dueDate->month;
+            } elseif ($propina->payment_type === 'quartely') {
+                $paidMonths = array_merge($paidMonths, [$dueDate->month, $dueDate->month + 3, $dueDate->month + 6, $dueDate->month + 9]);
+            } elseif ($propina->payment_type === 'yearly') {
+                $paidMonths = range(1, 12);
+            }
         }
 
-        if ($month) {
-            $query->whereMonth('created_at', $month);
-        }
+        $allMonths = range(1, 12);
 
-        if ($class) {
-            $query->where('class_id', $class);
-        }
+        $pendingMonths = array_diff($allMonths, $paidMonths);
 
-        if ($student) {
-            $query->where('student_id', $student);
-        }
+        session()->flash('records', $propinas);
+        session()->flash('paidMonths', $paidMonths);
+        session()->flash('pendingMonths', $pendingMonths);
 
-        $records = $query->get();
-
-        session()->flash('records', $records);
-
-        return back()->with('success', 'Records filtered successfully!');
+        return back()->with('success', 'Records generated successfully!');
     }
+
     public function show($id)
     {
         //
