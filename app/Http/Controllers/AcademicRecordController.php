@@ -27,7 +27,7 @@ class AcademicRecordController extends Controller
             'payment_type' => 'required|in:monthly,quartely,yearly',
             'year' => 'required|integer|min:2020|max:' . date('Y'),
             'due_date' => 'required|date',
-            'grade' => 'required|exists:classes,id',
+            'grade' => 'required|exists:grades,id',
             'student_id' => 'required|exists:students,id',
         ]);
 

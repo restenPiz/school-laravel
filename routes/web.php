@@ -44,7 +44,6 @@ Route::group(['middleware' => ['auth','role:Admin']], function ()
 
     //*Student routes responsible for search the students connected by grade
     Route::get('/get-students-by-class/{classId}', 'StudentController@getStudentsByClass');
-
 });
 
 Route::group(['middleware' => ['auth','role:Teacher']], function () 

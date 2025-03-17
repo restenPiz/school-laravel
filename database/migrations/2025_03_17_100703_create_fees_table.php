@@ -13,7 +13,7 @@ class CreateFeesTable extends Migration
             $table->enum('payment_type', ['monthly', 'quartely', 'yearly']);
             $table->integer('year');
             $table->date('due_date');
-            $table->foreignId('class_id')->constrained('classes')->onDelete('cascade');
+            $table->foreignId('class_id')->constrained('grades')->onDelete('cascade');
             $table->foreignId('student_id')->constrained('students')->onDelete('cascade');
             $table->decimal('amount', 10, 2); // Valor da propina
             $table->enum('status', ['pending', 'paid'])->default('pending'); // Estado da propina
