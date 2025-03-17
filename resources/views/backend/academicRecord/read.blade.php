@@ -71,7 +71,7 @@
                     </div>
                     <div class="block text-gray-600 font-bold">
                         <div class="relative">
-                            <select name="month" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                            <select id="class-select" name="month" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                                 <option value="">-- Select the Course --</option>
                                 @foreach ($classes as $class)
                                     <option value="{{$class->id}}">{{$class->class_name}}</option>
@@ -90,11 +90,8 @@
             <!-- Log on to codeastro.com for more projects -->
             <div class="w-full px-6 py-6">
                 <div class="relative">
-                    <select name="month" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <select id="student-select" name="month" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" disabled>
                         <option value="">--Select Student--</option>
-                        @foreach ($students as $student)
-                            <option value="{{ $student->id }}">{{$student->user->name}}</option>
-                        @endforeach
                     </select>
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -104,4 +101,30 @@
         </div>
         <!-- Log on to codeastro.com for more projects -->
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let classSelect = document.getElementById("class-select");
+            let studentSelect = document.getElementById("student-select");
+
+            classSelect.addEventListener("change", function() {
+                let classId = this.value;
+
+                if (classId) {
+                    fetch(`/get-students-by-class/${classId}`) // Endpoint que retorna estudantes de uma classe
+                        .then(response => response.json())
+                        .then(data => {
+                            studentSelect.innerHTML = '<option value="">--Select Student--</option>'; // Limpa antes de adicionar
+                            data.students.forEach(student => {
+                                studentSelect.innerHTML += `<option value="${student.id}">${student.name}</option>`;
+                            });
+                            studentSelect.disabled = false; // Habilita o campo
+                        })
+                        .catch(error => console.error("Erro ao carregar estudantes:", error));
+                } else {
+                    studentSelect.innerHTML = '<option value="">--Select Student--</option>';
+                    studentSelect.disabled = true; // Desabilita novamente
+                }
+            });
+        });
+    </script>
 @endsection
