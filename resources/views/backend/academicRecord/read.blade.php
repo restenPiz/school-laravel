@@ -111,8 +111,13 @@
                     </div>
                 @endforeach
         </div>
+        <br>
+        <div class=" md:items-center mb-6 text-gray-700 uppercase font-bold">
+            <button class="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">
+                Print</button>
+        </div> 
         @else
-            <p class="text-gray-600 font-bold">No records found</p>
+            <br><p class="text-gray-600 font-bold">No records found</p>
         @endif
         <!-- Log on to codeastro.com for more projects -->
     </div>
