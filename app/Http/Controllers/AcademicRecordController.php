@@ -15,7 +15,8 @@ class AcademicRecordController extends Controller
 
     public function create()
     {
-        //
+        $students = Student::all();
+        return view('backend.academicRecord.create', compact('students'));
     }
 
     public function store(Request $request)
