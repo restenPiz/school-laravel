@@ -25,6 +25,6 @@ class fees extends Model
 
     public function class()
     {
-        return $this->belongsTo(ClassModel::class, 'class_id');
+        return $this->belongsTo(Grade::class, 'class_id');
     }
 }

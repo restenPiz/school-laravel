@@ -56,6 +56,37 @@ class AcademicRecordController extends Controller
                 return 0;
         }
     }
+    public function generateRecords(Request $request)
+    {
+        $year = $request->input('year');
+        $month = $request->input('month');
+        $class = $request->input('class');
+        $student = $request->input('student');
+
+        $query = fees::query();
+
+        if ($year) {
+            $query->whereYear('created_at', $year);
+        }
+
+        if ($month) {
+            $query->whereMonth('created_at', $month);
+        }
+
+        if ($class) {
+            $query->where('class_id', $class);
+        }
+
+        if ($student) {
+            $query->where('student_id', $student);
+        }
+
+        $records = $query->get();
+
+        session()->flash('records', $records);
+
+        return back()->with('success', 'Records filtered successfully!');
+    }
     public function show($id)
     {
         //
