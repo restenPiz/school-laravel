@@ -477,6 +477,7 @@ class ComposerStaticInitb72b45e6b247df7cc838fefa1571938c
         'App\\Subject' => __DIR__ . '/../..' . '/app/Subject.php',
         'App\\Teacher' => __DIR__ . '/../..' . '/app/Teacher.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
+        'App\\fees' => __DIR__ . '/../..' . '/app/fees.php',
         'App\\tuition' => __DIR__ . '/../..' . '/app/tuition.php',
         'Asm89\\Stack\\Cors' => __DIR__ . '/..' . '/asm89/stack-cors/src/Cors.php',
         'Asm89\\Stack\\CorsService' => __DIR__ . '/..' . '/asm89/stack-cors/src/CorsService.php',

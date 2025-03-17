@@ -46,6 +46,7 @@ return array(
     'App\\Subject' => $baseDir . '/app/Subject.php',
     'App\\Teacher' => $baseDir . '/app/Teacher.php',
     'App\\User' => $baseDir . '/app/User.php',
+    'App\\fees' => $baseDir . '/app/fees.php',
     'App\\tuition' => $baseDir . '/app/tuition.php',
     'Asm89\\Stack\\Cors' => $vendorDir . '/asm89/stack-cors/src/Cors.php',
     'Asm89\\Stack\\CorsService' => $vendorDir . '/asm89/stack-cors/src/CorsService.php',
