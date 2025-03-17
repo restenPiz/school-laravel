@@ -67,7 +67,7 @@ class AcademicRecordController extends Controller
             'amount_due' => 'required|numeric|min:0',
         ]);
 
-        $fee = new Fee();
+        $fee = new fees();
         $fee->student_id = $request->student_id;
         $fee->class_id = $request->class_id;
         $fee->payment_type = $request->payment_type;

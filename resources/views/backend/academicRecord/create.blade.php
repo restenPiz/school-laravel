@@ -19,91 +19,54 @@
             <form action="{{ route('academicRecord.store') }}" method="POST" class="w-full max-w-xl px-6 py-12" enctype="multipart/form-data">
                 @csrf
 
-                <!-- Tipo de Pagamento -->
-                <div class="md:flex md:items-center mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
-                            Payment Type
-                        </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <select name="payment_type" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                            <option value="">--Select Payment Type--</option>
-                            <option value="monthly">Monthly</option>
-                            <option value="quartely">Quarterly</option>
-                            <option value="yearly">Yearly</option>
-                        </select>
-                    </div>
+                <div class="mb-4">
+                    <label class="block text-gray-600 font-bold">Estudante</label>
+                    <select name="student_id" required class="w-full p-3 border rounded">
+                        <option value="">-- Selecione o Estudante --</option>
+                        @foreach ($students as $student)
+                            <option value="{{ $student->id }}">{{ $student->user->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
-                <!-- Ano -->
-                <div class="md:flex md:items-center mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
-                            Year
-                        </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <select name="year" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                            <option value="">-- Select Year --</option>
-                            @for ($year = 2020; $year <= date('Y'); $year++)
-                                <option value="{{ $year }}">{{ $year }}</option>
-                            @endfor
-                        </select>
-                    </div>
+                <!-- Selecionar a Classe -->
+                <div class="mb-4">
+                    <label class="block text-gray-600 font-bold">Classe</label>
+                    <select name="class_id" required class="w-full p-3 border rounded">
+                        <option value="">-- Selecione a Classe --</option>
+                        @foreach ($classes as $class)
+                            <option value="{{ $class->id }}">{{ $class->class_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Tipo de Pagamento -->
+                <div class="mb-4">
+                    <label class="block text-gray-600 font-bold">Tipo de Pagamento</label>
+                    <select name="payment_type" required class="w-full p-3 border rounded">
+                        <option value="monthly">Mensal</option>
+                        <option value="quartely">Trimestral</option>
+                        <option value="yearly">Anual</option>
+                    </select>
                 </div>
 
                 <!-- Data de Vencimento -->
-                <div class="md:flex md:items-center mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
-                            Due Date
-                        </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <input type="date" name="due_date" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" />
-                    </div>
+                <div class="mb-4">
+                    <label class="block text-gray-600 font-bold">Data de Vencimento</label>
+                    <input type="date" name="due_date" required class="w-full p-3 border rounded">
                 </div>
 
-                <!-- Seleção de Classe -->
-                <div class="md:flex md:items-center mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
-                            Classes
-                        </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <select id="class-select" name="grade" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                            <option value="">--Select Their Class--</option>
-                            @foreach ($classes as $class)
-                                <option value="{{ $class->id }}">{{ $class->class_name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Seleção de Estudante (Começa desabilitado) -->
-                <div class="md:flex md:items-center mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
-                            Student
-                        </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <select id="student-select" name="student_id" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" disabled>
-                            <option value="">--Select Student--</option>
-                        </select>
-                    </div>
+                <!-- Valor da Propina -->
+                <div class="mb-4">
+                    <label class="block text-gray-600 font-bold">Valor da Propina</label>
+                    <input type="number" name="amount_due" required step="0.01" class="w-full p-3 border rounded" placeholder="Exemplo: 5000">
                 </div>
 
                 <!-- Botão de Envio -->
-                <div class="md:flex md:items-center">
-                    <div class="md:w-1/3"></div>
-                    <div class="md:w-2/3">
-                        <button class="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">
-                            Submit
-                        </button>
-                    </div>
+                <div class="mt-6">
+                    <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded hover:bg-blue-700">
+                        Registrar Propina
+                    </button>
                 </div>
             </form>
    
