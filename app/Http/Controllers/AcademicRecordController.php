@@ -59,37 +59,71 @@ class AcademicRecordController extends Controller
     public function generateRecords(Request $request)
     {
         $year = $request->input('year');
+        $month = $request->input('month');
         $class = $request->input('class');
         $student = $request->input('student');
 
-        $propinas = fees::where('year', $year)
-            ->when($class, fn($query) => $query->where('class_id', $class))
-            ->when($student, fn($query) => $query->where('student_id', $student))
-            ->get();
+        // Consulta para buscar os pagamentos
+        $query = fees::query(); // Certifique-se de que o model está correto
 
-        $paidMonths = [];
-
-        foreach ($propinas as $propina) {
-            $dueDate = \Carbon\Carbon::parse($propina->due_date);
-
-            if ($propina->payment_type === 'monthly') {
-                $paidMonths[] = $dueDate->month;
-            } elseif ($propina->payment_type === 'quartely') {
-                $paidMonths = array_merge($paidMonths, [$dueDate->month, $dueDate->month + 3, $dueDate->month + 6, $dueDate->month + 9]);
-            } elseif ($propina->payment_type === 'yearly') {
-                $paidMonths = range(1, 12);
-            }
+        if ($year) {
+            $query->whereYear('due_date', $year);
+        }
+        if ($month) {
+            $query->whereMonth('due_date', $month);
+        }
+        if ($class) {
+            $query->where('class_id', $class);
+        }
+        if ($student) {
+            $query->where('student_id', $student);
         }
 
-        $allMonths = range(1, 12);
+        // Buscar os pagamentos com informações do estudante e classe
+        $records = $query->with(['student.user', 'class'])->get();
 
-        $pendingMonths = array_diff($allMonths, $paidMonths);
+        // Criar um array com os meses pagos
+        $payments = [];
+        foreach ($records as $record) {
+            $payments[$record->student_id][\Carbon\Carbon::parse($record->due_date)->format('m')] = $record->amount;
+        }
 
-        session()->flash('records', $propinas);
-        session()->flash('paidMonths', $paidMonths);
-        session()->flash('pendingMonths', $pendingMonths);
+        session()->flash('records', $records);
+        session()->flash('payments', $payments);
 
-        return back()->with('success', 'Records generated successfully!');
+        return back();
+        // $year = $request->input('year');
+        // $class = $request->input('class');
+        // $student = $request->input('student');
+
+        // $propinas = fees::where('year', $year)
+        //     ->when($class, fn($query) => $query->where('class_id', $class))
+        //     ->when($student, fn($query) => $query->where('student_id', $student))
+        //     ->get();
+
+        // $paidMonths = [];
+
+        // foreach ($propinas as $propina) {
+        //     $dueDate = \Carbon\Carbon::parse($propina->due_date);
+
+        //     if ($propina->payment_type === 'monthly') {
+        //         $paidMonths[] = $dueDate->month;
+        //     } elseif ($propina->payment_type === 'quartely') {
+        //         $paidMonths = array_merge($paidMonths, [$dueDate->month, $dueDate->month + 3, $dueDate->month + 6, $dueDate->month + 9]);
+        //     } elseif ($propina->payment_type === 'yearly') {
+        //         $paidMonths = range(1, 12);
+        //     }
+        // }
+
+        // $allMonths = range(1, 12);
+
+        // $pendingMonths = array_diff($allMonths, $paidMonths);
+
+        // session()->flash('records', $propinas);
+        // session()->flash('paidMonths', $paidMonths);
+        // session()->flash('pendingMonths', $pendingMonths);
+
+        // return back()->with('success', 'Records generated successfully!');
     }
 
     public function show($id)

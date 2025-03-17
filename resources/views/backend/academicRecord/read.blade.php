@@ -84,32 +84,36 @@
        @if(session('records'))
             <div class="mt-8 bg-white rounded border-b-4 border-gray-300">
                 <div class="flex flex-wrap items-center uppercase text-sm font-semibold bg-gray-600 text-white rounded-tl rounded-tr">
-                    <div class="w-2/12 px-4 py-3">Student Name</div>
+                    <div class="w-3/12 px-4 py-3">Student Name</div>
+                    <div class="w-2/12 px-4 py-3">Class</div>
                     <div class="w-2/12 px-4 py-3">Payment Type</div>
                     <div class="w-2/12 px-4 py-3">Amount</div>
-                    <div class="w-3/12 px-4 py-3">Paid Months</div>
-                    <div class="w-3/12 px-4 py-3">Pending Months</div>
+                    <div class="w-2/12 px-4 py-3">Status</div>
                 </div>
 
                 @foreach(session('records') as $record)
                     <div class="flex flex-wrap items-center text-gray-700 border-t-2 border-l-4 border-r-4 border-gray-300">
-                        <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600 tracking-tight">{{ $record->student->user->name }}</div>
+                        <div class="w-3/12 px-4 py-3 text-sm font-semibold text-gray-600 tracking-tight">{{ $record->student->user->name }}</div>
+                        <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600 tracking-tight">{{ $record->class->class_name }}</div>
                         <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600 tracking-tight">{{ ucfirst($record->payment_type) }}</div>
-                        <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600 tracking-tight">{{ $record->amount }}</div>
-                        <div class="w-3/12 px-4 py-3 text-sm font-semibold text-green-600 tracking-tight">
-                            @foreach(session('paidMonths') as $month)
-                                <span class="bg-green-200 px-2 rounded-full text-xs">{{ date('F', mktime(0, 0, 0, $month, 1)) }}</span>
-                            @endforeach
-                        </div>
-                        <div class="w-3/12 px-4 py-3 text-sm font-semibold text-red-600 tracking-tight">
-                            @foreach(session('pendingMonths') as $month)
-                                <span class="bg-red-200 px-2 rounded-full text-xs">{{ date('F', mktime(0, 0, 0, $month, 1)) }}</span>
-                            @endforeach
+                        <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600 tracking-tight">{{ number_format($record->amount, 2) }}</div>
+                        <div class="w-2/12 px-4 py-3 text-sm font-semibold">
+                            @php
+                                $paid = session('payments')[$record->student_id][\Carbon\Carbon::parse($record->due_date)->format('m')] ?? null;
+                            @endphp
+                            @if($paid)
+                                <span class="bg-green-200 text-xs px-2 rounded-full">Pago</span>
+                            @else
+                                <span class="bg-red-200 text-xs px-2 rounded-full">Pendente</span>
+                            @endif
                         </div>
                     </div>
                 @endforeach
             </div>
+        @else
+            <p class="text-gray-600 font-bold mt-4">No records found</p>
         @endif
+
 
         <!-- Log on to codeastro.com for more projects -->
     </div>
