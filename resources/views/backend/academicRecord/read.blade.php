@@ -20,7 +20,7 @@
                 <div class="md:flex md:items-center mb-6 text-gray-700 uppercase font-bold w-full ">
                     <div class="block text-gray-600 font-bold">
                         <div class="relative">
-                            <select name="year" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                            <select style="width: 12rem" name="year" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                                 <option value="">-- Select Year --</option>
                                 @for ($year = 2020; $year <= date('Y'); $year++)
                                     <option value="{{ $year }}">{{ $year }}</option>
@@ -35,7 +35,7 @@
                 <div class="md:flex md:items-center mb-6 text-gray-700 uppercase font-bold w-full">
                     <div class="block text-gray-600 font-bold">
                         <div class="relative">
-                            <select name="month" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                            <select style="width: 12rem" name="month" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                                 <option value="">-- Select Month --</option>
                                 @foreach (range(2, 12) as $month)
                                     <option value="{{ str_pad($month, 2, '0', STR_PAD_LEFT) }}">
@@ -52,7 +52,7 @@
                 <div class="md:flex md:items-center mb-6 text-gray-700 uppercase font-bold w-full">
                     <div class="block text-gray-600 font-bold">
                         <div class="relative">
-                            <select id="class-select" name="month" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                            <select style="width: 15rem" id="class-select" name="month" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                                 <option value="">-- Select the Course --</option>
                                 @foreach ($classes as $class)
                                     <option value="{{$class->id}}">{{$class->class_name}}</option>
@@ -66,7 +66,7 @@
                 </div>
                 <div class=" md:items-center mb-6 w-full px-6 py-6">
                     <div class="relative">
-                        <select id="student-select" name="month" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" disabled>
+                        <select style="width: 25rem" id="student-select" name="month" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" disabled>
                             <option value="">--Select Student--</option>
                         </select>
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
