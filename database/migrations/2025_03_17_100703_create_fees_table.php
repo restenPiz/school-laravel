@@ -22,7 +22,7 @@ class CreateFeesTable extends Migration
 
             // Chaves estrangeiras
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
-            $table->foreign('class_id')->references('id')->on('classes')->onDelete('cascade');
+            $table->foreign('class_id')->references('id')->on('grades')->onDelete('cascade');
         });
     }
 
