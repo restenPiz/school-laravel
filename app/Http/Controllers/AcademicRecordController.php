@@ -12,14 +12,11 @@ class AcademicRecordController extends Controller
 {
     public function index()
     {
-        //     $students = Student::all();
-        //     $classes = Grade::all();
-        //     return view('backend.academicRecord.read', compact('students', 'classes'));
-        // }
-        $fees = fees::all();
-
-        return response()->json($fees);
+        $students = Student::all();
+        $classes = Grade::all();
+        return view('backend.academicRecord.read', compact('students', 'classes'));
     }
+
     public function create()
     {
         $students = Student::all();
