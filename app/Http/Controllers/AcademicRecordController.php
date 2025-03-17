@@ -43,6 +43,19 @@ class AcademicRecordController extends Controller
 
         return redirect()->back()->with('success', 'Fee record added successfully!');
     }
+    private function calculateFeeAmount($paymentType)
+    {
+        switch ($paymentType) {
+            case 'monthly':
+                return 5000; // Exemplo: 5000 MZN/mês
+            case 'quartely':
+                return 14000; // Exemplo: 14.000 MZN/trimestre
+            case 'yearly':
+                return 50000; // Exemplo: 50.000 MZN/ano
+            default:
+                return 0;
+        }
+    }
     public function show($id)
     {
         //
