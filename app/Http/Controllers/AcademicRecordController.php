@@ -24,38 +24,23 @@ class AcademicRecordController extends Controller
     }
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'payment_type' => 'required|in:monthly,quartely,yearly',
-            'year' => 'required|integer|min:2020|max:' . date('Y'),
-            'due_date' => 'required|date',
-            'grade' => 'required|exists:grades,id',
+        $request->validate([
             'student_id' => 'required|exists:students,id',
+            'class_id' => 'required|exists:classes,id',
+            'payment_type' => 'required|in:monthly,quartely,yearly',
+            'due_date' => 'required|date',
+            'amount_due' => 'required|numeric|min:0',
         ]);
 
         $fee = new fees();
-        $fee->payment_type = $validated['payment_type'];
-        $fee->year = $validated['year'];
-        $fee->due_date = $validated['due_date'];
-        $fee->class_id = $validated['grade'];
-        $fee->student_id = $validated['student_id'];
-        $fee->amount = $this->calculateFeeAmount($validated['payment_type']);
-        $fee->status = 'pending';
+        $fee->student_id = $request->student_id;
+        $fee->class_id = $request->class_id;
+        $fee->payment_type = $request->payment_type;
+        $fee->due_date = $request->due_date;
+        $fee->amount_due = $request->amount_due;
         $fee->save();
 
-        return redirect()->back()->with('success', 'Fee record added successfully!');
-    }
-    private function calculateFeeAmount($paymentType)
-    {
-        switch ($paymentType) {
-            case 'monthly':
-                return 5000; // Exemplo: 5000 MZN/mês
-            case 'quartely':
-                return 14000; // Exemplo: 14.000 MZN/trimestre
-            case 'yearly':
-                return 50000; // Exemplo: 50.000 MZN/ano
-            default:
-                return 0;
-        }
+        return redirect()->back()->with('success', 'Propina registrada com sucesso!');
     }
     public function generateRecords(Request $request)
     {
