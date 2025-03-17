@@ -37,6 +37,7 @@ Route::group(['middleware' => ['auth','role:Admin']], function ()
     Route::resource('student', 'StudentController');
     Route::get('attendance', 'AttendanceController@index')->name('attendance.index');
     Route::resource('academicRecord', 'AcademicRecordController');
+    Route::get('/generate', 'AcademicRecord@generate')->name('generateRecords');
 
     //*User Routes
 
