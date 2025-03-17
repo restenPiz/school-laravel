@@ -8,10 +8,23 @@ class fees extends Model
 {
     protected $table = 'fees';
 
-    protected $fillable = ['student_id', 'amount', 'year', 'due_date', 'payment_type', 'status'];
+    protected $fillable = [
+        'payment_type',
+        'year',
+        'due_date',
+        'class_id',
+        'student_id',
+        'amount',
+        'status'
+    ];
 
     public function student()
     {
         return $this->belongsTo(Student::class);
+    }
+
+    public function class()
+    {
+        return $this->belongsTo(ClassModel::class, 'class_id');
     }
 }

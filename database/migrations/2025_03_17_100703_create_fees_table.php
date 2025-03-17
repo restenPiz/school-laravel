@@ -10,12 +10,13 @@ class CreateFeesTable extends Migration
     {
         Schema::create('fees', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained()->onDelete('cascade');
-            $table->decimal('amount', 10, 2);
+            $table->enum('payment_type', ['monthly', 'quartely', 'yearly']);
+            $table->integer('year');
             $table->date('due_date');
-            $table->date('year');
-            $table->enum('payment_type', ['monthly', 'quarterly', 'yearly'])->default('monthly');
-            $table->enum('status', ['pending', 'paid', 'overdue'])->default('pending');
+            $table->foreignId('class_id')->constrained('classes')->onDelete('cascade');
+            $table->foreignId('student_id')->constrained('students')->onDelete('cascade');
+            $table->decimal('amount', 10, 2); // Valor da propina
+            $table->enum('status', ['pending', 'paid'])->default('pending'); // Estado da propina
             $table->timestamps();
         });
     }
