@@ -117,7 +117,7 @@ class StudentController extends Controller
     public function show(Student $student)
     {
         $class = Grade::with('subjects')->where('id', $student->class_id)->first();
-        $fees = fees::where('student_id', $student)->get();
+        $fees = fees::where('student_id', $student->id)->get();
 
         return view('backend.students.show', compact('class', 'student', 'fees'));
     }

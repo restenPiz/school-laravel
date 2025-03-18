@@ -86,31 +86,50 @@
         </div>
 
         <div class="mt-8 bg-white rounded-lg shadow-lg p-6">
-            @foreach ($fees as $fee)
-                <tr class="border-b">
-                    <td class="py-2 px-4">{{ $fee->student->user->name }}</td>
-                    <td class="py-2 px-4">{{ $fee->class->class_name }}</td>
-                    <td class="py-2 px-4">{{ $fee->amount_due }} MZN</td>
-                    <td class="py-2 px-4">{{ $fee->penalty_fee }} MZN</td>
-                    <td class="py-2 px-4">{{ date('d-m-Y', strtotime($fee->due_date)) }}</td>
-                    <td class="py-2 px-4">
-                        @if ($fee->status == 'Pago')
-                            <span class="bg-green-500 text-white px-2 rounded">Pago</span>
-                        @elseif ($fee->status == 'Atrasado')
-                            <span class="bg-red-500 text-white px-2 rounded">Atrasado</span>
-                        @else
-                            <span class="bg-yellow-500 text-white px-2 rounded">Pendente</span>
-                        @endif
-                    </td>
-                    <td class="py-2 px-4">
-                        <form action="{{ route('fees.pay', $fee->id) }}" method="POST">
-                            @csrf
-                            <input type="number" name="amount" placeholder="Valor" class="border p-1 rounded w-20">
-                            <button type="submit" class="bg-blue-500 text-white px-2 rounded">Pagar</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
+            <h1>Fees of Student <b>{{$student->user->name}}</b></h1>
+            <div class="mt-8 bg-white rounded border-b-4 border-gray-300">
+                <!-- Cabeçtudeno da Tabela -->
+                <div class="flex flex-wrap items-center uppercase text-sm font-semibold bg-gray-600 text-white rounded-tl rounded-tr">
+                    <div class="w-2/12 px-4 py-3">Amount Due</div>
+                    <div class="w-2/12 px-4 py-3">Penalty Fee</div>
+                    <div class="w-2/12 px-4 py-3">Year</div>
+                    <div class="w-2/12 px-4 py-3">Month</div>
+                    <div class="w-2/12 px-4 py-3">Status</div>
+                </div>
+
+                @foreach ($fees as $fee)
+                    <div class="flex flex-wrap items-center text-gray-700 border-t-2 border-gray-300">
+                        <!-- Nome do Estudante -->
+                        <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
+                            {{ $fee->amount_due }}
+                        </div>
+
+                        <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
+                            {{ $fee->penalty_fee }}
+                        </div>
+
+                        <!-- Ano da Propina -->
+                        <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
+                            {{ date('Y', strtotime($fee->due_date)) }}
+                        </div>
+
+                        <!-- Mês da Propina -->
+                        <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
+                            {{ date('F', strtotime($fee->due_date)) }}
+                        </div>
+
+                        <!-- Status do Pagamento -->
+                        <div class="w-2/12 px-4 py-3 text-sm font-semibold">
+                            @if($fee->status === 'Pago')
+                                <span class="bg-green-200 text-sm px-2 border rounded-full">Pago</span>
+                            @else
+                                <span class="bg-red-200 text-sm px-2 border rounded-full">Pendente</span>
+                            @endif
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
         </div>
     </div>
 @endsection
