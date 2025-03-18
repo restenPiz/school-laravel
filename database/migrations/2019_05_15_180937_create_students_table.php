@@ -19,7 +19,7 @@ class CreateStudentsTable extends Migration
             $table->date('dateofbirth');
             $table->string('current_address');
             $table->string('permanent_address');
-            $table->enum('payment_type', ['monthly', 'quartely', 'yearly'])->default('monthly');
+            $table->enum('payment_type', ['monthly', 'quartely', 'yearly']);
             $table->timestamps();
         });
     }

@@ -15,22 +15,28 @@ class AcademicRecordController extends Controller
     {
         $student = Student::findOrFail($studentId);
 
-        // Definir o valor a ser pago com base no tipo de pagamento
-        $paymentDetails = [
-            'monthly' => ['amount' => 5000, 'interval' => 1],
-            'quartely' => ['amount' => 14000, 'interval' => 3],
-            'yearly' => ['amount' => 50000, 'interval' => 12],
-        ];
-
-        // Verifica se o tipo de pagamento do estudante é válido
-        if (!isset($paymentDetails[$student->payment_type])) {
-            return redirect()->back()->with('error', 'Tipo de pagamento inválido.');
+        switch ($student->payment_type) {
+            case 'monthly':
+                $amount = 5000;
+                $interval = 1;
+                $total_payments = 12; // 12 meses
+                break;
+            case 'quartely':
+                $amount = 14000;
+                $interval = 3;
+                $total_payments = 4; // 4 trimestres
+                break;
+            case 'yearly':
+                $amount = 50000;
+                $interval = 12;
+                $total_payments = 1; // 1 pagamento anual
+                break;
+            default:
+                $amount = 0;
+                $total_payments = 0;
         }
 
-        $amount = $paymentDetails[$student->payment_type]['amount'];
-        $interval = $paymentDetails[$student->payment_type]['interval'];
-
-        for ($i = 1; $i <= 12; $i += $interval) {
+        for ($i = 0; $i < $total_payments; $i++) {
             fees::create([
                 'student_id' => $student->id,
                 'class_id' => $student->class_id,
@@ -38,13 +44,14 @@ class AcademicRecordController extends Controller
                 'amount_due' => $amount,
                 'amount_paid' => 0,
                 'penalty_fee' => 0,
-                'due_date' => Carbon::now()->startOfYear()->addMonths($i)->endOfMonth(),
+                'due_date' => Carbon::now()->startOfYear()->addMonths($i * $interval)->endOfMonth(),
                 'status' => 'Pendente',
             ]);
         }
 
         return redirect()->back()->with('success', 'Mensalidades geradas com sucesso.');
     }
+
     public function index()
     {
         $students = Student::all();
