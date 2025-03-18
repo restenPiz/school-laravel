@@ -11,18 +11,23 @@ use Illuminate\Http\Request;
 class AcademicRecordController extends Controller
 {
     //?Start with the generate method to all the fees of students
-    public function generateFeesForStudent(Student $student)
+    public function generateFeesForStudent($studentId)
     {
-        $amount = $this->getFeeAmount($student->payment_type);
+        $student = Student::findOrFail($studentId);
 
-        // Determinar a quantidade de parcelas com base no tipo de pagamento
+        $amount = match ($student->payment_type) {
+            'monthly' => 5000,
+            'quartely' => 14000,
+            'yearly' => 50000,
+            default => 0,
+        };
+
         $interval = match ($student->payment_type) {
             'monthly' => 1,
             'quartely' => 3,
             'yearly' => 12,
         };
 
-        // Criar registros de mensalidade para o ano atual
         for ($i = 1; $i <= 12; $i += $interval) {
             fees::create([
                 'student_id' => $student->id,
@@ -31,22 +36,13 @@ class AcademicRecordController extends Controller
                 'amount_due' => $amount,
                 'amount_paid' => 0,
                 'penalty_fee' => 0,
-                'due_date' => now()->startOfYear()->addMonths($i)->endOfMonth(),
+                'due_date' => Carbon::now()->startOfYear()->addMonths($i)->endOfMonth(),
                 'status' => 'Pendente',
             ]);
         }
-    }
 
-    private function getFeeAmount($paymentType)
-    {
-        return match ($paymentType) {
-            'monthly' => 5000,
-            'quartely' => 14000,
-            'yearly' => 50000,
-            default => 0,
-        };
+        return redirect()->back()->with('success', 'Mensalidades geradas com sucesso.');
     }
-
     public function index()
     {
         $students = Student::all();

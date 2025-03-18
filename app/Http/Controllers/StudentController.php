@@ -106,6 +106,8 @@ class StudentController extends Controller
 
         $user->assignRole('Student');
 
+        (new AcademicRecordController)->generateFeesForStudent($user->id);
+
         return redirect()->route('student.index');
     }
 
