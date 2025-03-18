@@ -15,32 +15,41 @@ class AcademicRecordController extends Controller
     {
         $student = Student::findOrFail($studentId);
 
-        switch ($student->payment_type) {
-            case 'monthly':
-                $amount = 5000;
-                $interval = 1;
-                $total_payments = 12; // 12 meses
-                break;
-            case 'quartely':
-                $amount = 14000;
-                $interval = 3;
-                $total_payments = 4; // 4 trimestres
-                break;
-            case 'yearly':
-                $amount = 50000;
-                $interval = 12;
-                $total_payments = 1; // 1 pagamento anual
-                break;
-            default:
-                $amount = 0;
-                $total_payments = 0;
-        }
+        // Definir valores de acordo com o tipo de pagamento
+        $tuitionFee = 3000; // Valor fixo da matrícula
+        $amounts = [
+            'monthly' => 5000,
+            'quartely' => 14000,
+            'yearly' => 50000
+        ];
+        $intervals = [
+            'monthly' => 1,
+            'quartely' => 3,
+            'yearly' => 12
+        ];
 
-        for ($i = 0; $i < 12; $i += $interval) {
+        $paymentType = $student->payment_type;
+        $amount = $amounts[$paymentType] ?? 0;
+        $interval = $intervals[$paymentType] ?? 1;
+
+        // Criar primeiro pagamento (matrícula + primeira mensalidade)
+        fees::create([
+            'student_id' => $student->id,
+            'class_id' => $student->class_id,
+            'payment_type' => $paymentType,
+            'amount_due' => $amount + $tuitionFee, // Somando matrícula na primeira mensalidade
+            'amount_paid' => 0,
+            'penalty_fee' => 0,
+            'due_date' => Carbon::now()->startOfYear()->endOfMonth(),
+            'status' => 'Pendente',
+        ]);
+
+        // Criar as mensalidades seguintes
+        for ($i = $interval; $i < 12; $i += $interval) {
             fees::create([
                 'student_id' => $student->id,
                 'class_id' => $student->class_id,
-                'payment_type' => $student->payment_type,
+                'payment_type' => $paymentType,
                 'amount_due' => $amount,
                 'amount_paid' => 0,
                 'penalty_fee' => 0,
@@ -49,8 +58,9 @@ class AcademicRecordController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('success', 'Mensalidades geradas com sucesso.');
+        return redirect()->back()->with('success', 'Mensalidades e taxa de matrícula geradas com sucesso.');
     }
+
 
     public function index()
     {
