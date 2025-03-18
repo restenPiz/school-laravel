@@ -45,14 +45,18 @@ class GradeController extends Controller
             'class_name'        => 'required|string|max:255|unique:grades',
             'class_numeric'     => 'required|numeric',
             'teacher_id'        => 'required|numeric',
-            'class_description' => 'required|string|max:255'
+            'class_description' => 'required|string|max:255',
+            'registration_fee' => 'required',
+            'monthly_fee' => 'required'
         ]);
 
         Grade::create([
             'class_name'        => $request->class_name,
             'class_numeric'     => $request->class_numeric,
             'teacher_id'        => $request->teacher_id,
-            'class_description' => $request->class_description
+            'class_description' => $request->class_description,
+            'registration_fee' => $request->registratrion_fee,
+            'monthly_fee' => $request->monthly_fee
         ]);
 
         return redirect()->route('classes.index');
@@ -96,7 +100,9 @@ class GradeController extends Controller
             'class_name'        => 'required|string|max:255|unique:grades,class_name,'.$id,
             'class_numeric'     => 'required|numeric',
             'teacher_id'        => 'required|numeric',
-            'class_description' => 'required|string|max:255'
+            'class_description' => 'required|string|max:255',
+            'registration_fee' => 'required',
+            'monthly_fee' => 'required'
         ]);
 
         $class = Grade::findOrFail($id);
@@ -105,7 +111,9 @@ class GradeController extends Controller
             'class_name'        => $request->class_name,
             'class_numeric'     => $request->class_numeric,
             'teacher_id'        => $request->teacher_id,
-            'class_description' => $request->class_description
+            'class_description' => $request->class_description,
+            'registration_fee' => $request->registratrion_fee,
+            'monthly_fee' => $request->monthly_fee
         ]);
 
         return redirect()->route('classes.index');
