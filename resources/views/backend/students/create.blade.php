@@ -207,6 +207,7 @@
                     </div>
                     <div class="md:w-2/3">
                         <select name="payment_type" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                            <option value="">Selecione o Tipo de Pagamento</option>
                             <option value="monthly">Mensal</option>
                             <option value="quartely">Trimestral</option>
                             <option value="yearly">Anual</option>
