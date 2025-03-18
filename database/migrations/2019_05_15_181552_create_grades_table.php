@@ -6,11 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateGradesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('grades', function (Blueprint $table) {
@@ -19,15 +14,11 @@ class CreateGradesTable extends Migration
             $table->unsignedBigInteger('class_numeric');
             $table->string('class_name');
             $table->string('class_description');
+            $table->string('amount');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('grades');
