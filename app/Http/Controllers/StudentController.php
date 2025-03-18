@@ -100,7 +100,8 @@ class StudentController extends Controller
             'phone'             => $request->phone,
             'dateofbirth'       => $request->dateofbirth,
             'current_address'   => $request->current_address,
-            'permanent_address' => $request->permanent_address
+            'permanent_address' => $request->permanent_address,
+            'payment_type' => $request->payment_type,
         ]);
 
         $user->assignRole('Student');
@@ -108,12 +109,16 @@ class StudentController extends Controller
         return redirect()->route('student.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Student  $student
-     * @return \Illuminate\Http\Response
-     */
+    private function getFeeAmount($paymentType)
+    {
+        return match ($paymentType) {
+            'monthly' => 5000,
+            'quartely' => 14000,
+            'yearly' => 50000,
+            default => 0,
+        };
+    }
+
     public function show(Student $student)
     {
         $class = Grade::with('subjects')->where('id', $student->class_id)->first();
