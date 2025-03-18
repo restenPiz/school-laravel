@@ -15,9 +15,8 @@ class AcademicRecordController extends Controller
         $student = Student::findOrFail($studentId);
         $grade = Grade::where('id', $student->class_id)->firstOrFail();
 
-        // Definir valores de acordo com o tipo de pagamento
-        $tuitionFee = $grade->registration_fee; // Taxa de matrícula
-        $monthlyFee = $grade->monthly_fee; // Mensalidade padrão
+        $tuitionFee = $grade->registration_fee;
+        $monthlyFee = $grade->monthly_fee;
 
         $amounts = [
             'monthly' => $monthlyFee,
@@ -34,19 +33,17 @@ class AcademicRecordController extends Controller
         $amount = $amounts[$paymentType] ?? 0;
         $interval = $intervals[$paymentType] ?? 1;
 
-        // Criar primeiro pagamento (matrícula + primeira mensalidade)
         fees::create([
             'student_id' => $student->id,
             'class_id' => $student->class_id,
             'payment_type' => $paymentType,
-            'amount_due' => $amount + $tuitionFee, // Somando matrícula na primeira mensalidade
+            'amount_due' => $amount + $tuitionFee,
             'amount_paid' => 0,
             'penalty_fee' => 0,
             'due_date' => Carbon::now()->startOfYear()->endOfMonth(),
             'status' => 'Pendente',
         ]);
 
-        // Criar as mensalidades seguintes
         for ($i = $interval; $i < 12; $i += $interval) {
             fees::create([
                 'student_id' => $student->id,
