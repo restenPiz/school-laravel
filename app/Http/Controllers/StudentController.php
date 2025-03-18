@@ -106,19 +106,9 @@ class StudentController extends Controller
 
         $user->assignRole('Student');
 
-        (new AcademicRecordController)->generateFeesForStudent($user->id);
+        (new AcademicRecordController)->generateFeesForStudent($user->student->id);
 
         return redirect()->route('student.index');
-    }
-
-    private function getFeeAmount($paymentType)
-    {
-        return match ($paymentType) {
-            'monthly' => 5000,
-            'quartely' => 14000,
-            'yearly' => 50000,
-            default => 0,
-        };
     }
 
     public function show(Student $student)

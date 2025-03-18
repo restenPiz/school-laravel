@@ -15,18 +15,20 @@ class AcademicRecordController extends Controller
     {
         $student = Student::findOrFail($studentId);
 
-        $amount = match ($student->payment_type) {
-            'monthly' => 5000,
-            'quartely' => 14000,
-            'yearly' => 50000,
-            default => 0,
-        };
+        // Definir o valor a ser pago com base no tipo de pagamento
+        $paymentDetails = [
+            'monthly' => ['amount' => 5000, 'interval' => 1],
+            'quartely' => ['amount' => 14000, 'interval' => 3],
+            'yearly' => ['amount' => 50000, 'interval' => 12],
+        ];
 
-        $interval = match ($student->payment_type) {
-            'monthly' => 1,
-            'quartely' => 3,
-            'yearly' => 12,
-        };
+        // Verifica se o tipo de pagamento do estudante é válido
+        if (!isset($paymentDetails[$student->payment_type])) {
+            return redirect()->back()->with('error', 'Tipo de pagamento inválido.');
+        }
+
+        $amount = $paymentDetails[$student->payment_type]['amount'];
+        $interval = $paymentDetails[$student->payment_type]['interval'];
 
         for ($i = 1; $i <= 12; $i += $interval) {
             fees::create([
