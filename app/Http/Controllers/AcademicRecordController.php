@@ -10,17 +10,19 @@ use Illuminate\Http\Request;
 
 class AcademicRecordController extends Controller
 {
-    //?Start with the generate method to all the fees of students
     public function generateFeesForStudent($studentId)
     {
         $student = Student::findOrFail($studentId);
+        $grade = Grade::where('id', $student->class_id)->firstOrFail(); // Pegando valores do curso
 
         // Definir valores de acordo com o tipo de pagamento
-        $tuitionFee = 3000; // Valor fixo da matrícula
+        $tuitionFee = $grade->registration_fee; // Taxa de matrícula
+        $monthlyFee = $grade->monthly_fee; // Mensalidade padrão
+
         $amounts = [
-            'monthly' => 5000,
-            'quartely' => 14000,
-            'yearly' => 50000
+            'monthly' => $monthlyFee,
+            'quartely' => $monthlyFee * 3,
+            'yearly' => $monthlyFee * 12
         ];
         $intervals = [
             'monthly' => 1,
@@ -45,7 +47,7 @@ class AcademicRecordController extends Controller
         ]);
 
         // Criar as mensalidades seguintes
-        for ($i = $interval; $i < 12; $i += $interval) {
+        for ($i = $interval; $i <= 12; $i += $interval) {
             fees::create([
                 'student_id' => $student->id,
                 'class_id' => $student->class_id,
@@ -60,7 +62,6 @@ class AcademicRecordController extends Controller
 
         return redirect()->back()->with('success', 'Mensalidades e taxa de matrícula geradas com sucesso.');
     }
-
 
     public function index()
     {
