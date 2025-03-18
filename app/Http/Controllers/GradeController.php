@@ -55,7 +55,7 @@ class GradeController extends Controller
             'class_numeric'     => $request->class_numeric,
             'teacher_id'        => $request->teacher_id,
             'class_description' => $request->class_description,
-            'registration_fee' => $request->registratrion_fee,
+            'registration_fee' => $request->registration_fee,
             'monthly_fee' => $request->monthly_fee
         ]);
 
@@ -112,7 +112,7 @@ class GradeController extends Controller
             'class_numeric'     => $request->class_numeric,
             'teacher_id'        => $request->teacher_id,
             'class_description' => $request->class_description,
-            'registration_fee' => $request->registratrion_fee,
+            'registration_fee' => $request->registration_fee,
             'monthly_fee' => $request->monthly_fee
         ]);
 
