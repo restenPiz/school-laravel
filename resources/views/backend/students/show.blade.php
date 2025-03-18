@@ -91,11 +91,11 @@
                 <!-- Cabeçalho da Tabela -->
                 <div class="flex flex-wrap items-center uppercase text-sm font-semibold bg-gray-600 text-white rounded-tl rounded-tr">
                     <div class="w-2/12 px-4 py-3">Amount Due</div>
+                    <div class="w-2/12 px-4 py-3">Amount Paid</div>
                     <div class="w-2/12 px-4 py-3">Penalty Fee</div>
-                    <div class="w-1/12 px-4 py-3">Year</div>
-                    <div class="w-1/12 px-4 py-3">Month</div>
+                    <div class="w-2/12 px-4 py-3">Month</div>
                     <div class="w-2/12 px-4 py-3">Status</div>
-                    <div class="w-3/12 px-4 py-3"></div>
+                    <div class="w-2/12 px-4 py-3"></div>
                 </div>
 
                 @foreach ($fees as $fee)
@@ -104,23 +104,15 @@
                         <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
                             {{ number_format($fee->amount_due, 2) }} MZN
                         </div>
-
-                        <!-- Multa -->
+                        <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
+                            {{ number_format($fee->amount_paid, 2) }} MZN
+                        </div>
                         <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
                             {{ number_format($fee->penalty_fee, 2) }} MZN
                         </div>
-
-                        <!-- Ano -->
-                        <div class="w-1/12 px-4 py-3 text-sm font-semibold text-gray-600">
-                            {{ date('Y', strtotime($fee->due_date)) }}
+                        <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
+                            {{ date('F-Y', strtotime($fee->due_date)) }}
                         </div>
-
-                        <!-- Mês -->
-                        <div class="w-1/12 px-4 py-3 text-sm font-semibold text-gray-600">
-                            {{ date('F', strtotime($fee->due_date)) }}
-                        </div>
-
-                        <!-- Status -->
                         <div class="w-2/12 px-4 py-3 text-sm font-semibold">
                             @if($fee->status === 'Pago')
                                 <span class="bg-green-200 text-sm px-2 border rounded-full">Pago</span>
@@ -128,9 +120,7 @@
                                 <span class="bg-red-200 text-sm px-2 border rounded-full">Pendente</span>
                             @endif
                         </div>
-
-                        <!-- Botão de pagamento -->
-                        <div class="w-3/12 px-4 py-3 flex items-center justify-end">
+                        <div class="w-2/12 px-4 py-3 flex items-center justify-end">
                             @if($fee->status !== 'Pago')
                                 <a href="" style="background-color: rgb(24, 24, 189);color:white; border-radius:0.2rem; ">
                                     <svg class="h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
@@ -140,15 +130,11 @@
                             @else
                                 <span class="text-gray-500">-</span>
                             @endif
-
-                            <!-- Botão de edição -->
                             <a href="" style="margin-left: 0.3rem;">
                                 <svg class="h-6 w-6 fill-current text-green-600 hover:text-green-800 transition duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                                     <path fill="currentColor" d="M400 480H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48v352c0 26.5-21.5 48-48 48zM238.1 177.9L102.4 313.6l-6.3 57.1c-.8 7.6 5.6 14.1 13.3 13.3l57.1-6.3L302.2 242c2.3-2.3 2.3-6.1 0-8.5L246.7 178c-2.5-2.4-6.3-2.4-8.6-.1zM345 165.1L314.9 135c-9.4-9.4-24.6-9.4-33.9 0l-23.1 23.1c-2.3 2.3-2.3 6.1 0 8.5l55.5 55.5c2.3 2.3 6.1 2.3 8.5 0L345 199c9.3-9.3 9.3-24.5 0-33.9z"/>
                                 </svg>
                             </a>
-
-                            <!-- Botão de exclusão -->
                             <a class="deletebtn ml-1 bg-red-600 block p-1 border border-red-600 rounded-sm hover:bg-red-800 transition duration-300">
                                 <svg class="h-3 w-3 fill-current text-gray-100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                                     <path fill="currentColor" d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"/>
