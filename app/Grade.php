@@ -11,7 +11,8 @@ class Grade extends Model
         'class_numeric',
         'teacher_id',
         'class_description',
-        'amount'
+        'registration_fee',
+        'monthly_fee'
     ];
 
     public function students()

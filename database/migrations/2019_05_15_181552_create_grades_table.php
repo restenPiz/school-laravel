@@ -14,7 +14,9 @@ class CreateGradesTable extends Migration
             $table->unsignedBigInteger('class_numeric');
             $table->string('class_name');
             $table->string('class_description');
-            $table->string('amount');
+            //*Start with the fees payment columns
+            $table->decimal('registration_fee', 10, 2)->default(0);
+            $table->decimal('monthly_fee', 10, 2)->default(0);
             $table->timestamps();
         });
     }
