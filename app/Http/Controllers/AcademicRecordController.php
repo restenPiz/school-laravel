@@ -13,7 +13,7 @@ class AcademicRecordController extends Controller
     public function generateFeesForStudent($studentId)
     {
         $student = Student::findOrFail($studentId);
-        $grade = Grade::where('id', $student->class_id)->firstOrFail(); // Pegando valores do curso
+        $grade = Grade::where('id', $student->class_id)->firstOrFail();
 
         // Definir valores de acordo com o tipo de pagamento
         $tuitionFee = $grade->registration_fee; // Taxa de matrícula
@@ -47,7 +47,7 @@ class AcademicRecordController extends Controller
         ]);
 
         // Criar as mensalidades seguintes
-        for ($i = $interval; $i <= 12; $i += $interval) {
+        for ($i = $interval; $i < 12; $i += $interval) {
             fees::create([
                 'student_id' => $student->id,
                 'class_id' => $student->class_id,
