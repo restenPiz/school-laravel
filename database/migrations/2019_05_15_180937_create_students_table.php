@@ -6,11 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateStudentsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('students', function (Blueprint $table) {
@@ -24,15 +19,11 @@ class CreateStudentsTable extends Migration
             $table->date('dateofbirth');
             $table->string('current_address');
             $table->string('permanent_address');
+            $table->enum('payment_type', ['monthly', 'quartely', 'yearly'])->default('monthly');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('students');
