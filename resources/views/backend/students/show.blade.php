@@ -88,37 +88,39 @@
         <div class="mt-8 bg-white rounded-lg shadow-lg p-6">
             <h1>Fees of Student <b>{{$student->user->name}}</b></h1>
             <div class="mt-8 bg-white rounded border-b-4 border-gray-300">
-                <!-- Cabeçtudeno da Tabela -->
+                <!-- Cabeçalho da Tabela -->
                 <div class="flex flex-wrap items-center uppercase text-sm font-semibold bg-gray-600 text-white rounded-tl rounded-tr">
                     <div class="w-2/12 px-4 py-3">Amount Due</div>
                     <div class="w-2/12 px-4 py-3">Penalty Fee</div>
                     <div class="w-2/12 px-4 py-3">Year</div>
                     <div class="w-2/12 px-4 py-3">Month</div>
                     <div class="w-2/12 px-4 py-3">Status</div>
+                    <div class="w-2/12 px-4 py-3">Action</div>
                 </div>
 
                 @foreach ($fees as $fee)
                     <div class="flex flex-wrap items-center text-gray-700 border-t-2 border-gray-300">
-                        <!-- Nome do Estudante -->
+                        <!-- Valor a pagar -->
                         <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
-                            {{ $fee->amount_due }}
+                            {{ number_format($fee->amount_due, 2) }} MZN
                         </div>
 
+                        <!-- Multa -->
                         <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
-                            {{ $fee->penalty_fee }}
+                            {{ number_format($fee->penalty_fee, 2) }} MZN
                         </div>
 
-                        <!-- Ano da Propina -->
+                        <!-- Ano -->
                         <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
                             {{ date('Y', strtotime($fee->due_date)) }}
                         </div>
 
-                        <!-- Mês da Propina -->
+                        <!-- Mês -->
                         <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
                             {{ date('F', strtotime($fee->due_date)) }}
                         </div>
 
-                        <!-- Status do Pagamento -->
+                        <!-- Status -->
                         <div class="w-2/12 px-4 py-3 text-sm font-semibold">
                             @if($fee->status === 'Pago')
                                 <span class="bg-green-200 text-sm px-2 border rounded-full">Pago</span>
@@ -126,9 +128,24 @@
                                 <span class="bg-red-200 text-sm px-2 border rounded-full">Pendente</span>
                             @endif
                         </div>
+
+                        <!-- Botão de pagamento -->
+                        <div class="w-2/12 px-4 py-3">
+                            @if($fee->status !== 'Pago')
+                                <form action="" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="amount_paid" value="{{ $fee->amount_due + $fee->penalty_fee }}">
+                                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Pagar</button>
+                                </form>
+                            @else
+                                <span class="text-gray-500">-</span>
+                            @endif
+                        </div>
                     </div>
                 @endforeach
             </div>
+        </div>
+
 
         </div>
     </div>
