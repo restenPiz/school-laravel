@@ -142,8 +142,11 @@
                             </a>
                         </div>
                     </div>
-                @endforeach
+                @endforeach 
             </div>
+            {{--*Start with the accountant section--}}
+            <div>ol</div>
+            {{--*End of the accountant section--}}
         </div>
 
 
