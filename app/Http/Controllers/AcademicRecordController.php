@@ -36,7 +36,7 @@ class AcademicRecordController extends Controller
                 $total_payments = 0;
         }
 
-        for ($i = 0; $i < $total_payments; $i++) {
+        for ($i = 0; $i < 12; $i += $interval) {
             fees::create([
                 'student_id' => $student->id,
                 'class_id' => $student->class_id,
@@ -44,7 +44,7 @@ class AcademicRecordController extends Controller
                 'amount_due' => $amount,
                 'amount_paid' => 0,
                 'penalty_fee' => 0,
-                'due_date' => Carbon::now()->startOfYear()->addMonths($i * $interval)->endOfMonth(),
+                'due_date' => Carbon::now()->startOfYear()->addMonths($i)->endOfMonth(),
                 'status' => 'Pendente',
             ]);
         }
