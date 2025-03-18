@@ -145,7 +145,7 @@
                 @endforeach 
             </div>
             {{--*Start with the accountant section--}}
-            <div>ol</div>
+            <div style="margin-top:1rem">ol</div>
             {{--*End of the accountant section--}}
         </div>
 
