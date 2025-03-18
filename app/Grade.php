@@ -10,7 +10,8 @@ class Grade extends Model
         'class_name',
         'class_numeric',
         'teacher_id',
-        'class_description'
+        'class_description',
+        'amount'
     ];
 
     public function students()
