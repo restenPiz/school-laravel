@@ -127,6 +127,36 @@
                             @endif
                         </div>
                     </div>
+
+                    {{--?Start with the model payment--}}
+                    <div id="paymentModal" class="modal-bg hidden fixed top-0 left-0 right-0 bottom-0 w-full h-full overflow-auto z-50 flex items-center justify-center">
+                        <div class="bg-white relative p-10 max-w-lg w-full mx-4 sm:mx-auto my-10 sm:my-32 shadow-lg rounded-lg">
+                            <div onclick="closeModal()" class="absolute top-0 right-0 m-3 text-red-600 cursor-pointer">
+                                <svg class="w-6 h-6 stroke-current" aria-hidden="true" focusable="false" data-prefix="far" data-icon="times-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                    <path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm101.8-262.2L295.6 256l62.2 62.2c4.7 4.7 4.7 12.3 0 17l-22.6 22.6c-4.7 4.7-12.3 4.7-17 0L256 295.6l-62.2 62.2c-4.7 4.7-12.3 4.7-17 0l-22.6-22.6c-4.7-4.7-4.7-12.3 0-17l62.2-62.2-62.2-62.2c-4.7-4.7-4.7-12.3 0-17l22.6-22.6c4.7-4.7 12.3-4.7 17 0l62.2 62.2 62.2-62.2c4.7-4.7 12.3-4.7 17 0l22.6 22.6c4.7 4.7 4.7 12.3 0 17z"></path>
+                                </svg>
+                            </div>
+
+                            <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Escolha a forma de pagamento</h2>
+
+                            <div class="flex justify-center gap-6">
+                                <!-- Botão Mpesa -->
+                                <a class="bg-green-600 text-white p-3 rounded-lg flex items-center gap-3 w-full justify-center">
+                                    <img src="{{ asset('images/mpesalogo.svg') }}" alt="Mpesa" class="w-15 h-12">
+                                </a>
+                            </div>
+
+                            <div class="mt-6">
+                                <label class="block text-gray-500 font-bold mb-1">Valor</label>
+                                <input name="amount" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="text">
+                            </div>
+
+                            <div class="mt-6 text-right">
+                                <button onclick="closeModal()" class="text-gray-600 hover:text-red-600">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+
                 @endforeach 
             </div>
             {{--*Start with the accountant section--}}
@@ -142,4 +172,12 @@
 
         </div>
     </div>
+    <script>
+        function openModal() {
+            document.getElementById("paymentModal").classList.remove("hidden");
+        }
+        function closeModal() {
+            document.getElementById("paymentModal").classList.add("hidden");
+        }
+    </script>
 @endsection
