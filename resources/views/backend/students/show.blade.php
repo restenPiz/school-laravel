@@ -123,7 +123,7 @@
                                     Pagar
                                 </button>
                             @else
-                                <span class="text-gray-500">-</span>
+                                <span class="text-gray-500"></span>
                             @endif
                         </div>
                     </div>
