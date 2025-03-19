@@ -10,13 +10,13 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->id();
+            $table->unsignedBigInteger('student_id');
+            $table->unsignedBigInteger('fee_id');
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
             $table->foreign('fee_id')->references('id')->on('fees')->onDelete('cascade');
             $table->decimal('amount', 10, 2);
             $table->enum('payment_method', ['mpesa', 'emola', 'bank', 'cash']);
             $table->string('transaction_reference')->nullable();
-            $table->timestamps();
             $table->timestamps();
         });
     }
