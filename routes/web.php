@@ -59,5 +59,13 @@ Route::group(['middleware' => ['auth','role:Parent']], function ()
 });
 
 Route::group(['middleware' => ['auth','role:Student']], function () {
+    //?Academic Record routes
+    Route::get('/studentFee/{id}', 'StudentController@generateFee')->name('studentFee');
+
+    //?Attendance Report routes
+    Route::get('/studentAttendance/{id}', 'AttendanceController@studentAttendance')->name('studentAttendance');
+
+    //?Classes Report routes
+    Route::get('/studentClass/{id}', 'GradeController@studentAttendance')->name('studentClass');
 
 });

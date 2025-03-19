@@ -14,6 +14,14 @@ use Illuminate\Validation\Rule;
 
 class StudentController extends Controller
 {
+    public function generateFee($id)
+    {
+        $user = User::findOrFail($id);
+        $studentId = $user->student->id;
+        $fees = Fees::where('student_id', $studentId)->get();
+
+        return view('backend.studentSection.fee', compact('fees'));
+    }
     //?Method to return with student datas 
     public function getStudentsByClass($classId)
     {
