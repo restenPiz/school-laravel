@@ -156,7 +156,9 @@
                                 </div>
                                 <div class="mt-6">
                                     <label class="block text-gray-500 font-bold mb-1">Amount</label>
-                                    <input name="amount" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="text">
+                                    <input id="amount" name="amount" type="number" step="0.01" 
+                                    class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
+                                    data-fee-amount="{{ $fee->amount_due }}" required>
                                 </div>
                                 <div class="mt-6">
                                     <label class="block text-gray-500 font-bold mb-1">Transaction Reference</label>
@@ -197,5 +199,21 @@
         function closeModal() {
             document.getElementById('paymentModal').classList.add('hidden');
         }
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+        const amountInput = document.getElementById("amount");
+        const feeAmount = parseFloat(amountInput.dataset.feeAmount); // Obtém o valor do dataset
+
+        amountInput.addEventListener("input", function () {
+            let enteredAmount = parseFloat(amountInput.value);
+
+            if (enteredAmount < feeAmount) {
+                amountInput.setCustomValidity("O valor não pode ser menor que " + feeAmount + " MZN.");
+            } else {
+                amountInput.setCustomValidity("");
+            }
+        });
+    });
     </script>
 @endsection
