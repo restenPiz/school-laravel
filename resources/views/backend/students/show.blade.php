@@ -137,21 +137,17 @@
                                 </svg>
                             </div>
 
-                            <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Escolha a forma de pagamento</h2>
-                            <div class="md:flex md:items-center mb-6">
-                                <div class="md:w-1/3">
-                                    <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                            <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Payment</h2>
+                            <div class="mt-6">
+                                    <label class="block text-gray-500 font-bold mb-1">
                                         Payment Method
                                     </label>
-                                </div>
-                                <div class="md:w-2/3">
                                     <select name="payment_method" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                                         <option value="">Selecione o Tipo de Pagamento</option>
                                         <option value="mpesa">Mpesa</option>
                                         <option value="emola">Emola</option>
                                         <option value="bank">Bank</option>
                                     </select>
-                                </div>
                             </div>
                             <div class="mt-6">
                                 <label class="block text-gray-500 font-bold mb-1">Amount</label>
