@@ -184,8 +184,6 @@
             </div>
             {{--*End of the accountant section--}}
         </div>
-
-
         </div>
     </div>
     <script>
