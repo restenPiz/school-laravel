@@ -3,17 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Grade;
+use App\Student;
 use App\Subject;
 use App\Teacher;
+use App\User;
 use Illuminate\Http\Request;
 
 class GradeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function studentClass($id)
+    {
+        $user = User::findOrFail($id);
+        $studentId = $user->student->id;
+        $student = Student::findOrFail($studentId);
+
+        return view('backend.studentSection.class', compact('student'));
+    }
     public function index()
     {
         $classes = Grade::withCount('students')->latest()->paginate(10);

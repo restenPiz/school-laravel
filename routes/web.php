@@ -66,6 +66,6 @@ Route::group(['middleware' => ['auth','role:Student']], function () {
     Route::get('/studentAttendance/{id}', 'AttendanceController@studentAttendance')->name('studentAttendance');
 
     //?Classes Report routes
-    Route::get('/studentClass/{id}', 'GradeController@studentAttendance')->name('studentClass');
+    Route::get('/studentClass/{id}', 'GradeController@studentClass')->name('studentClass');
 
 });
