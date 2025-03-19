@@ -16,7 +16,7 @@
         </div>
 
         <div class="w-full max-w-8xl mx-auto bg-white shadow-xl rounded-xl p-8 mt-8">
-            <h2 class="text-2xl font-semibold text-gray-800 border-b pb-4 mb-6 text-center">Student & Parent Information</h2>
+            <h2 style="font-size: 1rem" class="text-2xl font-semibold text-gray-800 border-b pb-4 mb-6 text-center">Student & Parent Information</h2>
 
             <div class="flex flex-wrap md:flex-nowrap items-center relative">
                 <!-- Coluna Esquerda: Informações do Estudante -->
@@ -115,7 +115,7 @@
                         </div>
                         <div class="w-2/12 px-4 py-3 flex items-center justify-end">
                             @if($fee->status !== 'Pago')
-                                <button onclick="openModal({{ $fee->id }}, {{ $fee->student_id }}, {{ $fee->amount_due }})" style="background-color: rgb(79, 79, 177); color: white; border-radius: 0.2rem; padding: 6px 12px; display: flex; align-items: center; gap: 5px;">
+                                <button onclick="openModal('{{ $fee->id }}, {{ $fee->student_id }}, {{ $fee->amount_due }}')" style="background-color: rgb(79, 79, 177); color: white; border-radius: 0.2rem; padding: 6px 12px; display: flex; align-items: center; gap: 5px;">
                                     <svg class="h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                                         <path fill="currentColor"
                                             d="M527.9 112H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h479.9c26.5 0 48-21.5 48-48V160c0-26.5-21.5-48-48-48zM288 352c-17.7 0-32-14.3-32-32 0-17.7 14.3-32 32-32s32 14.3 32 32c0 17.7-14.3 32-32 32zm208-96c0 8.8-7.2 16-16 16H96c-8.8 0-16-7.2-16-16V192c0-8.8 7.2-16 16-16h384c8.8 0 16 7.2 16 16v64z"/>
@@ -156,9 +156,9 @@
                                 </div>
                                 <div class="mt-6">
                                     <label class="block text-gray-500 font-bold mb-1">Amount</label>
-                                    <input id="amount" name="amount" type="number" step="0.01" 
-                                class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
-                                data-fee-amount="{{ $fee->amount_due }}" required>
+                                    <input id="amount" name="amount" type="number"
+                                class="bg-gray-200 appearance-none border-2
+                                border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" required>
                                 </div>
                                 <div class="mt-6">
                                     <label class="block text-gray-500 font-bold mb-1">Transaction Reference</label>
