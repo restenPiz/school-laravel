@@ -138,17 +138,28 @@
                             </div>
 
                             <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Escolha a forma de pagamento</h2>
-
-                            <div class="flex justify-center gap-6">
-                                <!-- Botão Mpesa -->
-                                <a class="bg-green-600 text-white p-3 rounded-lg flex items-center gap-3 w-full justify-center">
-                                    <img src="{{ asset('images/mpesalogo.svg') }}" alt="Mpesa" class="w-15 h-12">
-                                </a>
+                            <div class="md:flex md:items-center mb-6">
+                                <div class="md:w-1/3">
+                                    <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                                        Payment Method
+                                    </label>
+                                </div>
+                                <div class="md:w-2/3">
+                                    <select name="payment_method" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                                        <option value="">Selecione o Tipo de Pagamento</option>
+                                        <option value="mpesa">Mpesa</option>
+                                        <option value="emola">Emola</option>
+                                        <option value="bank">Bank</option>
+                                    </select>
+                                </div>
                             </div>
-
                             <div class="mt-6">
-                                <label class="block text-gray-500 font-bold mb-1">Valor</label>
+                                <label class="block text-gray-500 font-bold mb-1">Amount</label>
                                 <input name="amount" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="text">
+                            </div>
+                            <div class="mt-6">
+                                <label class="block text-gray-500 font-bold mb-1">Transaction Reference</label>
+                                <input name="transaction_reference" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="text">
                             </div>
 
                             <div class="mt-6 text-right">
