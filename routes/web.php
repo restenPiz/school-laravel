@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\PaymentController;
+
 Route::get('/', function () {
     return redirect('/login');
 });
@@ -45,6 +47,9 @@ Route::group(['middleware' => ['auth','role:Admin']], function ()
 
     //*Student routes responsible for search the students connected by grade
     Route::get('/get-students-by-class/{classId}', 'StudentController@getStudentsByClass');
+
+    //?Payments routes
+    Route::post('/payments', [PaymentController::class, 'store'])->name('payments.store');
 });
 
 Route::group(['middleware' => ['auth','role:Teacher']], function () 

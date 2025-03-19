@@ -115,7 +115,7 @@
                         </div>
                         <div class="w-2/12 px-4 py-3 flex items-center justify-end">
                             @if($fee->status !== 'Pago')
-                                <button onclick="openModal()" style="background-color: rgb(79, 79, 177); color: white; border-radius: 0.2rem; padding: 6px 12px; display: flex; align-items: center; gap: 5px;">
+                                <button onclick="openModal('{{ $fee->id }}', '{{ $fee->student_id }}', '{{ number_format($fee->amount_due, 2) }}')" style="background-color: rgb(79, 79, 177); color: white; border-radius: 0.2rem; padding: 6px 12px; display: flex; align-items: center; gap: 5px;">
                                     <svg class="h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                                         <path fill="currentColor"
                                             d="M527.9 112H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h479.9c26.5 0 48-21.5 48-48V160c0-26.5-21.5-48-48-48zM288 352c-17.7 0-32-14.3-32-32 0-17.7 14.3-32 32-32s32 14.3 32 32c0 17.7-14.3 32-32 32zm208-96c0 8.8-7.2 16-16 16H96c-8.8 0-16-7.2-16-16V192c0-8.8 7.2-16 16-16h384c8.8 0 16 7.2 16 16v64z"/>
@@ -138,7 +138,11 @@
                             </div>
 
                             <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Payment</h2>
-                            <div class="mt-6">
+                            <form action="{{route('payment.store')}}" method="POST">
+                                @csrf
+                                <div class="mt-6">
+                                    <input type="hidden" name="student_id" value="{{ $fee->student_id }}">
+                                    <input type="hidden" name="fee_id" value="{{ $fee->id }}">
                                     <label class="block text-gray-500 font-bold mb-1">
                                         Payment Method
                                     </label>
@@ -147,20 +151,22 @@
                                         <option value="mpesa">Mpesa</option>
                                         <option value="emola">Emola</option>
                                         <option value="bank">Bank</option>
+                                        <option value="cash">Cash</option>
                                     </select>
-                            </div>
-                            <div class="mt-6">
-                                <label class="block text-gray-500 font-bold mb-1">Amount</label>
-                                <input name="amount" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="text">
-                            </div>
-                            <div class="mt-6">
-                                <label class="block text-gray-500 font-bold mb-1">Transaction Reference</label>
-                                <input name="transaction_reference" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="text">
-                            </div>
+                                </div>
+                                <div class="mt-6">
+                                    <label class="block text-gray-500 font-bold mb-1">Amount</label>
+                                    <input name="amount" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="text">
+                                </div>
+                                <div class="mt-6">
+                                    <label class="block text-gray-500 font-bold mb-1">Transaction Reference</label>
+                                    <input name="transaction_reference" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="text">
+                                </div>
 
-                            <div class="mt-6 text-right">
-                                <button onclick="closeModal()" class="text-gray-600 hover:text-red-600">Fechar</button>
-                            </div>
+                                <div class="mt-6 text-right">
+                                    <button onclick="closeModal()" class="text-gray-600 hover:text-red-600">Fechar</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
 
@@ -180,11 +186,15 @@
         </div>
     </div>
     <script>
-        function openModal() {
-            document.getElementById("paymentModal").classList.remove("hidden");
+        function openModal(feeId, studentId, amount) {
+            document.getElementById('paymentModal').classList.remove('hidden');
+            document.getElementById('fee_id').value = feeId;
+            document.getElementById('student_id').value = studentId;
+            document.getElementById('amount').value = amount + ' MZN';
         }
+
         function closeModal() {
-            document.getElementById("paymentModal").classList.add("hidden");
+            document.getElementById('paymentModal').classList.add('hidden');
         }
     </script>
 @endsection
