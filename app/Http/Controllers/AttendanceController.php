@@ -3,18 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Grade;
+use App\Student;
 use App\Teacher;
+use App\User;
 use Carbon\Carbon;
 use App\Attendance;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function studentAttendance($id)
+    {
+        $user = User::findOrFail($id);
+        $studentId = $user->student->id;
+        $student = Student::findOrFail($studentId);
+
+        return view('backend.studentSection.attendance', compact('student'));
+    }
     public function index()
     {
         $months = Attendance::select('attendence_date')
