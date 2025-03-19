@@ -212,10 +212,10 @@
                     </div>
                     <div class="md:w-2/3">
                         <select name="payment_type" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                            <option value="{{ $student->payment_type }}">{{ $student->payment_type }}</option>
-                            <option value="monthly">Mensal</option>
-                            <option value="quartely">Trimestral</option>
-                            <option value="yearly">Anual</option>
+                            <option value="">Select Payment Type</option>
+                            <option value="monthly" {{ $student->payment_type == 'monthly' ? 'selected' : '' }}>Monthly</option>
+                            <option value="quarterly" {{ $student->payment_type == 'quarterly' ? 'selected' : '' }}>Quarterly</option>
+                            <option value="yearly" {{ $student->payment_type == 'yearly' ? 'selected' : '' }}>Yearly</option>
                         </select>
                     </div>
                 </div>
