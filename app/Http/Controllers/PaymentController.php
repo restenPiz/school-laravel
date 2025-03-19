@@ -13,7 +13,7 @@ class PaymentController extends Controller
         $request->validate([
             'student_id' => 'required|exists:students,id',
             'fee_id' => 'required|exists:fees,id',
-            'amount' => ['required', 'numeric', 'min:' . $request->fee_amount],
+            'amount' => 'required',
             'payment_method' => 'required',
             'transaction_reference' => 'nullable|string',
         ]);

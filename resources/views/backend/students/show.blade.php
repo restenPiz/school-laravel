@@ -115,7 +115,7 @@
                         </div>
                         <div class="w-2/12 px-4 py-3 flex items-center justify-end">
                             @if($fee->status !== 'Pago')
-                                <button onclick="openModal('{{ $fee->id }}', '{{ $fee->student_id }}', '{{ number_format($fee->amount_due, 2) }}')" style="background-color: rgb(79, 79, 177); color: white; border-radius: 0.2rem; padding: 6px 12px; display: flex; align-items: center; gap: 5px;">
+                                <button onclick="openModal({{ $fee->id }}, {{ $fee->student_id }}, {{ $fee->amount_due }})" style="background-color: rgb(79, 79, 177); color: white; border-radius: 0.2rem; padding: 6px 12px; display: flex; align-items: center; gap: 5px;">
                                     <svg class="h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                                         <path fill="currentColor"
                                             d="M527.9 112H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h479.9c26.5 0 48-21.5 48-48V160c0-26.5-21.5-48-48-48zM288 352c-17.7 0-32-14.3-32-32 0-17.7 14.3-32 32-32s32 14.3 32 32c0 17.7-14.3 32-32 32zm208-96c0 8.8-7.2 16-16 16H96c-8.8 0-16-7.2-16-16V192c0-8.8 7.2-16 16-16h384c8.8 0 16 7.2 16 16v64z"/>
@@ -191,13 +191,16 @@
             const modal = document.getElementById('paymentModal');
             const amountInput = document.getElementById('amount');
 
+            // Exibir o modal
             modal.classList.remove('hidden');
 
+            // Definir os valores nos inputs
             document.getElementById('fee_id').value = feeId;
             document.getElementById('student_id').value = studentId;
 
+            // Resetar o campo de entrada
             amountInput.value = "";
-            amountInput.dataset.feeAmount = amountDue; 
+            amountInput.setAttribute('data-fee-amount', amountDue); // Armazena o valor correto
             amountInput.placeholder = `Mínimo: ${amountDue} MZN`;
         }
 
@@ -205,20 +208,7 @@
             document.getElementById('paymentModal').classList.add('hidden');
         }
 
-        document.addEventListener("DOMContentLoaded", function () {
-            const amountInput = document.getElementById("amount");
-
-            amountInput.addEventListener("input", function () {
-                let enteredAmount = parseFloat(amountInput.value);
-                let feeAmount = parseFloat(amountInput.dataset.feeAmount);
-
-                if (isNaN(enteredAmount) || enteredAmount < feeAmount) {
-                    amountInput.setCustomValidity("O valor não pode ser menor que " + feeAmount + " MZN.");
-                } else {
-                    amountInput.setCustomValidity("");
-                }
-            });
-        });
     </script>
+
 
 @endsection
