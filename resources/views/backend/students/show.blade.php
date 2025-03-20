@@ -124,10 +124,51 @@
                                     Pagar
                                 </a>
                             @else
-                                {{-- <span class="text-gray-500"></span> --}}
-                                <a href="" class="ml-1 bg-blue-600 block p-1 border border-blue-600 rounded-sm">
-                                    <svg class="h-3 w-3 fill-current text-gray-100" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="align-right" class="svg-inline--fa fa-align-right fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M160 84V44c0-8.837 7.163-16 16-16h256c8.837 0 16 7.163 16 16v40c0 8.837-7.163 16-16 16H176c-8.837 0-16-7.163-16-16zM16 228h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 256h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm160-128h256c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H176c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg>
+                                 <a href="#" class="ml-1 bg-green-600 block p-2 border border-green-600 rounded-md text-white text-sm"
+                                    data-bs-toggle="modal" data-bs-target="#paymentDetailsModal{{$fee->id}}">
+                                    Ver Pagamento
                                 </a>
+
+                                {{--?Payment method modal--}}
+                                <div class="modal fade" id="paymentDetailsModal{{$fee->id}}" tabindex="-1" aria-labelledby="paymentDetailsModalLabel{{$fee->id}}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header bg-green-600 text-white">
+                                                <h5 class="modal-title" id="paymentDetailsModalLabel{{$fee->id}}">Detalhes do Pagamento</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <table class="table table-striped">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th>Estudante:</th>
+                                                            <td>{{ $fee->student->name }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Valor Pago:</th>
+                                                            <td>{{ number_format($fee->amount_paid, 2) }} MZN</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Data do Pagamento:</th>
+                                                            <td>{{ $fee->updated_at->format('d/m/Y H:i') }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Método de Pagamento:</th>
+                                                            <td>{{ $fee->payment->payment_method ?? 'Não especificado' }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Referência:</th>
+                                                            <td>{{ $fee->payment->transaction_reference ?? 'N/A' }}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             @endif
                         </div>
                     </div>
