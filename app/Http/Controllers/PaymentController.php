@@ -14,7 +14,8 @@ class PaymentController extends Controller
     {
         $classes = Grade::all();
         $students = Student::all();
-        return view('backend.academicRecord.payment', compact('classes', 'students'));
+        $payments = Payment::all();
+        return view('backend.academicRecord.payment', compact('classes', 'students', 'payments'));
     }
     public function store(Request $request)
     {
