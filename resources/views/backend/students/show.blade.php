@@ -187,16 +187,4 @@
         </div>
         </div>
     </div>
-    <script>
-        function openModal(feeId, studentId, amount) {
-            document.getElementById('paymentModal').classList.remove('hidden');
-            document.getElementById('fee_id').value = feeId;
-            document.getElementById('student_id').value = studentId;
-            document.getElementById('amount').value = amount + ' MZN';
-        }
-
-        function closeModal() {
-            document.getElementById('paymentModal').classList.add('hidden');
-        }
-    </script>
 @endsection
