@@ -115,7 +115,10 @@
                         </div>
                         <div class="w-2/12 px-4 py-3 flex items-center justify-end">
                             @if($fee->status !== 'Pago')
-                                <button onclick="openModal({{ $fee->id }}', '{{ $fee->student_id }}', '{{ number_format($fee->amount_due, 2) }})" 
+                                <button onclick="openModal(this)" 
+                                    data-fee-id="{{ $fee->id }}" 
+                                    data-student-id="{{ $fee->student_id }}" 
+                                    data-amount="{{ $fee->amount_due }}"
                                     style="background-color: rgb(79, 79, 177); color: white; border-radius: 0.2rem; padding: 6px 12px; display: flex; align-items: center; gap: 5px;">
                                     <svg class="h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                                         <path fill="currentColor"
