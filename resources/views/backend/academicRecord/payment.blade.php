@@ -8,7 +8,7 @@
 
         <!-- Formulário -->
         <div class="w-full mt-8 bg-white rounded p-6">
-            <form action="" method="post" class="flex flex-wrap items-center gap-4">
+            <form action="{{ route('payments.index') }}" method="GET" class="flex flex-wrap items-center gap-4">
                 @csrf
                 <!-- Select de Curso -->
                 <div class="relative w-80" style=" width: 18rem;">
@@ -75,7 +75,7 @@
 
                 <!-- Botão de Gerar -->
                 <div style="margin-left:1rem">
-                    <button style="width: 11rem"
+                    <button style="width: 11rem" type="submit" name="submit"
                         class="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded">
                         Generate
                     </button>
