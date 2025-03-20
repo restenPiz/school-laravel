@@ -165,4 +165,72 @@
             });
         });
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let form = document.querySelector("form");
+            let tableContainer = document.querySelector(".mt-8.bg-white.rounded.border-b-4");
+
+            form.addEventListener("submit", function(event) {
+                event.preventDefault(); // Impede o recarregamento da página
+
+                let formData = new FormData(form);
+                let queryParams = new URLSearchParams(formData).toString();
+
+                fetch(`/payments/filter?${queryParams}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        let payments = data.payments;
+                        let tableContent = `
+                            <div class="flex flex-wrap items-center uppercase text-sm font-semibold bg-gray-600 text-white rounded-tl rounded-tr">
+                                <div class="w-2/12 px-4 py-3">Course</div>
+                                <div class="w-2/12 px-4 py-3">Student Name</div>
+                                <div class="w-2/12 px-4 py-3">Payment Method</div>
+                                <div class="w-2/12 px-4 py-3">Amount</div>
+                                <div class="w-2/12 px-4 py-3">Month Paid</div>
+                                <div class="w-2/12 px-4 py-3">Year</div>
+                            </div>`;
+
+                        payments.forEach(payment => {
+                            tableContent += `
+                                <div class="flex flex-wrap items-center text-gray-700 border-t-2 border-gray-300">
+                                    <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
+                                        ${payment.fee.class.class_name}
+                                    </div>
+                                    <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
+                                        ${payment.student.user.name}
+                                    </div>
+                                    <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
+                                        <span style="color:white" class="bg-${getPaymentColor(payment.payment_method)} text-sm px-2 border rounded-full">
+                                            ${payment.payment_method}
+                                        </span>
+                                    </div>
+                                    <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
+                                        ${Number(payment.amount).toFixed(2)} MZN
+                                    </div>
+                                    <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
+                                        ${new Date(payment.fee.due_date).toLocaleString('en-us', { month: 'long' })}
+                                    </div>
+                                    <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
+                                        ${new Date(payment.fee.due_date).getFullYear()}
+                                    </div>
+                                </div>`;
+                        });
+
+                        tableContainer.innerHTML = tableContent;
+                    })
+                    .catch(error => console.error("Erro ao carregar os pagamentos:", error));
+            });
+
+            function getPaymentColor(method) {
+                switch (method) {
+                    case "mpesa": return "red-600";
+                    case "emola": return "orange-600";
+                    case "bank": return "blue-600";
+                    case "cash": return "gray-600";
+                    default: return "gray-500";
+                }
+            }
+        });
+
+    </script>
 @endsection
