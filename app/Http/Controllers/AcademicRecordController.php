@@ -10,6 +10,22 @@ use Illuminate\Http\Request;
 
 class AcademicRecordController extends Controller
 {
+    public function feesFilter(Request $request)
+    {
+        $year = $request->query('year');
+
+        if (!$year || !is_numeric($year)) {
+            return response()->json(['error' => 'Ano inválido'], 400);
+        }
+
+        try {
+            $fees = fees::whereRaw('YEAR(due_date) = ?', [$year])->get();
+
+            return response()->json(['fees' => $fees]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Erro interno', 'message' => $e->getMessage()], 500);
+        }
+    }
     public function generateFeesForStudent($studentId)
     {
         $student = Student::findOrFail($studentId);

@@ -62,7 +62,7 @@
                 {{-- <label class="block text-gray-500 font-bold mb-1">
                     Search using Year of Fee
                 </label> --}}
-                <select name="year" class="block font-bold appearance-none w-1/3 bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                <select name="year" id="yearFilter" onchange="filterFees()" class="block font-bold appearance-none w-1/3 bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     <option value="">Select the year</option>
                     @foreach (range(2010, date('Y')) as $year)
                         <option value="{{ $year }}">{{ $year }}</option>
@@ -70,7 +70,7 @@
                 </select>
             </div>
             {{-- <h2 class="text-2xl font-semibold text-gray-800 text-center pb-4 mb-6">Fees of student "{{$student->user->name}}"</h2> --}}
-            <div class="mt-8 bg-white rounded border-b-4 border-gray-300">
+            <div class="mt-8 bg-white rounded border-b-4 border-gray-300" id="feesTable">
                 <!-- Cabeçalho da Tabela -->
                 <div class="flex flex-wrap items-center uppercase text-sm font-semibold bg-gray-600 text-white rounded-tl rounded-tr">
                     <div class="w-2/12 px-4 py-3">Amount Due</div>
@@ -258,4 +258,31 @@
         </div>
         </div>
     </div>
+    <script>
+        function filterFees() {
+            let year = document.getElementById('yearFilter').value;
+
+            fetch(`/fees/filter?year=${year}`)
+                .then(response => response.json())
+                .then(data => {
+                    let tableContent = '';
+
+                    data.fees.forEach(fee => {
+                        tableContent += `
+                            <div class="flex flex-wrap items-center text-gray-700 border-t-2 border-gray-300">
+                                <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">${fee.amount_due.toFixed(2)} MZN</div>
+                                <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">${fee.amount_paid.toFixed(2)} MZN</div>
+                                <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">${fee.penalty_fee.toFixed(2)} MZN</div>
+                                <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">${new Date(fee.due_date).toLocaleString('default', { month: 'long', year: 'numeric' })}</div>
+                                <div class="w-2/12 px-4 py-3 text-sm font-semibold">
+                                    ${fee.status === 'Pago' ? '<span class="bg-green-200 text-sm px-2 border rounded-full">Pago</span>' : '<span class="bg-red-200 text-sm px-2 border rounded-full">Pendente</span>'}
+                                </div>
+                            </div>`;
+                    });
+
+                    document.getElementById('feesTable').innerHTML = tableContent;
+                })
+                .catch(error => console.error('Erro ao buscar propinas:', error));
+        }
+    </script>
 @endsection

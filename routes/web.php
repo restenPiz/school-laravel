@@ -1,5 +1,6 @@
 <?php
 
+use App\fees;
 use App\Http\Controllers\PaymentController;
 
 Route::get('/', function () {
@@ -50,6 +51,10 @@ Route::group(['middleware' => ['auth','role:Admin']], function ()
 
     //?Payments routes
     Route::post('/payments', [PaymentController::class, 'store'])->name('payments.store');
+
+    //?Route to filter the fees using the attribute year
+    Route::get('/fees/filter', 'AcademicRecordController@feesFilter')->name('feesFilter');
+
 });
 
 Route::group(['middleware' => ['auth','role:Teacher']], function () 
