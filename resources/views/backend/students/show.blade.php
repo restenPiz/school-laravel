@@ -258,31 +258,74 @@
         </div>
         </div>
     </div>
+    
     <script>
         function filterFees() {
             let year = document.getElementById('yearFilter').value;
 
-            fetch(`/fees/filter?year=${year}`)
-                .then(response => response.json())
-                .then(data => {
-                    let tableContent = '';
+            console.log(`Filtrando propinas para o ano: ${year}`); // 🛠️ Log para depuração
 
-                    data.fees.forEach(fee => {
-                        tableContent += `
-                            <div class="flex flex-wrap items-center text-gray-700 border-t-2 border-gray-300">
-                                <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">${fee.amount_due.toFixed(2)} MZN</div>
-                                <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">${fee.amount_paid.toFixed(2)} MZN</div>
-                                <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">${fee.penalty_fee.toFixed(2)} MZN</div>
-                                <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">${new Date(fee.due_date).toLocaleString('default', { month: 'long', year: 'numeric' })}</div>
-                                <div class="w-2/12 px-4 py-3 text-sm font-semibold">
-                                    ${fee.status === 'Pago' ? '<span class="bg-green-200 text-sm px-2 border rounded-full">Pago</span>' : '<span class="bg-red-200 text-sm px-2 border rounded-full">Pendente</span>'}
-                                </div>
-                            </div>`;
-                    });
+            fetch(`/fees/filter?year=${year}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Erro HTTP: ${response.status}`); // Captura erro HTTP (ex: 500)
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Resposta da API:", data); // 🛠️ Verifica se os dados chegaram corretamente
+
+                    let tableContent = `
+                        <div class="flex flex-wrap items-center uppercase text-sm font-semibold bg-gray-600 text-white rounded-tl rounded-tr">
+                            <div class="w-2/12 px-4 py-3">Amount Due</div>
+                            <div class="w-2/12 px-4 py-3">Amount Paid</div>
+                            <div class="w-2/12 px-4 py-3">Penalty Fee</div>
+                            <div class="w-2/12 px-4 py-3">Month</div>
+                            <div class="w-2/12 px-4 py-3">Status</div>
+                            <div class="w-2/12 px-4 py-3"></div>
+                        </div>`;
+
+                    if (data.fees.length === 0) {
+                        tableContent += '<div class="flex flex-wrap items-center text-gray-700 border-t-2 border-gray-300"><p class="text-red-500">Nenhuma propina encontrada para este ano.</p></div>';
+                    } else {
+                        data.fees.forEach(fee => {
+                            let statusBadge = fee.status === 'Pago'
+                                ? '<span class="bg-green-200 text-sm px-2 border rounded-full">Pago</span>'
+                                : '<span class="bg-red-200 text-sm px-2 border rounded-full">Pendente</span>';
+
+                            let paymentButton = fee.status !== 'Pago'
+                                ? `<a class="bg-blue-600" href="#paymentModal${fee.id}" type="button" data-bs-toggle="modal" data-bs-target="#paymentModal${fee.id}"
+                                        style="color: white; border-radius: 0.3rem; padding: 6px 12px; display: flex; align-items: center; gap: 5px;">
+                                        <svg class="h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                            <path fill="currentColor"
+                                                d="M527.9 112H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h479.9c26.5 0 48-21.5 48-48V160c0-26.5-21.5-48-48-48zM288 352c-17.7 0-32-14.3-32-32 0-17.7 14.3-32 32-32s32 14.3 32 32c0 17.7-14.3 32-32 32zm208-96c0 8.8-7.2 16-16 16H96c-8.8 0-16-7.2-16-16V192c0-8.8 7.2-16 16-16h384c8.8 0 16 7.2 16 16v64z"/>
+                                        </svg>
+                                        Pagar
+                                    </a>`
+                                : `<a style="border-radius: 0.3rem" href="#" class="ml-1 bg-green-600 block p-2 bg-green-600 text-white text-sm"
+                                        data-bs-toggle="modal" data-bs-target="#paymentDetailsModal${fee.id}">
+                                        <svg class="h-5 w-5 fill-current text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                            <path fill="currentColor" d="M288 144a110.94 110.94 0 0 0-31.24 5 55.4 55.4 0 0 1 7.24 27 56 56 0 0 1-56 56 55.4 55.4 0 0 1-27-7.24A111.71 111.71 0 1 0 288 144zm284.52 97.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400c-98.65 0-189.09-55-237.93-144C98.91 167 189.34 112 288 112s189.09 55 237.93 144C477.1 345 386.66 400 288 400z"></path>
+                                        </svg>
+                                    </a>`;
+
+                            tableContent += `
+                                <div class="flex flex-wrap items-center text-gray-700 border-t-2 border-gray-300">
+                                    <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">${Number(fee.amount_due).toFixed(2)} MZN</div>
+                                    <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">${Number(fee.amount_paid).toFixed(2)} MZN</div>
+                                    <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">${Number(fee.penalty_fee).toFixed(2)} MZN</div>
+                                    <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">${new Date(fee.due_date.replace('T', ' ')).toLocaleString('default', { month: 'long', year: 'numeric' })}</div>
+                                    <div class="w-2/12 px-4 py-3 text-sm font-semibold">${statusBadge}</div>
+                                    <div class="w-2/12 px-4 py-3 flex items-center justify-end">${paymentButton}</div>
+                                </div>`;
+                        });
+                    }
 
                     document.getElementById('feesTable').innerHTML = tableContent;
                 })
-                .catch(error => console.error('Erro ao buscar propinas:', error));
+                .catch(error => console.error('Erro ao buscar propinas:', error)); // Captura erros da requisição
         }
     </script>
+
+
 @endsection
