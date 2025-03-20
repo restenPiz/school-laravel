@@ -150,16 +150,16 @@
                                         Payment Method
                                     </label>
                                     <select name="payment_method" class="block font-bold appearance-none w-full bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                        <option value="">Selecione o Tipo de Pagamento</option>
+                                        <option value="">Select the payment method</option>
                                         <option value="mpesa">Mpesa</option>
                                         <option value="emola">Emola</option>
                                         <option value="bank">Bank</option>
                                         <option value="cash">Cash</option>
                                     </select>
                                 </div>
-                                <div class="mb-4">
-                                    <label class="block">Amount</label>
-                                    <input type="text" id="amount" name="amount" class="border p-2 w-full">
+                                <div class="mt-6">
+                                    <label class="block text-gray-500 font-bold mb-1">Amount</label>
+                                    <input type="text" id="amount" name="amount" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500">
                                 </div>
                                 <div class="mt-6">
                                     <label class="block text-gray-500 font-bold mb-1">Transaction Reference</label>
