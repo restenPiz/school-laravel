@@ -115,8 +115,8 @@
                         </div>
                         <div class="w-2/12 px-4 py-3 flex items-center justify-end">
                             @if($fee->status !== 'Pago')
-                                <a href="#paymentModal{{$fee->id}}" type="button" data-bs-toggle="modal" data-bs-target="#paymentModal{{$fee->id}}"
-                                    style="background-color: rgb(79, 79, 177); color: white; border-radius: 0.2rem; padding: 6px 12px; display: flex; align-items: center; gap: 5px;">
+                                <a class="bg-blue-600" href="#paymentModal{{$fee->id}}" type="button" data-bs-toggle="modal" data-bs-target="#paymentModal{{$fee->id}}"
+                                    style="color: white; border-radius: 0.2rem; padding: 6px 12px; display: flex; align-items: center; gap: 5px;">
                                     <svg class="h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                                         <path fill="currentColor"
                                             d="M527.9 112H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h479.9c26.5 0 48-21.5 48-48V160c0-26.5-21.5-48-48-48zM288 352c-17.7 0-32-14.3-32-32 0-17.7 14.3-32 32-32s32 14.3 32 32c0 17.7-14.3 32-32 32zm208-96c0 8.8-7.2 16-16 16H96c-8.8 0-16-7.2-16-16V192c0-8.8 7.2-16 16-16h384c8.8 0 16 7.2 16 16v64z"/>
@@ -124,7 +124,10 @@
                                     Pagar
                                 </a>
                             @else
-                                <span class="text-gray-500"></span>
+                                {{-- <span class="text-gray-500"></span> --}}
+                                <a href="" class="ml-1 bg-blue-600 block p-1 border border-blue-600 rounded-sm">
+                                    <svg class="h-3 w-3 fill-current text-gray-100" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="align-right" class="svg-inline--fa fa-align-right fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M160 84V44c0-8.837 7.163-16 16-16h256c8.837 0 16 7.163 16 16v40c0 8.837-7.163 16-16 16H176c-8.837 0-16-7.163-16-16zM16 228h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 256h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm160-128h256c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H176c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg>
+                                </a>
                             @endif
                         </div>
                     </div>
