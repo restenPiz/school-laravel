@@ -115,17 +115,14 @@
                         </div>
                         <div class="w-2/12 px-4 py-3 flex items-center justify-end">
                             @if($fee->status !== 'Pago')
-                                <button onclick="openModal(this)" 
-                                    data-fee-id="{{ $fee->id }}" 
-                                    data-student-id="{{ $fee->student_id }}" 
-                                    data-amount="{{ $fee->amount_due }}"
+                                <a href="#paymentModal{{$fee->id}}" type="button" data-bs-toggle="modal" data-bs-target="#paymentModal{{$fee->id}}"
                                     style="background-color: rgb(79, 79, 177); color: white; border-radius: 0.2rem; padding: 6px 12px; display: flex; align-items: center; gap: 5px;">
                                     <svg class="h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                                         <path fill="currentColor"
                                             d="M527.9 112H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h479.9c26.5 0 48-21.5 48-48V160c0-26.5-21.5-48-48-48zM288 352c-17.7 0-32-14.3-32-32 0-17.7 14.3-32 32-32s32 14.3 32 32c0 17.7-14.3 32-32 32zm208-96c0 8.8-7.2 16-16 16H96c-8.8 0-16-7.2-16-16V192c0-8.8 7.2-16 16-16h384c8.8 0 16 7.2 16 16v64z"/>
                                     </svg>
                                     Pagar
-                                </button>
+                                </a>
                             @else
                                 <span class="text-gray-500"></span>
                             @endif
@@ -133,7 +130,9 @@
                     </div>
 
                     {{--?Start with the model payment--}}
-                    <div id="paymentModal" class="modal-bg hidden fixed top-0 left-0 right-0 bottom-0 w-full h-full overflow-auto z-50 flex items-center justify-center">
+                    <div id="paymentModal{{$fee->id}}" data-bs-keyboard="false"
+                                data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                aria-hidden="true" class="modal-bg hidden fixed top-0 left-0 right-0 bottom-0 w-full h-full overflow-auto z-50 flex items-center justify-center">
                         <div class="bg-white relative p-10 max-w-lg w-full mx-4 sm:mx-auto my-10 sm:my-32 shadow-lg rounded-lg">
                             <div onclick="closeModal()" class="absolute top-0 right-0 m-3 text-red-600 cursor-pointer">
                                 <svg class="w-6 h-6 stroke-current" aria-hidden="true" focusable="false" data-prefix="far" data-icon="times-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

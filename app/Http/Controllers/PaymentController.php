@@ -11,8 +11,8 @@ class PaymentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'student_id' => 'required',
-            'fee_id' => 'required',
+            'student_id' => 'required|exists:students,id',
+            'fee_id' => 'required|exists:fees,id',
             'amount' => 'required|numeric|min:0',
             'payment_method' => 'required',
             'transaction_reference' => 'nullable|string',
