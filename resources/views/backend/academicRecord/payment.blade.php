@@ -105,7 +105,23 @@
                         {{ $payment->student->user->name }}
                     </div>
                     <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
-                        {{ $payment->payment_method }}
+                        @if ($payment->payment_method == 'mpesa')
+                        <span style="color:white" class="bg-red-600 text-sm px-2 border rounded-full">
+                            {{ $payment->payment_method }}
+                        </span>
+                        @elseif($payment->payment_method == 'emola')
+                        <span style="color:white" class="bg-orange-600 text-sm px-2 border rounded-full">
+                            {{ $payment->payment_method }}
+                        </span>
+                        @elseif($payment->payment_method == 'bank')
+                        <span style="color:white" class="bg-blue-600 text-sm px-2 border rounded-full">
+                            {{ $payment->payment_method }}
+                        </span>
+                        @elseif($payment->payment_method == 'cash')
+                        <span style="color:white" class="bg-gray-600 text-sm px-2 border rounded-full">
+                            {{ $payment->payment_method }}
+                        </span>
+                        @endif
                     </div>
                     <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
                         {{ number_format($payment->amount, 2) }} MZN
