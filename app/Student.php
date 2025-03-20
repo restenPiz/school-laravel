@@ -23,6 +23,10 @@ class Student extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function fees()
+    {
+        return $this->hasOne(fees::class);
+    }
 
     public function parent() 
     {

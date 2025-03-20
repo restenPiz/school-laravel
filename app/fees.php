@@ -22,6 +22,10 @@ class fees extends Model
 
     protected $dates = ['due_date'];
 
+    public function payment()
+    {
+        return $this->hasOne(Payment::class, 'fee_id');
+    }
     public function student()
     {
         return $this->belongsTo(Student::class);
