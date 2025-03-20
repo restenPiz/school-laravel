@@ -50,6 +50,7 @@ Route::group(['middleware' => ['auth','role:Admin']], function ()
 
     //?Payments routes
     Route::post('/payments', [PaymentController::class, 'store'])->name('payments.store');
+    Route::get('/allPayments', [PaymentController::class, 'index'])->name('payments.index');
 
     //?Route to filter the fees using the attribute year
     Route::get('/fees/filter', 'AcademicRecordController@feesFilter')->name('feesFilter');

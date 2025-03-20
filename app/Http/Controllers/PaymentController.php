@@ -3,11 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\fees;
+use App\Grade;
 use App\Payment;
+use App\Student;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
+    public function index()
+    {
+        $classes = Grade::all();
+        $students = Student::all();
+        return view('backend.academicRecord.payment', compact('classes', 'students'));
+    }
     public function store(Request $request)
     {
         $request->validate([
