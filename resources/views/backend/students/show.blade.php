@@ -58,28 +58,18 @@
         </div>
 
         <div class="mt-8 bg-white rounded-lg shadow-lg p-6">
-            <div class="w-full sm:w-2/2 mr-2 mb-6">
-                <div class="bg-gray-600 text-white rounded-t-lg p-4">
-                    <div class="flex justify-between items-center font-bold">
-                        <div class="w-1/3 ">Code</div>
-                        <div class="w-1/3 text-center">Subject</div>
-                        <div class="w-1/3 text-right">Teacher</div>
-                    </div>
-                </div>
-                <div class="bg-gray-100 rounded-b-lg">
-                    @foreach ($class->subjects as $subject)
-                        <div class="flex justify-between items-center border-b border-gray-200 p-4">
-                            <div class="w-1/3 text-gray-800">{{ $subject->subject_code }}</div>
-                            <div class="w-1/3 text-center text-gray-800">{{ $subject->name }}</div>
-                            <div class="w-1/3 text-right text-gray-800">{{ $subject->teacher->user->name }}</div>
-                        </div>
+            <div>
+                {{-- <label class="block text-gray-500 font-bold mb-1">
+                    Search using Year of Fee
+                </label> --}}
+                <select name="year" class="block font-bold appearance-none w-1/3 bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option value="">Select the year</option>
+                    @foreach (range(2010, date('Y')) as $year)
+                        <option value="{{ $year }}">{{ $year }}</option>
                     @endforeach
-                </div>
+                </select>
             </div>
-        </div>
-
-        <div class="mt-8 bg-white rounded-lg shadow-lg p-6">
-            <h2 class="text-2xl font-semibold text-gray-800 text-center pb-4 mb-6">Fees of student "{{$student->user->name}}"</h2>
+            {{-- <h2 class="text-2xl font-semibold text-gray-800 text-center pb-4 mb-6">Fees of student "{{$student->user->name}}"</h2> --}}
             <div class="mt-8 bg-white rounded border-b-4 border-gray-300">
                 <!-- Cabeçalho da Tabela -->
                 <div class="flex flex-wrap items-center uppercase text-sm font-semibold bg-gray-600 text-white rounded-tl rounded-tr">
@@ -114,6 +104,7 @@
                             @endif
                         </div>
                         <div class="w-2/12 px-4 py-3 flex items-center justify-end">
+                            {{--!Start with the button that the can do payments--}}
                             @if($fee->status !== 'Pago')
                                 <a class="bg-blue-600" href="#paymentModal{{$fee->id}}" type="button" data-bs-toggle="modal" data-bs-target="#paymentModal{{$fee->id}}"
                                     style="color: white; border-radius: 0.3rem; padding: 6px 12px; display: flex; align-items: center; gap: 5px;">
@@ -126,7 +117,10 @@
                             @else
                                  <a style="border-radius: 0.3rem" href="#" class="ml-1 bg-green-600 block p-2 bg-green-600 text-white text-sm"
                                     data-bs-toggle="modal" data-bs-target="#paymentDetailsModal{{$fee->id}}">
-                                    Ver Pagamento
+                                        <svg class="h-5 w-5 fill-current text-white" aria-hidden="true" focusable="false" data-prefix="far" data-icon="eye" class="svg-inline--fa fa-eye fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                            <path fill="currentColor" d="M288 144a110.94 110.94 0 0 0-31.24 5 55.4 55.4 0 0 1 7.24 27 56 56 0 0 1-56 56 55.4 55.4 0 0 1-27-7.24A111.71 111.71 0 1 0 288 144zm284.52 97.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400c-98.65 0-189.09-55-237.93-144C98.91 167 189.34 112 288 112s189.09 55 237.93 144C477.1 345 386.66 400 288 400z"></path>
+                                        Ver Pagamento</svg>
+                                    
                                 </a>
 
                                 {{--?Payment method modal--}}
@@ -239,7 +233,28 @@
                     <span class="text-lg">{{ number_format($fees->sum('amount_due'), 2) }} MZN</span>
                 </div>
             </div>
+            
+        </div>
             {{--*End of the accountant section--}}
+            <div class="mt-8 bg-white rounded-lg shadow-lg ">
+            <div class="w-full sm:w-2/2 mr-2 mb-6">
+                <div class="bg-gray-600 text-white rounded-t-lg p-4">
+                    <div class="flex justify-between items-center font-bold">
+                        <div class="w-1/3 ">Code</div>
+                        <div class="w-1/3 text-center">Subject</div>
+                        <div class="w-1/3 text-right">Teacher</div>
+                    </div>
+                </div>
+                <div class="bg-gray-100 rounded-b-lg">
+                    @foreach ($class->subjects as $subject)
+                        <div class="flex justify-between items-center border-b border-gray-200 p-4">
+                            <div class="w-1/3 text-gray-800">{{ $subject->subject_code }}</div>
+                            <div class="w-1/3 text-center text-gray-800">{{ $subject->name }}</div>
+                            <div class="w-1/3 text-right text-gray-800">{{ $subject->teacher->user->name }}</div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
         </div>
         </div>
     </div>
