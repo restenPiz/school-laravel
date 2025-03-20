@@ -32,8 +32,12 @@ class PaymentController extends Controller
 
         Payment::create($request->all());
 
-        $fee = fees::findOrFail($request->fee_id);
-        $fee->update(['status' => 'Pago']);
+        $fee = Fees::findOrFail($request->fee_id);
+        $fee->update([
+            'amount_paid' => $fee->amount_due,
+            'amount_due' => 0,
+            'status' => 'Pago'
+        ]);
 
         return redirect()->back()->with('success', 'Pagamento realizado com sucesso!');
     }
