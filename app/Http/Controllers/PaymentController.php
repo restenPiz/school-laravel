@@ -52,28 +52,6 @@ class PaymentController extends Controller
     }
     public function filter(Request $request)
     {
-        $query = Payment::query();
-
-        if ($request->filled('class_id')) {
-            $query->whereHas('fee.class', function ($q) use ($request) {
-                $q->where('id', $request->class_id);
-            });
-        }
-
-        if ($request->filled('student_id')) {
-            $query->where('student_id', $request->student_id);
-        }
-
-        if ($request->filled('payment_method')) {
-            $query->where('payment_method', $request->payment_method);
-        }
-
-        if ($request->filled('year')) {
-            $query->whereYear('created_at', $request->year);
-        }
-
-        $payments = $query->get();
-
-        return response()->json(['payments' => $payments]);
+        return 0;
     }
 }
