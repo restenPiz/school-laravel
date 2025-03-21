@@ -52,10 +52,32 @@ class PaymentController extends Controller
     }
     public function filter(Request $request)
     {
-        $payments = Payment::where('amount', $request->input('amount'))
-            ->where('payment_method', $request->input('payment_method'))
+        $filters = $request->only(['class_id', 'student_id', 'payment_method', 'year']);
+
+        $payments = Payment::query()
+            ->when(!empty($filters['class_id']), function ($query) use ($filters) {
+                $query->whereHas('fee.class', function ($q) use ($filters) {
+                    $q->where('id', $filters['class_id']);
+                });
+            })
+            ->when(!empty($filters['student_id']), function ($query) use ($filters) {
+                $query->where('student_id', $filters['student_id']);
+            })
+            ->when(!empty($filters['payment_method']), function ($query) use ($filters) {
+                $query->where('payment_method', $filters['payment_method']);
+            })
+            ->when(!empty($filters['year']), function ($query) use ($filters) {
+                $query->whereHas('fee', function ($q) use ($filters) {
+                    $q->whereYear('due_date', $filters['year']);
+                });
+            })
             ->get();
 
-        return redirect()->back()->with('payments');
+        return view('backend.academicRecord.payment', [
+            'classes' => Grade::all(),
+            'students' => !empty($filters['class_id']) ? Student::where('class_id', $filters['class_id'])->get() : [],
+            'payments' => $payments,
+            'filters' => $filters,
+        ]);
     }
 }
