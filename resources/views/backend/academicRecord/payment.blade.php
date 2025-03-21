@@ -89,7 +89,7 @@
                 <div class="w-2/12 px-4 py-3">Course</div>
                 <div class="w-2/12 px-4 py-3">Student Name</div>
                 <div class="w-2/12 px-4 py-3">Payment Method</div>
-                <div class="w-2/12 px-4 py-3">Amount</div>
+                <div class="w-2/12 px-4 py-3">Amount Paid</div>
                 <div class="w-2/12 px-4 py-3">Month Paid</div>
                 <div class="w-2/12 px-4 py-3">Year</div>
                 <div class="w-2/12 px-4 py-3"></div>
