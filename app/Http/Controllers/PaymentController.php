@@ -52,7 +52,9 @@ class PaymentController extends Controller
     }
     public function filter(Request $request)
     {
-        $payments = Payment::where('amount'->$request->input('amount'))->get();
+        $payments = Payment::where('amount', $request->input('amount'))
+            ->where('payment_method', $request->input('payment_method'))
+            ->get();
 
         return redirect()->back()->with('payments');
     }
