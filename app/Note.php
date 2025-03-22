@@ -19,4 +19,8 @@ class Note extends Model
     {
         return $this->belongsTo(Subject::class);
     }
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
 }
