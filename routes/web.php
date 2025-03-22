@@ -1,6 +1,7 @@
 <?php
 
 use App\fees;
+use App\Http\Controllers\NoteController;
 use App\Http\Controllers\PaymentController;
 
 Route::get('/', function () {
@@ -62,6 +63,9 @@ Route::group(['middleware' => ['auth','role:Teacher']], function ()
 {
     Route::post('attendance', 'AttendanceController@store')->name('teacher.attendance.store');
     Route::get('attendance-create/{classid}', 'AttendanceController@createByTeacher')->name('teacher.attendance.create');
+
+    //?Start with the notes route
+    Route::get('/notes', [NoteController::class, 'index'])->name('student.notes');
 });
 
 Route::group(['middleware' => ['auth','role:Parent']], function () 

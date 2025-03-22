@@ -28,4 +28,11 @@ class NoteController extends Controller
 
         return redirect()->back();
     }
+    public function delete($id)
+    {
+        $notes = Note::findOrFail($id);
+        $notes->delete();
+
+        return redirect()->back();
+    }
 }
