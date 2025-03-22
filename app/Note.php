@@ -13,6 +13,7 @@ class Note extends Model
         'note',
         'type',
         'subject_id',
+        'student_id',
     ];
     public function subject()
     {
