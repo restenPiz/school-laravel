@@ -18,4 +18,12 @@ class Subject extends Model
     {
         return $this->belongsTo(Teacher::class);
     }
+    public function notes()
+    {
+        return $this->hasMany(Note::class);
+    }
+    public function grade()
+    {
+        return $this->belongsToMany(Grade::class);
+    }
 }
