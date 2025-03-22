@@ -128,10 +128,12 @@
                                     data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
                                     aria-hidden="true" class="modal-bg hidden fixed top-0 left-0 right-0 bottom-0 w-full h-full overflow-auto z-50 flex items-center justify-center">
                                     <div class="bg-white relative p-10 max-w-lg w-full mx-4 sm:mx-auto my-10 sm:my-32 shadow-lg rounded-lg">
-                                        <div data-bs-dismiss="modal" class="absolute top-0 right-0 m-3 text-red-600 cursor-pointer">
-                                            <svg class="w-6 h-6 stroke-current" aria-hidden="true" focusable="false" data-prefix="far" data-icon="times-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                                                <path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm101.8-262.2L295.6 256l62.2 62.2c4.7 4.7 4.7 12.3 0 17l-22.6 22.6c-4.7 4.7-12.3 4.7-17 0L256 295.6l-62.2 62.2c-4.7 4.7-12.3 4.7-17 0l-22.6-22.6c-4.7-4.7-4.7-12.3 0-17l62.2-62.2-62.2-62.2c-4.7-4.7-4.7-12.3 0-17l22.6-22.6c4.7-4.7 12.3-4.7 17 0l62.2 62.2 62.2-62.2c4.7-4.7 12.3-4.7 17 0l22.6 22.6c4.7 4.7 4.7 12.3 0 17z"></path>
-                                            </svg>
+                                        <div class="absolute top-0 right-0 m-3 text-red-600 cursor-pointer">
+                                            <button onclick="closePaymentDetailsModal()" >
+                                                <svg class="w-6 h-6 stroke-current" aria-hidden="true" focusable="false" data-prefix="far" data-icon="times-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                                    <path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm101.8-262.2L295.6 256l62.2 62.2c4.7 4.7 4.7 12.3 0 17l-22.6 22.6c-4.7 4.7-12.3 4.7-17 0L256 295.6l-62.2 62.2c-4.7 4.7-12.3 4.7-17 0l-22.6-22.6c-4.7-4.7-4.7-12.3 0-17l62.2-62.2-62.2-62.2c-4.7-4.7-4.7-12.3 0-17l22.6-22.6c4.7-4.7 12.3-4.7 17 0l62.2 62.2 62.2-62.2c4.7-4.7 12.3-4.7 17 0l22.6 22.6c4.7 4.7 4.7 12.3 0 17z"></path>
+                                                </svg>
+                                            </button>
                                         </div>
 
                                         <h2 class="text-xl font-semibold text-gray-800 mb-6 text-center">Detalhes do Pagamento</h2>
@@ -169,7 +171,7 @@
                                         </table>
 
                                         <div class="flex justify-end mt-6">
-                                            <button type="button" data-bs-dismiss="modal" class="bg-gray-500 text-white px-4 py-2 rounded">Fechar</button>
+                                            <button  type="button" data-bs-dismiss="modal" class="bg-gray-500 text-white px-4 py-2 rounded">Fechar</button>
                                             <button style="margin-left:0.5rem" type="button" onclick="closeModal()" class="bg-blue-500 text-white px-4 py-2 rounded">Imprimir</button>
                                         </div>
                                     </div>
@@ -326,6 +328,23 @@
                 .catch(error => console.error('Erro ao buscar propinas:', error)); // Captura erros da requisição
         }
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            function closePaymentDetailsModal() {
+            let modal = document.getElementById("paymentDetailsModal{{$fee->id}}");
+
+            if (modal) {
+                modal.classList.add('hidden');
+            } else {
+                console.error("Modal não encontrado. Verifique o ID no HTML.");
+            }
+            }
+
+            window.closePaymentDetailsModal = closePaymentDetailsModal;
+        });
+    </script>
+
 
 
 @endsection
