@@ -74,4 +74,24 @@ class NoteController extends Controller
         $student = Student::findOrFail($id);
         return view('backend.notes.create', compact('student'));
     }
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'note' => 'required|numeric|min:0|max:20',
+            'type' => 'required',
+            'subject_id' => 'required',
+            'student_id' => 'required',
+        ]);
+
+        $notes = Note::findOrFail($id);
+
+        $notes->update([
+            'note' => $request->note,
+            'type' => $request->type,
+            'subject_id' => $request->subject_id,
+            'student_id' => $request->student_id,
+        ]);
+
+        return redirect()->back()->with('success', 'Nota actualizada com sucesso!');
+    }
 }
