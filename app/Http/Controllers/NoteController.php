@@ -21,15 +21,21 @@ class NoteController extends Controller
     }
     public function store(Request $request, $id)
     {
-        $notes = new Note();
+        $request->validate([
+            'note' => 'required|numeric|min:0|max:20', // Ajuste conforme sua regra de notas
+            'type' => 'required',
+            'subject_id' => 'required|exists:subjects,id',
+            'student_id' => 'required|exists:students,id',
+        ]);
 
-        $notes->note = $request->input('note');
-        $notes->type = $request->input('type');
-        $notes->subject_id = $request->input('subject_id');
-        $notes->student_id = $request->input('student_id');
-        $notes->save();
+        Note::create([
+            'note' => $request->note,
+            'type' => $request->type,
+            'subject_id' => $request->subject_id,
+            'student_id' => $request->student_id,
+        ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Nota lançada com sucesso!');
     }
     public function delete($id)
     {

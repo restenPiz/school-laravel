@@ -16,8 +16,26 @@
         </div>
         <!-- Log on to codeastro.com for more projects -->
         <div class="table w-full mt-8 bg-white rounded">
-            <form action="{{ route('parents.store',['id'=>$student->id]) }}" method="POST" class="w-full max-w-xl px-6 py-12" enctype="multipart/form-data">
+            <form action="{{ route('parents.store') }}" method="POST" class="w-full max-w-xl px-6 py-12" enctype="multipart/form-data">
                 @csrf
+                <div class="md:flex md:items-center mb-6">
+                    <div class="md:w-1/3">
+                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                            Subject
+                        </label>
+                    </div>
+                    <div class="md:w-2/3">
+                        <select name="subject_id" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                            <option value="">--Select Subject--</option>
+                            @foreach($student->class->subjects as $subject)
+                                <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('subject_id')
+                            <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
                 <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">
                         <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
@@ -53,6 +71,7 @@
                         @enderror
                     </div>
                 </div>
+                <input type="hidden" name="student_id" value="{{ $student->id }}">
 
                 <div class="md:flex md:items-center">
                     <div class="md:w-1/3"></div>
