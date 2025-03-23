@@ -17,6 +17,9 @@ Route::put('/profile/update', 'HomeController@profileUpdate')->name('profile.upd
 Route::get('/profile/changepassword', 'HomeController@changePasswordForm')->name('profile.change.password');
 Route::post('/profile/changepassword', 'HomeController@changePassword')->name('profile.changepassword');
 
+//*Student routes responsible for search the students connected by grade
+Route::get('/get-students-by-class/{classId}', 'StudentController@getStudentsByClass');
+
 Route::group(['middleware' => ['auth','role:Admin']], function () 
 {
     Route::get('/roles-permissions', 'RolePermissionController@roles')->name('roles-permissions');
@@ -45,9 +48,6 @@ Route::group(['middleware' => ['auth','role:Admin']], function ()
 
     //*User Routes
     Route::get('/user', 'UserController@create')->name('user.create');
-
-    //*Student routes responsible for search the students connected by grade
-    Route::get('/get-students-by-class/{classId}', 'StudentController@getStudentsByClass');
 
     //?Payments routes
     Route::post('/payments', [PaymentController::class, 'store'])->name('payments.store');

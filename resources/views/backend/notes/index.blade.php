@@ -53,14 +53,6 @@
 
         {{--? Start with table of students--}}
         <div class="">
-            {{-- <div>
-                <select name="year" id="yearFilter" onchange="filterFees()" class="block font-bold appearance-none w-1/3 bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                    <option value="">Select the year</option>
-                    @foreach (range(2010, date('Y')) as $year)
-                        <option value="{{ $year }}">{{ $year }}</option>
-                    @endforeach
-                </select>
-            </div> --}}
             <div class="mt-8 bg-white rounded border-b-4 border-gray-300" id="feesTable">
                 <!-- Cabeçalho da Tabela -->
                 <div class="flex flex-wrap items-center uppercase text-sm font-semibold bg-gray-600 text-white rounded-tl rounded-tr">
@@ -97,4 +89,33 @@
         </div>
         {{--?End of page--}}
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let classSelect = document.getElementById("class-select");
+            let studentSelect = document.getElementById("student-select");
+
+            classSelect.addEventListener("change", function() {
+                let classId = this.value;
+
+                if (classId) {
+                    fetch(
+                        `/get-students-by-class/${classId}`) // Endpoint que retorna estudantes de uma classe
+                        .then(response => response.json())
+                        .then(data => {
+                            studentSelect.innerHTML =
+                            '<option value="">--Select Student--</option>'; // Limpa antes de adicionar
+                            data.students.forEach(student => {
+                                studentSelect.innerHTML +=
+                                    `<option value="${student.id}">${student.name}</option>`;
+                            });
+                            studentSelect.disabled = false; // Habilita o campo
+                        })
+                        .catch(error => console.error("Erro ao carregar estudantes:", error));
+                } else {
+                    studentSelect.innerHTML = '<option value="">--Select Student--</option>';
+                    studentSelect.disabled = true; // Desabilita novamente
+                }
+            });
+        });
+    </script>
 @endsection
