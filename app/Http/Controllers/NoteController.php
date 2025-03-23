@@ -53,4 +53,9 @@ class NoteController extends Controller
 
         return response()->json(['students' => $students]);
     }
+    public function create($id)
+    {
+        $student = Student::where('id', $id)->get();
+        return view('backend.notes.create', compact('student'));
+    }
 }
