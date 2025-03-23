@@ -19,14 +19,23 @@ class NoteController extends Controller
 
         return view('backend.notes.index', compact('students', 'classes', 'subjects'));
     }
-    public function store(Request $request, $id)
+    public function store(Request $request)
     {
         $request->validate([
-            'note' => 'required|numeric|min:0|max:20', // Ajuste conforme sua regra de notas
+            'note' => 'required|numeric|min:0|max:20',
             'type' => 'required',
             'subject_id' => 'required|exists:subjects,id',
             'student_id' => 'required|exists:students,id',
         ]);
+
+        $existingNote = Note::where('student_id', $request->student_id)
+            ->where('subject_id', $request->subject_id)
+            ->where('type', $request->type)
+            ->first();
+
+        if ($existingNote) {
+            return redirect()->back()->with('error', 'Este estudante já possui uma nota para esta avaliação.');
+        }
 
         Note::create([
             'note' => $request->note,
