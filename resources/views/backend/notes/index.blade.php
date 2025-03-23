@@ -50,7 +50,45 @@
                 </div>
             </form>
         </div>
-        
+
+        {{--? Start with table of students--}}
+        <div class="">
+            {{-- <div>
+                <select name="year" id="yearFilter" onchange="filterFees()" class="block font-bold appearance-none w-1/3 bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option value="">Select the year</option>
+                    @foreach (range(2010, date('Y')) as $year)
+                        <option value="{{ $year }}">{{ $year }}</option>
+                    @endforeach
+                </select>
+            </div> --}}
+            <div class="mt-8 bg-white rounded border-b-4 border-gray-300" id="feesTable">
+                <!-- Cabeçalho da Tabela -->
+                <div class="flex flex-wrap items-center uppercase text-sm font-semibold bg-gray-600 text-white rounded-tl rounded-tr">
+                    <div class="w-2/12 px-4 py-3">Amount Due</div>
+                    <div class="w-2/12 px-4 py-3">Amount Paid</div>
+                    <div class="w-2/12 px-4 py-3">Penalty Fee</div>
+                    <div class="w-2/12 px-4 py-3"></div>
+                </div>
+
+                @foreach ($students as $student)
+                    <div class="flex flex-wrap items-center text-gray-700 border-t-2 border-gray-300">
+                        <!-- Valor a pagar -->
+                        <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
+                            {{$student->user->name}}
+                        </div>
+                        <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
+                            {{$student->user->name}}
+                        </div>
+                        <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
+                            {{$student->user->name}}
+                        </div>
+                        <div class="w-2/12 px-4 py-3 text-sm font-semibold">
+
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
         {{--?End of page--}}
     </div>
 @endsection
