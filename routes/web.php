@@ -66,7 +66,7 @@ Route::group(['middleware' => ['auth','role:Teacher']], function ()
 
     //?Start with the notes route
     Route::get('/notes', [NoteController::class, 'index'])->name('student.notes');
-    Route::get('/students/filter/{classId}', [NoteController::class, 'filterByClass']);
+    Route::get('/filter-note', [NoteController::class, 'filterByClass'])->name('filterNote');
 
 });
 

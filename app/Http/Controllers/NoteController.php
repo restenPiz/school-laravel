@@ -39,20 +39,18 @@ class NoteController extends Controller
     }
     public function filterByClass(Request $request)
     {
-        $classes = Grade::all();
+        $query = Student::query();
 
-        //?Start a collection of students
-        $students = collect();
-        $selectedStudent = null;
-
-        if ($request->has('class_id')) {
-            $students = Student::where('class_id', $request->class_id)->get();
+        if ($request->filled('class_id')) {
+            $query->where('class_id', $request->class_id);
         }
 
-        if ($request->has('student_id')) {
-            $selectedStudent = Student::find($request->student_id);
+        if ($request->filled('student_id')) {
+            $query->where('id', $request->student_id);
         }
 
-        return view('students.index', compact('classes', 'students', 'selectedStudent'));
+        $students = $query->with(['user', 'class', 'parent.user'])->get();
+
+        return response()->json(['students' => $students]);
     }
 }
