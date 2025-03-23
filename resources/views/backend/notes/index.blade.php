@@ -64,9 +64,10 @@
             <div class="mt-8 bg-white rounded border-b-4 border-gray-300" id="feesTable">
                 <!-- Cabeçalho da Tabela -->
                 <div class="flex flex-wrap items-center uppercase text-sm font-semibold bg-gray-600 text-white rounded-tl rounded-tr">
-                    <div class="w-2/12 px-4 py-3">Amount Due</div>
-                    <div class="w-2/12 px-4 py-3">Amount Paid</div>
-                    <div class="w-2/12 px-4 py-3">Penalty Fee</div>
+                    <div class="w-2/12 px-4 py-3">Student Name</div>
+                    <div class="w-3/12 px-4 py-3">Student Class</div>
+                    <div class="w-3/12 px-4 py-3">Parent Name</div>
+                    <div class="w-2/12 px-4 py-3">Date of Birth</div>
                     <div class="w-2/12 px-4 py-3"></div>
                 </div>
 
@@ -76,14 +77,19 @@
                         <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
                             {{$student->user->name}}
                         </div>
-                        <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
-                            {{$student->user->name}}
+                        <div class="w-3/12 px-4 py-3 text-sm font-semibold text-gray-600">
+                            {{$student->class->class_name}}
+                        </div>
+                        <div class="w-3/12 px-4 py-3 text-sm font-semibold text-gray-600">
+                            {{$student->parent->user->name}}
                         </div>
                         <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
-                            {{$student->user->name}}
+                            {{date('d-F-Y',strtotime($student->dateofbirth))}}
                         </div>
                         <div class="w-2/12 px-4 py-3 text-sm font-semibold">
-
+                            <a href="" class=" h-7 w-6 ml-1 bg-blue-600 block p-1 border border-blue-600 rounded-sm" title="Assign Subject">
+                                <svg class="h-3 w-3 fill-current text-gray-100" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="align-right" class="svg-inline--fa fa-align-right fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M160 84V44c0-8.837 7.163-16 16-16h256c8.837 0 16 7.163 16 16v40c0 8.837-7.163 16-16 16H176c-8.837 0-16-7.163-16-16zM16 228h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 256h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm160-128h256c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H176c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg>
+                            </a>
                         </div>
                     </div>
                 @endforeach
