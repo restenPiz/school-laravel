@@ -16,7 +16,7 @@
         </div>
         <!-- Log on to codeastro.com for more projects -->
         <div class="table w-full mt-8 bg-white rounded">
-            <form action="{{ route('parents.store') }}" method="POST" class="w-full max-w-xl px-6 py-12" enctype="multipart/form-data">
+            <form action="{{ route('parents.store',['id'=>$student->id]) }}" method="POST" class="w-full max-w-xl px-6 py-12" enctype="multipart/form-data">
                 @csrf
                 <div class="md:flex md:items-center mb-6">
                     <div class="md:w-1/3">

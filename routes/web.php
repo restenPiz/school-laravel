@@ -68,6 +68,7 @@ Route::group(['middleware' => ['auth','role:Teacher']], function ()
     Route::get('/notes', [NoteController::class, 'index'])->name('student.notes');
     Route::get('/filter-note', [NoteController::class, 'filterByClass'])->name('filterNote');
     Route::get('/addNotes/{id}', [NoteController::class, 'create'])->name('notes.create');
+    Route::post('/storeNotes/{id}', [NoteController::class, 'store'])->name('notes.store');
 
 });
 

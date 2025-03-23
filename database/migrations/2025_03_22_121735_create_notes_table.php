@@ -11,7 +11,7 @@ class CreateNotesTable extends Migration
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
             $table->string('note');
-            $table->enum('type', ['first', 'second', 'third']);
+            $table->enum('type', ['first', 'second', 'third', 'exame']);
 
             //?Foreign Keys
             $table->unsignedBigInteger('subject_id');

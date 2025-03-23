@@ -19,7 +19,7 @@ class NoteController extends Controller
 
         return view('backend.notes.index', compact('students', 'classes', 'subjects'));
     }
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         $notes = new Note();
 
