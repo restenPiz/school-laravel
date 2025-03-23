@@ -8,7 +8,7 @@
         </div>
 
         <!-- Formulário -->
-        <div class="w-full mt-8 bg-white rounded p-4">
+        <div class="w-full mt-8 bg-white rounded p-2">
             <form action="{{route('filterNote')}}" method="GET" class="flex flex-wrap items-center gap-4">
                 @csrf
                 <!-- Select de Curso -->
@@ -43,7 +43,7 @@
 
                 <!-- Botão de Gerar -->
                 <div style="margin-left:1rem">
-                    <button id="search-btn" type="button" style="width:11rem"
+                    <button id="search-btn" type="button" style="width:12rem;height:2.9rem"
                         class="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-6 rounded">
                         Generate
                     </button>
