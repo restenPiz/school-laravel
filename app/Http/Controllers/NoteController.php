@@ -37,4 +37,22 @@ class NoteController extends Controller
 
         return redirect()->back();
     }
+    public function filterByClass(Request $request)
+    {
+        $classes = Grade::all();
+
+        //?Start a collection of students
+        $students = collect();
+        $selectedStudent = null;
+
+        if ($request->has('class_id')) {
+            $students = Student::where('class_id', $request->class_id)->get();
+        }
+
+        if ($request->has('student_id')) {
+            $selectedStudent = Student::find($request->student_id);
+        }
+
+        return view('students.index', compact('classes', 'students', 'selectedStudent'));
+    }
 }

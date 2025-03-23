@@ -118,4 +118,65 @@
             });
         });
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const classSelect = document.getElementById("class-select");
+            const studentSelect = document.getElementById("student-select");
+            const feesTable = document.getElementById("feesTable");
+
+            classSelect.addEventListener("change", function () {
+                let classId = this.value;
+                if (classId) {
+                    fetch(`/students/filter/${classId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Limpar o select de estudantes
+                            studentSelect.innerHTML = '<option value="">-- Select Student --</option>';
+                            studentSelect.disabled = false;
+
+                            // Popular o select de estudantes
+                            data.students.forEach(student => {
+                                let option = document.createElement("option");
+                                option.value = student.id;
+                                option.textContent = student.name;
+                                studentSelect.appendChild(option);
+                            });
+
+                            // Atualizar a tabela
+                            let tableContent = `
+                                <div class="flex flex-wrap items-center uppercase text-sm font-semibold bg-gray-600 text-white rounded-tl rounded-tr">
+                                    <div class="w-2/12 px-4 py-3">Student Name</div>
+                                    <div class="w-3/12 px-4 py-3">Student Class</div>
+                                    <div class="w-3/12 px-4 py-3">Parent Name</div>
+                                    <div class="w-2/12 px-4 py-3">Date of Birth</div>
+                                    <div class="w-2/12 px-4 py-3"></div>
+                                </div>`;
+
+                            data.students.forEach(student => {
+                                tableContent += `
+                                    <div class="flex flex-wrap items-center text-gray-700 border-t-2 border-gray-300">
+                                        <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">${student.name}</div>
+                                        <div class="w-3/12 px-4 py-3 text-sm font-semibold text-gray-600">${student.class_name}</div>
+                                        <div class="w-3/12 px-4 py-3 text-sm font-semibold text-gray-600">${student.parent_name}</div>
+                                        <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">${student.dateofbirth}</div>
+                                        <div class="w-2/12 px-4 py-3 text-sm font-semibold">
+                                            <a href="" class="h-7 w-6 ml-1 bg-blue-600 block p-1 border border-blue-600 rounded-sm" title="Assign Subject">
+                                                <svg class="h-3 w-3 fill-current text-gray-100" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="align-right" class="svg-inline--fa fa-align-right fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M160 84V44c0-8.837 7.163-16 16-16h256c8.837 0 16 7.163 16 16v40c0 8.837-7.163 16-16 16H176c-8.837 0-16-7.163-16-16zM16 228h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 256h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16-7.163-16 16v40c0 8.837 7.163 16 16 16zm160-128h256c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H176c-8.837 0-16-7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg>
+                                            </a>
+                                        </div>
+                                    </div>`;
+                            });
+
+                            feesTable.innerHTML = tableContent;
+                        })
+                        .catch(error => console.error("Erro ao buscar estudantes:", error));
+                } else {
+                    // Resetar os selects e a tabela se nenhuma classe for selecionada
+                    studentSelect.innerHTML = '<option value="">-- Select Student --</option>';
+                    studentSelect.disabled = true;
+                    feesTable.innerHTML = "<p class='text-center p-4'>Selecione uma classe para ver os estudantes.</p>";
+                }
+            });
+        });
+        </script>
 @endsection
