@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Grade;
 use App\Note;
 use App\Student;
+use App\Subject;
 use Illuminate\Http\Request;
 
 class NoteController extends Controller
@@ -13,8 +14,9 @@ class NoteController extends Controller
     {
         $students = Student::all();
         $classes = Grade::all();
+        $subjects = Subject::all();
 
-        return view('backend.notes.index', compact('students', 'classes'));
+        return view('backend.notes.index', compact('students', 'classes', 'subjects'));
     }
     public function store(Request $request)
     {
