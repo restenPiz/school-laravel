@@ -6,6 +6,7 @@ use App\Grade;
 use App\Note;
 use App\Student;
 use App\Subject;
+use DB;
 use Illuminate\Http\Request;
 
 class NoteController extends Controller
@@ -55,7 +56,7 @@ class NoteController extends Controller
     }
     public function create($id)
     {
-        $student = Student::where('id', $id)->get();
+        $student = Student::findOrFail($id);
         return view('backend.notes.create', compact('student'));
     }
 }
