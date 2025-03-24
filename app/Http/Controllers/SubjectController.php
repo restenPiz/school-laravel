@@ -4,17 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Subject;
 use App\Teacher;
+use App\User;
+use DB;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Str;
 
 class SubjectController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function teacher($id)
+    {
+        $user = User::findOrFail($id);
+
+        $teacher = Teacher::with(['user', 'subjects', 'classes', 'students'])
+            ->findOrFail($user->teacher->id);
+
+        return view('backend.teachers.subject', compact('teacher'));
+    }
+
     public function index()
     {
         $subjects = Subject::with('teacher')->latest()->paginate(10);

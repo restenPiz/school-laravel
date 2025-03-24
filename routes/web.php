@@ -3,6 +3,7 @@
 use App\fees;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\SubjectController;
 
 Route::get('/', function () {
     return redirect('/login');
@@ -56,7 +57,6 @@ Route::group(['middleware' => ['auth','role:Admin']], function ()
 
     //?Route to filter the fees using the attribute year
     Route::get('/fees/filter', 'AcademicRecordController@feesFilter')->name('feesFilter');
-
 });
 
 Route::group(['middleware' => ['auth','role:Teacher']], function () 
@@ -72,6 +72,8 @@ Route::group(['middleware' => ['auth','role:Teacher']], function ()
     Route::get('/deleteNotes/{id}', [NoteController::class, 'delete'])->name('notes.delete');
     Route::post('/updateNotes/{id}', [NoteController::class, 'update'])->name('notes.update');
 
+    //?Subject Route
+    Route::get('/subjectTeacher/{id}', [SubjectController::class, 'teacher'])->name('subject.teacher');
 });
 
 Route::group(['middleware' => ['auth','role:Parent']], function () 
@@ -89,4 +91,6 @@ Route::group(['middleware' => ['auth','role:Student']], function () {
     //?Classes Report routes
     Route::get('/studentClass/{id}', 'GradeController@studentClass')->name('studentClass');
 
+    //?Notes Students routs
+    Route::get('/studentNotes/{id}', [NoteController::class, 'student'])->name('notes.students');
 });

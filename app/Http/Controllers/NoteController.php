@@ -6,6 +6,7 @@ use App\Grade;
 use App\Note;
 use App\Student;
 use App\Subject;
+use App\User;
 use DB;
 use Illuminate\Http\Request;
 
@@ -93,5 +94,12 @@ class NoteController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Nota actualizada com sucesso!');
+    }
+    public function student($id)
+    {
+        $user = User::findOrFail($id);
+        $student = Student::findOrFail($user->student->id);
+
+        return view('backend.notes.studentNotes', compact('student'));
     }
 }

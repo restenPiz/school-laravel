@@ -174,7 +174,7 @@
                                     <div class="w-3/12 px-4 py-3 text-sm font-semibold text-gray-600">${student.parent.user.name}</div>
                                     <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">${new Date(student.dateofbirth).toLocaleDateString()}</div>
                                     <div class="w-2/12 px-4 py-3 text-sm font-semibold">
-                                        <a href="" class=" h-7 w-6 ml-1 bg-blue-600 block p-1 border border-blue-600 rounded-sm" title="Assign Subject">
+                                        <a href="{{route('notes.create',['id'=>$student->id])}}" class=" h-7 w-6 ml-1 bg-blue-600 block p-1 border border-blue-600 rounded-sm" title="Assign Subject">
                                             <svg class="h-3 w-3 fill-current text-gray-100" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="align-right" class="svg-inline--fa fa-align-right fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M160 84V44c0-8.837 7.163-16 16-16h256c8.837 0 16 7.163 16 16v40c0 8.837-7.163 16-16 16H176c-8.837 0-16-7.163-16-16zM16 228h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 256h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm160-128h256c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H176c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg>
                                         </a>
                                     </div>

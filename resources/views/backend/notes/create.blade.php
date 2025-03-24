@@ -112,7 +112,7 @@
                                         <div class="w-full md:w-2/2 bg-white rounded p-6">
                                             <form action="{{ route('notes.update',[
                                                 'id'=>$note->id
-                                            ]) }}" method="POST" enctype="multipart/form-data">
+                                            ]) }}" method="POST">
                                                 @csrf
                                                 <div class="mb-4">
                                                     <label class="block text-gray-500 font-bold mb-2">Subject</label>
@@ -150,7 +150,7 @@
                                                 <input type="hidden" name="student_id" value="{{ $student->id }}">
                                                 <div class="flex justify-end mt-6">
                                                     <button  type="button" data-bs-dismiss="modal" class="bg-gray-500 text-white px-4 py-2 rounded">Fechar</button>
-                                                    <button style="margin-left:0.5rem" type="button" onclick="closeModal()" class="bg-blue-500 text-white px-4 py-2 rounded">Imprimir</button>
+                                                    <button style="margin-left:0.5rem" type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Update</button>
                                                 </div>
                                             </form>
                                         </div>
