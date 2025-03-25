@@ -41,27 +41,16 @@ class StudentController extends Controller
 
         return view('backend.students.index', compact('students'));
     }
-    
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $classes = Grade::latest()->get();
         $parents = Parents::with('user')->latest()->get();
-        
-        return view('backend.students.create', compact('classes','parents'));
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+        return view(
+            'backend.students.create',
+            compact('classes', 'parents')
+        );
+    }
     public function store(Request $request)
     {
         $request->validate([
