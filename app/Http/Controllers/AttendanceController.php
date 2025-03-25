@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\fees;
 use App\Grade;
 use App\Student;
 use App\Teacher;
@@ -49,12 +50,6 @@ class AttendanceController extends Controller
         
         return view('backend.attendance.index', compact('attendances','months'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         
@@ -66,13 +61,6 @@ class AttendanceController extends Controller
 
         return view('backend.attendance.create', compact('class'));
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $classid    = $request->class_id;
@@ -121,48 +109,21 @@ class AttendanceController extends Controller
         return back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Attendance  $attendance
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Attendance $attendance)
+    public function show($attendance, Attendance $att)
     {
-        $attendances = Attendance::where('student_id',$attendance->id)->get();
+        $attendances = Attendance::where('student_id', $attendance)->get();
+        $fees = Fees::where('student_id', $attendance)->get();
 
-        return view('backend.attendance.show', compact('attendances'));
+        return view('backend.attendance.show', compact('attendances', 'fees'));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Attendance  $attendance
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Attendance $attendance)
     {
         //
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Attendance  $attendance
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Attendance $attendance)
     {
         //
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Attendance  $attendance
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Attendance $attendance)
     {
         //
