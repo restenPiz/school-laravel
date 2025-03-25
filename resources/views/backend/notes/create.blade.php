@@ -76,8 +76,8 @@
                             <div class="w-2/12 px-4 py-3">Note</div>
                             <div class="w-2/12 px-4 py-3"></div>
                         </div>
-                        <div class="flex flex-wrap items-center text-gray-700 border-t-2 border-gray-300">
-                            <div class="w-4/12 px-4 py-3 text-sm font-semibold text-gray-600">
+                        <div class="flex flex-wrap items-center text-gray-700 border-t-2 border-gray-300" style="text-align: center">
+                            <div class="w-4/12 px-4 py-3 text-sm font-semibold text-gray-600" style="text-align: center">
                                 <p class="text-gray-600">No notes available.</p>
                             </div>
                         </div>
