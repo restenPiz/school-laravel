@@ -452,6 +452,7 @@ class ComposerStaticInitb72b45e6b247df7cc838fefa1571938c
         'App\\Http\\Controllers\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/DashboardController.php',
         'App\\Http\\Controllers\\GradeController' => __DIR__ . '/../..' . '/app/Http/Controllers/GradeController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
+        'App\\Http\\Controllers\\NoteController' => __DIR__ . '/../..' . '/app/Http/Controllers/NoteController.php',
         'App\\Http\\Controllers\\ParentsController' => __DIR__ . '/../..' . '/app/Http/Controllers/ParentsController.php',
         'App\\Http\\Controllers\\PaymentController' => __DIR__ . '/../..' . '/app/Http/Controllers/PaymentController.php',
         'App\\Http\\Controllers\\RoleAssign' => __DIR__ . '/../..' . '/app/Http/Controllers/RoleAssign.php',

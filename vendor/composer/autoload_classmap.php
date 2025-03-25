@@ -21,6 +21,7 @@ return array(
     'App\\Http\\Controllers\\DashboardController' => $baseDir . '/app/Http/Controllers/DashboardController.php',
     'App\\Http\\Controllers\\GradeController' => $baseDir . '/app/Http/Controllers/GradeController.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
+    'App\\Http\\Controllers\\NoteController' => $baseDir . '/app/Http/Controllers/NoteController.php',
     'App\\Http\\Controllers\\ParentsController' => $baseDir . '/app/Http/Controllers/ParentsController.php',
     'App\\Http\\Controllers\\PaymentController' => $baseDir . '/app/Http/Controllers/PaymentController.php',
     'App\\Http\\Controllers\\RoleAssign' => $baseDir . '/app/Http/Controllers/RoleAssign.php',

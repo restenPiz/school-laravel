@@ -1,8 +1,4 @@
-<div class="bg-blue-700 px-4 sm:px-6 py-3 flex items-center justify-between shadow h-16 fixed top-0 left-0 right-0 z-50">
-    {{-- <div class="flex items-center text-white">
-    <svg class="h-6 w-6 mr-2 fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 640 512"><path d="M337.8 5.4C327-1.8 313-1.8 302.2 5.4L166.3 96H48C21.5 96 0 117.5 0 144V464c0 26.5 21.5 48 48 48H592c26.5 0 48-21.5 48-48V144c0-26.5-21.5-48-48-48H473.7L337.8 5.4zM256 416c0-35.3 28.7-64 64-64s64 28.7 64 64v96H256V416zM96 192h32c8.8 0 16 7.2 16 16v64c0 8.8-7.2 16-16 16H96c-8.8 0-16-7.2-16-16V208c0-8.8 7.2-16 16-16zm400 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v64c0 8.8-7.2 16-16 16H512c-8.8 0-16-7.2-16-16V208zM96 320h32c8.8 0 16 7.2 16 16v64c0 8.8-7.2 16-16 16H96c-8.8 0-16-7.2-16-16V336c0-8.8 7.2-16 16-16zm400 16c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v64c0 8.8-7.2 16-16 16H512c-8.8 0-16-7.2-16-16V336zM232 176a88 88 0 1 1 176 0 88 88 0 1 1 -176 0zm88-48c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16s-7.2-16-16-16H336V144c0-8.8-7.2-16-16-16z"/></svg>
-        <span class="font-semibold text-sm sm:text-xl tracking-tight">EducaAqui</span>
-    </div> --}}
+<div class="px-4 sm:px-6 py-3 flex items-center justify-between shadow h-16 fixed top-0 left-0 right-0 z-50" style="background-color:#1a1879">
     <div class="flex items-center text-white">
         <svg class="h-6 w-6 mr-2 fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 640 512">
             <path d="M320 0c-17.7 0-32 14.3-32 32v192h64V32c0-17.7-14.3-32-32-32zm-79.5 192.5c-6.7-7.2-17.5-7.7-24.7-1L0 272v160c0 35.3 28.7 64 64 64h256V260.8L240.5 192.5zM320 512h256c35.3 0 64-28.7 64-64V272L424.2 191.5c-7.2-6.7-18-6.2-24.7 1L320 260.8V512zM608 64H32c-17.7 0-32 14.3-32 32v32c0 17.7 14.3 32 32 32h576c17.7 0 32-14.3 32-32V96c0-17.7-14.3-32-32-32z"/>
@@ -12,10 +8,15 @@
     <div class="relative">
         @auth
             <div class="flex items-center cursor-pointer" id="opennavdropdown">
-                <img class="w-8 h-8 rounded-full mr-2" src="{{ asset('images/profile/' . auth()->user()->profile_picture) }}" alt="Avatar">
+                @if(Auth::user()->profile_picture)
+                    <img class="w-8 h-8 rounded-full mr-2" src="{{ asset('images/profile/' . auth()->user()->profile_picture) }}">
+                @else
+                    <img src="images/dif.jpg" class="w-8 h-8 rounded-full mr-2">
+                @endif
                 <p class="text-sm text-white font-semibold leading-none">{{ auth()->user()->name }}</p>
                 <svg class="w-4 h-4 stroke-current text-gray-200 ml-1 feather feather-chevron-down" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </div>
+            
             <div class="bg-blue-700 absolute top-0 right-0 mt-12 -mr-6 shadow rounded-bl rounded-br">
                 <div class="hidden h-24 w-48" id="navdropdown">
                     <div class="px-8 py-4 border-t border-blue-800">
