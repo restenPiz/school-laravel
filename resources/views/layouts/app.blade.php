@@ -36,6 +36,9 @@
 
     <script src="{{ asset('js/app.js') }}"></script>
 
+    
+    @include('sweetalert::alert')
+
     <script>
         $(function() {
             $( "#opennavdropdown" ).on( "click", function() {
@@ -45,8 +48,6 @@
     </script>
 
     @stack('scripts')
-
-    @include('sweetalert::alert')
 
 </body>
 </html>

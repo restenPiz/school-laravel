@@ -28,6 +28,7 @@
         </div>
     </div>
 
+    @include('sweetalert::alert')
 </body>
 </html>
 <!-- Log on to codeastro.com for more projects -->
