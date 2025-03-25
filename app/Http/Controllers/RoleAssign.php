@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
@@ -40,6 +41,8 @@ class RoleAssign extends Controller
 
         $user->assignRole($request->role);
 
+        toast('Role created!', 'success');
+
         return redirect()->route('assignrole.index');
     }
 
@@ -66,6 +69,8 @@ class RoleAssign extends Controller
         ]);
 
         $user->syncRoles($request->selectedrole);
+
+        toast('Role updated!', 'success');
 
         return redirect()->route('assignrole.index');
     }

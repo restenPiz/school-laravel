@@ -9,6 +9,7 @@ use App\Subject;
 use App\User;
 use DB;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class NoteController extends Controller
 {
@@ -45,12 +46,16 @@ class NoteController extends Controller
             'student_id' => $request->student_id,
         ]);
 
+        toast('Note added with successfuly', 'success');
+
         return redirect()->back()->with('success', 'Nota lançada com sucesso!');
     }
     public function delete($id)
     {
         $notes = Note::findOrFail($id);
         $notes->delete();
+
+        toast('Note deleted with successfuly', 'success');
 
         return redirect()->back();
     }
@@ -92,6 +97,7 @@ class NoteController extends Controller
             'subject_id' => $request->subject_id,
             'student_id' => $request->student_id,
         ]);
+        toast('Datas updated with successfuly', 'success');
 
         return redirect()->back()->with('success', 'Nota actualizada com sucesso!');
     }

@@ -10,6 +10,7 @@ use App\User;
 use Carbon\Carbon;
 use App\Attendance;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AttendanceController extends Controller
 {
@@ -70,8 +71,8 @@ class AttendanceController extends Controller
         $class   = Grade::find($classid);
 
         if($teacher->id !== $class->teacher_id) {
-            return redirect()->route('teacher.attendance.create',$classid)
-                             ->with('status', 'You are not assign for this class attendence!');
+            toast('You are not assign for this class attendence!', 'info');
+            return redirect()->route('teacher.attendance.create', $classid);
         }
 
         $dataexist = Attendance::whereDate('attendence_date',$attenddate)
@@ -79,8 +80,8 @@ class AttendanceController extends Controller
                                 ->get();
 
         if (count($dataexist) !== 0 ) {
-            return redirect()->route('teacher.attendance.create',$classid)
-                             ->with('status', 'Attendance already taken!');
+            toast('Attendance already taken!', 'error');
+            return redirect()->route('teacher.attendance.create', $classid);
         }
 
         $request->validate([

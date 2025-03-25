@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class StudentController extends Controller
 {
@@ -105,6 +106,8 @@ class StudentController extends Controller
 
         (new AcademicRecordController)->generateFeesForStudent($user->student->id);
 
+        toast('Student added with successfuly', 'success');
+
         return redirect()->route('student.index');
     }
 
@@ -115,13 +118,6 @@ class StudentController extends Controller
 
         return view('backend.students.show', compact('class', 'student', 'fees'));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Student  $student
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Student $student)
     {
         $classes = Grade::latest()->get();
@@ -130,13 +126,6 @@ class StudentController extends Controller
         return view('backend.students.edit', compact('classes','parents','student'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Student  $student
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Student $student)
     {
         $request->validate([
@@ -182,15 +171,11 @@ class StudentController extends Controller
             'permanent_address' => $request->permanent_address
         ]);
 
+        toast('success');
+
         return redirect()->route('student.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Student  $student
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Student $student)
     {
         $user = User::findOrFail($student->user_id);
@@ -205,6 +190,8 @@ class StudentController extends Controller
                 }
             }
         }
+
+        toast('success');
 
         return back();
     }

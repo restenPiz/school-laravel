@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -34,8 +35,9 @@ class RolePermissionController extends Controller
         $role = Role::create(['name' => $request->name]);
         $role->givePermissionTo($request->selectedpermissions);
 
+        toast('success');
+
         return redirect()->route('roles-permissions');
-        
     }
 
     public function editRole($id)
@@ -55,6 +57,8 @@ class RolePermissionController extends Controller
     	$role = Role::findById($id); 
         $role->update(['name' => $request->name]);
         $role->syncPermissions($request->selectedpermissions);
+
+        toast('success');
 
         return redirect()->route('roles-permissions');
     }
@@ -102,6 +106,8 @@ class RolePermissionController extends Controller
     	$permission = Permission::findById($id); 
         $permission->update(['name' => $request->name]);
         $permission->syncRoles($request->selectedroles);
+
+        toast('success');
 
         return redirect()->route('roles-permissions');
     }

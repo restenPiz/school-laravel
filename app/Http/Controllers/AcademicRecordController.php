@@ -7,6 +7,7 @@ use App\Grade;
 use App\Student;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AcademicRecordController extends Controller
 {
@@ -73,7 +74,9 @@ class AcademicRecordController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('success', 'Mensalidades e taxa de matrícula geradas com sucesso.');
+        toast('Tuition and tuition fee successfully generated.', 'success');
+
+        return redirect()->back();
     }
 
     public function index()
@@ -113,7 +116,8 @@ class AcademicRecordController extends Controller
 
         $fee->save();
 
-        return redirect()->back()->with('success', 'Propina registrada com sucesso!');
+        toast('Successfully registered bribe!', 'success');
+        return redirect()->back();
     }
 
     public function generateRecords(Request $request)
@@ -135,39 +139,6 @@ class AcademicRecordController extends Controller
         $fee->save();
 
         return redirect()->route('fees.create')->with('success', 'Propina registrada com sucesso!');
-
-        // $year = $request->input('year');
-        // $class = $request->input('class');
-        // $student = $request->input('student');
-
-        // $propinas = fees::where('year', $year)
-        //     ->when($class, fn($query) => $query->where('class_id', $class))
-        //     ->when($student, fn($query) => $query->where('student_id', $student))
-        //     ->get();
-
-        // $paidMonths = [];
-
-        // foreach ($propinas as $propina) {
-        //     $dueDate = \Carbon\Carbon::parse($propina->due_date);
-
-        //     if ($propina->payment_type === 'monthly') {
-        //         $paidMonths[] = $dueDate->month;
-        //     } elseif ($propina->payment_type === 'quartely') {
-        //         $paidMonths = array_merge($paidMonths, [$dueDate->month, $dueDate->month + 3, $dueDate->month + 6, $dueDate->month + 9]);
-        //     } elseif ($propina->payment_type === 'yearly') {
-        //         $paidMonths = range(1, 12);
-        //     }
-        // }
-
-        // $allMonths = range(1, 12);
-
-        // $pendingMonths = array_diff($allMonths, $paidMonths);
-
-        // session()->flash('records', $propinas);
-        // session()->flash('paidMonths', $paidMonths);
-        // session()->flash('pendingMonths', $pendingMonths);
-
-        // return back()->with('success', 'Records generated successfully!');
     }
     private function getCoveredMonths($record)
     {

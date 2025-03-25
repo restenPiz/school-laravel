@@ -8,6 +8,7 @@ use App\Subject;
 use App\Teacher;
 use App\User;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class GradeController extends Controller
 {
@@ -86,6 +87,8 @@ class GradeController extends Controller
             'monthly_fee' => $request->monthly_fee
         ]);
 
+        toast('Course updated with successfuly', 'success');
+
         return redirect()->route('classes.index');
     }
     public function destroy($id)
@@ -94,6 +97,8 @@ class GradeController extends Controller
         
         $class->subjects()->detach();
         $class->delete();
+
+        toast('Course deleted with successfuly', 'success');
 
         return back();
     }
@@ -110,6 +115,8 @@ class GradeController extends Controller
         $class = Grade::findOrFail($id);
 
         $class->subjects()->sync($request->selectedsubjects);
+
+        toast('Course assigned with subject', 'success');
 
         return redirect()->route('classes.index');
     }

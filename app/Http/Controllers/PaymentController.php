@@ -7,6 +7,7 @@ use App\Grade;
 use App\Payment;
 use App\Student;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PaymentController extends Controller
 {
@@ -47,6 +48,8 @@ class PaymentController extends Controller
             'amount_due' => 0,
             'status' => 'Pago'
         ]);
+
+        toast('Payment successful!', 'success');
 
         return redirect()->back()->with('success', 'Pagamento realizado com sucesso!');
     }

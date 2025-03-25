@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ParentsController extends Controller
 {
@@ -76,26 +77,16 @@ class ParentsController extends Controller
 
         $user->assignRole('Parent');
 
+        toast('Parent added with successfuly', 'success');
+
         return redirect()->route('parents.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Parents  $parents
-     * @return \Illuminate\Http\Response
-     */
     public function show(Parents $parents)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Parents  $parents
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $parent = Parents::with('user')->findOrFail($id); 
@@ -103,13 +94,6 @@ class ParentsController extends Controller
         return view('backend.parents.edit', compact('parent'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Parents  $parents
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $parents = Parents::findOrFail($id);
@@ -143,15 +127,10 @@ class ParentsController extends Controller
             'permanent_address' => $request->permanent_address
         ]);
 
+        toast('Parents datas updated with successfuly', 'success');
+
         return redirect()->route('parents.index');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Parents  $parents
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $parent = Parents::findOrFail($id);
@@ -169,6 +148,8 @@ class ParentsController extends Controller
         }
 
         $parent->delete();
+
+        toast('Parent deleted with successfuly', 'success');
 
         return back();
     }

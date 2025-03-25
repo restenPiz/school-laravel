@@ -12,24 +12,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Support\Str;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
         $user = Auth::user();
@@ -42,23 +33,29 @@ class HomeController extends Controller
             $subjects = Subject::latest()->get();
             $classes = Grade::latest()->get();
 
+            toast('Welcome Admin', 'success');
+
             return view('home', compact('parents','teachers','students','subjects','classes'));
 
         } elseif ($user->hasRole('Teacher')) {
 
             $teacher = Teacher::with(['user','subjects','classes','students'])->withCount('subjects','classes')->findOrFail($user->teacher->id);
-
+            toast('Welcome Admin', 'success');
             return view('home', compact('teacher'));
 
         } elseif ($user->hasRole('Parent')) {
-            
-            $parents = Parents::with(['children'])->withCount('children')->findOrFail($user->parent->id); 
+
+            $parents = Parents::with(['children'])->withCount('children')->findOrFail($user->parent->id);
+
+            toast('Welcome Admin', 'success');
 
             return view('home', compact('parents'));
 
         } elseif ($user->hasRole('Student')) {
             
-            $student = Student::with(['user','parent','class','attendances'])->findOrFail($user->student->id); 
+            $student = Student::with(['user','parent','class','attendances'])->findOrFail($user->student->id);
+
+            toast('Welcome Admin', 'success');
 
             return view('home', compact('student'));
 
@@ -68,9 +65,6 @@ class HomeController extends Controller
         
     }
 
-    /**
-     * PROFILE
-     */
     public function profile() 
     {
         return view('profile.index');
@@ -103,12 +97,10 @@ class HomeController extends Controller
             'profile_picture'   => $profile
         ]);
 
+        toast('Profile datas updated with successfuly!', 'success');
+
         return redirect()->route('profile');
     }
-
-    /**
-     * CHANGE PASSWORD
-     */
     public function changePasswordForm()
     {  
         return view('profile.changepassword');
@@ -117,11 +109,13 @@ class HomeController extends Controller
     public function changePassword(Request $request)
     {     
         if (!(Hash::check($request->get('currentpassword'), Auth::user()->password))) {
+            toast('our current password does not matches with the password you provided! Please try again.', 'error');
             return back()->with([
                 'msg_currentpassword' => 'Your current password does not matches with the password you provided! Please try again.'
             ]);
         }
         if(strcmp($request->get('currentpassword'), $request->get('newpassword')) == 0){
+            toast('New Password cannot be same as your current password! Please choose a different password.', 'error');
             return back()->with([
                 'msg_currentpassword' => 'New Password cannot be same as your current password! Please choose a different password.'
             ]);
