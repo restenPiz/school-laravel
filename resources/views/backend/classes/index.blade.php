@@ -18,7 +18,7 @@
                 <div class="w-1/12 px-4 py-3">#</div>
                 <div class="w-2/12 px-4 py-3">Name</div>
                 <div class="w-1/12 px-4 py-3">Students</div>
-                <div class="w-4/12 px-4 py-3 text-center">Subject Code/s</div>
+                <div class="w-4/12 px-4 py-3 text-center">Subject Name</div>
                 <div class="w-2/12 px-4 py-3">Teacher</div>
                 <div class="w-2/12 px-4 py-3 text-right">Actions</div>
             </div>
@@ -33,7 +33,7 @@
                     </div>
                     <div class="w-4/12 px-4 py-3 text-sm text-gray-600 text-center tracking-tight">
                         @foreach ($class->subjects as $subject)
-                            <span class="bg-gray-200 text-sm mr-1 mb-1 px-2 font-semibold border rounded-full">{{ $subject->subject_code }}</span>
+                            <span class="bg-gray-200 text-sm mr-1 mb-1 px-2 font-semibold border rounded-full">{{ $subject->name }}</span>
                         @endforeach
                     </div>
                     <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600 tracking-tight">{{ $class->teacher->user->name ?? '' }}</div>
