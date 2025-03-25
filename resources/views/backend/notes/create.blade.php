@@ -69,7 +69,19 @@
                 <h3 class="text-gray-700 uppercase font-bold mb-4">Student Notes</h3>
                 
                 @if ($student->notes->isEmpty())
-                    <p class="text-gray-600">No notes available.</p>
+                    <div class="mt-8 bg-white rounded border-b-4 border-gray-300">
+                        <div class="flex flex-wrap items-center uppercase text-sm font-semibold bg-gray-600 text-white rounded-tl rounded-tr">
+                            <div class="w-4/12 px-4 py-3">Subject</div>
+                            <div class="w-3/12 px-4 py-3">Type</div>
+                            <div class="w-2/12 px-4 py-3">Note</div>
+                            <div class="w-2/12 px-4 py-3"></div>
+                        </div>
+                        <div class="flex flex-wrap items-center text-gray-700 border-t-2 border-gray-300">
+                            <div class="w-4/12 px-4 py-3 text-sm font-semibold text-gray-600">
+                                <p class="text-gray-600">No notes available.</p>
+                            </div>
+                        </div>
+                    </div>
                 @else
                     <div class="mt-8 bg-white rounded border-b-4 border-gray-300">
                         <div class="flex flex-wrap items-center uppercase text-sm font-semibold bg-gray-600 text-white rounded-tl rounded-tr">
