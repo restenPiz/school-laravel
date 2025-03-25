@@ -40,14 +40,14 @@ class HomeController extends Controller
         } elseif ($user->hasRole('Teacher')) {
 
             $teacher = Teacher::with(['user','subjects','classes','students'])->withCount('subjects','classes')->findOrFail($user->teacher->id);
-            toast('Welcome Admin', 'success');
+            toast('Welcome Teacher', 'success');
             return view('home', compact('teacher'));
 
         } elseif ($user->hasRole('Parent')) {
 
             $parents = Parents::with(['children'])->withCount('children')->findOrFail($user->parent->id);
 
-            toast('Welcome Admin', 'success');
+            toast('Welcome Parent', 'success');
 
             return view('home', compact('parents'));
 
@@ -55,7 +55,7 @@ class HomeController extends Controller
             
             $student = Student::with(['user','parent','class','attendances'])->findOrFail($user->student->id);
 
-            toast('Welcome Admin', 'success');
+            toast('Welcome Student', 'success');
 
             return view('home', compact('student'));
 
