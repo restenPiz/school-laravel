@@ -29,10 +29,10 @@
             </div>
 
             <div class="w-full px-6 py-6">
-                <div class="flex items-center bg-gray-600 rounded-tl rounded-tr">
-                    <div class="w-4/12 text-left text-white py-2 px-4 font-semibold">Student</div>
-                    <div class="w-3/12 text-left text-white py-2 px-4 font-semibold">Roll</div>
-                    <div class="w-5/12 text-right text-white py-2 px-4 font-semibold">Actions</div>
+                <div class="flex items-center bg-gray-300 text-gray-700 rounded-tl rounded-tr">
+                    <div class="w-4/12 text-left py-2 px-4 font-semibold">Student</div>
+                    <div class="w-3/12 text-left py-2 px-4 font-semibold">Roll</div>
+                    <div class="w-5/12 text-right py-2 px-4 font-semibold">Actions</div>
                 </div>
                 <form action="{{ route('teacher.attendance.store') }}" method="POST">
                     @foreach ($class->students as $student)

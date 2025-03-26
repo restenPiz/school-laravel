@@ -1,4 +1,4 @@
-<div class="w-full max-w-8xl mx-auto bg-white shadow-xl rounded-xl p-8 mt-8">
+<div class="w-full max-w-8xl mx-auto bg-white rounded-xl p-8 mt-8">
     <h2 class="text-2xl font-semibold text-gray-800 border-b pb-4 mb-6 text-center">Student & Parent Information</h2>
 
     <div class="flex flex-wrap md:flex-nowrap items-center relative">
