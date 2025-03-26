@@ -54,7 +54,7 @@
         <!-- Log on to codeastro.com for more projects -->
         <div class="w-full py-12">
             <h2 class="text-gray-700 uppercase font-bold my-2">Students</h2>
-            <div class="flex items-center bg-gray-600">
+            <div class="flex items-center bg-gray-300 text-gray-700">
                 <div class="w-1/4 text-left text-white py-2 px-4 font-semibold">Name</div>
                 <div class="w-1/4 text-left text-white py-2 px-4 font-semibold">Email</div>
                 <div class="w-1/4 text-right text-white py-2 px-4 font-semibold">Phone</div>

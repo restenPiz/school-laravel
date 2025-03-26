@@ -8,7 +8,7 @@
                 <div>
                     <h2 class="text-gray-700 uppercase font-bold">My Attendance Record</h2><br>
                 </div>
-                <div class="flex items-center bg-gray-600">
+                <div class="flex items-center bg-gray-300 text-gray-700">
                     <div class="w-1/4 text-left text-white py-2 px-4 font-semibold">Date</div>
                     <div class="w-1/4 text-left text-white py-2 px-4 font-semibold">Class</div>
                     <div class="w-1/4 text-left text-white py-2 px-4 font-semibold">Teacher</div>

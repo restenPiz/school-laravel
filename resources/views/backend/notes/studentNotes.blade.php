@@ -8,7 +8,7 @@
                 <p class="text-gray-600">No notes available.</p>
             @else
                 <div class="mt-8 bg-white rounded border-b-4 border-gray-300">
-                    <div class="flex flex-wrap items-center uppercase text-sm font-semibold bg-gray-600 text-white rounded-tl rounded-tr">
+                    <div class="flex flex-wrap items-center uppercase text-sm font-semibold bg-gray-300 text-gray-700 rounded-tl rounded-tr">
                         <div class="w-2/12 px-4 py-3">Subject</div>
                         <div class="w-2/12 px-4 py-3">First Avaliation</div>
                         <div class="w-2/12 px-4 py-3">Second Avaliation</div>
