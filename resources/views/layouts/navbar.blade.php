@@ -8,16 +8,19 @@
     <div class="relative">
         @auth
             <div class="flex items-center cursor-pointer" id="opennavdropdown">
-                @if(Auth::user()->profile_picture)
-                    <img class="w-8 h-8 rounded-full mr-2" src="{{ asset('images/profile/' . auth()->user()->profile_picture) }}">
+                @if(auth()->user()->profile_picture)
+                    <!-- Exibe a foto de perfil do usuário -->
+                    <img class="w-8 h-8 rounded-full mr-2" src="{{ asset('images/profile/' . auth()->user()->profile_picture) }}" alt="Imagem de Perfil">
                 @else
-                    <img src="images/dif.jpg" class="w-8 h-8 rounded-full mr-2">
+                    <!-- Se não tiver foto, exibe a imagem de fallback -->
+                    <img src="{{ asset('images/dif.jpg') }}" class="w-8 h-8 rounded-full mr-2">
                 @endif
+                {{-- <img src="images/dif.jpg" class="w-8 h-8 rounded-full mr-2"> --}}
                 <p class="text-sm text-white font-semibold leading-none">{{ auth()->user()->name }}</p>
                 <svg class="w-4 h-4 stroke-current text-gray-200 ml-1 feather feather-chevron-down" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </div>
             
-            <div class="bg-blue-700 absolute top-0 right-0 mt-12 -mr-6 shadow rounded-bl rounded-br">
+            <div style="background-color:#1a1879"  class="bg-blue-700 absolute top-0 right-0 mt-12 -mr-6 shadow rounded-bl rounded-br">
                 <div class="hidden h-24 w-48" id="navdropdown">
                     <div class="px-8 py-4 border-t border-blue-800">
                         <a href="{{ route('profile') }}" class="flex items-center pb-3 text-sm text-gray-200 font-semibold">

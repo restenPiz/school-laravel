@@ -67,7 +67,12 @@
                 </div>        
                 <div class="order-first sm:order-last mb-4">
                     <div>
-                        <img class="w-32 h-32 rounded" src="{{ asset('images/profile/' . auth()->user()->profile_picture) }}" alt="avatar">    
+                        @if(auth()->user()->profile_picture)
+                            <img class="w-32 h-32 sm:w-32 sm:h-32 rounded" src="{{ asset('images/profile/' . auth()->user()->profile_picture) }}" alt="avatar">    
+                        @else
+                            <!-- Se não tiver foto, exibe a imagem de fallback -->
+                            <img src="{{ asset('images/dif.jpg') }}" class="w-32 h-32 sm:w-32 sm:h-32 rounded">
+                        @endif
                     </div>        
                 </div>
             </form>        

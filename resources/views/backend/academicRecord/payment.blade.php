@@ -7,7 +7,7 @@
         </div>
 
         <!-- Formulário -->
-        <div class="w-full mt-8 bg-white rounded p-4">
+        <div class="w-full mt-8  rounded ">
             <form action="{{ route('payments.filter') }}" method="GET" class="flex flex-wrap items-center gap-4">
                 @csrf
                 <!-- Select de Curso -->

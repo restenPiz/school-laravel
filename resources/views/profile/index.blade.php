@@ -18,12 +18,12 @@
             <div class="w-full max-w-2xl mx-auto px-6 py-12 flex justify-between">
                 <div>
                     <div class="md:flex md:items-center mb-4">
-                        <div class="md:w-1/3">
+                        <div class="">
                             <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                                 Name : 
                             </label>
                         </div>
-                        <div class="md:w-2/3">
+                        <div class="">
                             <span class="block text-gray-600 font-bold">{{ auth()->user()->name }}</span>
                         </div>
                     </div>
@@ -50,7 +50,12 @@
                 </div>        
                 <div>
                     <div>
+                        @if(auth()->user()->profile_picture)
                         <img class="w-20 h-20 sm:w-32 sm:h-32 rounded" src="{{ asset('images/profile/' . auth()->user()->profile_picture) }}" alt="avatar">    
+                        @else
+                            <!-- Se não tiver foto, exibe a imagem de fallback -->
+                            <img src="{{ asset('images/dif.jpg') }}" class="w-20 h-20 sm:w-32 sm:h-32 rounded">
+                        @endif
                     </div>        
                 </div>        
             </div>        
