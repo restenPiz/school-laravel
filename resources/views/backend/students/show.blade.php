@@ -8,6 +8,13 @@
                 {{-- <h2 class="text-2xl font-bold text-gray-800">Student Details</h2> --}}
             </div>
             <div class="flex flex-wrap items-center">
+                <button style="margin-right:0.5rem" onclick="printSelectedSections(['student_info', 'fee', 'subjectTable'])" class="bg-blue-800 text-white text-sm py-2 px-4 flex items-center rounded-lg hover:bg-gray-700 transition duration-300">
+                    <svg class="w-4 h-4 fill-current" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="print" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path fill="currentColor" d="M464 128h-16V64a64 64 0 0 0-64-64H128a64 64 0 0 0-64 64v64H48a48 48 0 0 0-48 48v160a48 48 0 0 0 48 48h16v96a32 32 0 0 0 32 32h320a32 32 0 0 0 32-32v-96h16a48 48 0 0 0 48-48V176a48 48 0 0 0-48-48zM128 64h256v64H128zm256 384H128v-80h256zm64-128H64V192h384zm-48-64a16 16 0 1 1-16-16 16 16 0 0 1 16 16z"></path>
+                    </svg>
+                    <span class="ml-2 text-xs font-semibold">Print</span>
+                </button>
+
                 <a href="{{ route('student.index') }}" class="bg-gray-800 text-white text-sm py-2 px-4 flex items-center rounded-lg hover:bg-gray-700 transition duration-300">
                     <svg class="w-4 h-4 fill-current" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="long-arrow-alt-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z"></path></svg>
                     <span class="ml-2 text-xs font-semibold">Back</span>
@@ -15,7 +22,7 @@
             </div>
         </div>
 
-        <div class="w-full max-w-8xl mx-auto bg-white shadow-xl rounded-xl p-8 mt-8">
+        <div class="w-full max-w-8xl mx-auto bg-white shadow-xl rounded-xl p-8 mt-8" id="student_info">
             <h2 class="text-2xl font-semibold text-gray-800 border-b pb-4 mb-6 text-center">Student & Parent Information</h2>
 
             <div class="flex flex-wrap md:flex-nowrap items-center relative">
@@ -57,7 +64,7 @@
             </div>
         </div>
 
-        <div class="mt-8">
+        <div class="mt-8" id="fee">
             <div>
                 <select name="year" id="yearFilter" onchange="filterFees()" class="block font-bold appearance-none w-1/3 bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     <option value="">Select the year</option>
@@ -235,8 +242,8 @@
             
         </div>
             {{--*End of the accountant section--}}
-            <div class="mt-8 bg-white rounded-lg shadow-lg ">
-            <div class="w-full sm:w-2/2 mr-2 mb-6">
+        <div class="mt-8 bg-white rounded-lg shadow-lg " id="subjectTable">
+            <div class="w-full sm:w-2/2 mr-2 mb-6" >
                 <div class="bg-gray-600 text-white rounded-t-lg p-4">
                     <div class="flex justify-between items-center font-bold">
                         <div class="w-1/3 ">Code</div>
@@ -342,6 +349,28 @@
         });
     </script>
 
+    <script>
+        function printSelectedSections(sectionIds) {
+            var printContent = '';
+            
+            // Pega o conteúdo de cada elemento e adiciona na variável printContent
+            sectionIds.forEach(function(id) {
+                var element = document.getElementById(id);
+                if (element) {
+                    printContent += element.outerHTML; // Inclui o HTML completo do elemento
+                }
+            });
 
+            if (printContent) {
+                var originalContent = document.body.innerHTML; // Salva o conteúdo original da página
+
+                document.body.innerHTML = printContent; // Substitui o conteúdo do body pelo que será impresso
+                window.print(); // Abre a janela de impressão
+                document.body.innerHTML = originalContent; // Restaura o conteúdo original após a impressão
+            } else {
+                alert("Nenhum conteúdo encontrado para imprimir!");
+            }
+        }
+    </script>
 
 @endsection
