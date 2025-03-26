@@ -8,7 +8,7 @@
                 {{-- <h2 class="text-2xl font-bold text-gray-800">Student Details</h2> --}}
             </div>
             <div class="flex flex-wrap items-center">
-                <button style="margin-right:0.5rem" onclick="printSelectedSections(['student_info', 'fee', 'subjectTable'])" class="bg-blue-800 text-white text-sm py-2 px-4 flex items-center rounded-lg hover:bg-gray-700 transition duration-300">
+                <button style="margin-right:0.5rem" onclick="printSelectedSections(['student_info', 'fee'])" class="bg-blue-800 text-white text-sm py-2 px-4 flex items-center rounded-lg hover:bg-gray-700 transition duration-300">
                     <svg class="w-4 h-4 fill-current" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="print" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                         <path fill="currentColor" d="M464 128h-16V64a64 64 0 0 0-64-64H128a64 64 0 0 0-64 64v64H48a48 48 0 0 0-48 48v160a48 48 0 0 0 48 48h16v96a32 32 0 0 0 32 32h320a32 32 0 0 0 32-32v-96h16a48 48 0 0 0 48-48V176a48 48 0 0 0-48-48zM128 64h256v64H128zm256 384H128v-80h256zm64-128H64V192h384zm-48-64a16 16 0 1 1-16-16 16 16 0 0 1 16 16z"></path>
                     </svg>
@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <div class="w-full max-w-8xl mx-auto bg-white shadow-xl rounded-xl p-8 mt-8" id="student_info">
+        <div class="w-full max-w-8xl mx-auto bg-white rounded-xl p-8 mt-8" id="student_info">
             <h2 class="text-2xl font-semibold text-gray-800 border-b pb-4 mb-6 text-center">Student & Parent Information</h2>
 
             <div class="flex flex-wrap md:flex-nowrap items-center relative">
@@ -131,7 +131,7 @@
                                 <div id="paymentDetailsModal{{$fee->id}}" data-bs-keyboard="false"
                                     data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
                                     aria-hidden="true" class="modal-bg hidden fixed top-0 left-0 right-0 bottom-0 w-full h-full overflow-auto z-50 flex items-center justify-center">
-                                    <div class="bg-white relative p-10 max-w-lg w-full mx-4 sm:mx-auto my-10 sm:my-32 shadow-lg rounded-lg">
+                                    <div class="bg-white relative p-10 max-w-lg w-full mx-4 sm:mx-auto my-10 sm:my-32 rounded-lg">
                                         <div class="absolute top-0 right-0 m-3 text-red-600 cursor-pointer">
                                             <button onclick="closePaymentDetailsModal()" >
                                                 <svg class="w-6 h-6 stroke-current" aria-hidden="true" focusable="false" data-prefix="far" data-icon="times-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -157,7 +157,7 @@
                                                 </tr>
                                                 <tr>
                                                     <th class="text-gray-500 font-bold">Mes a Pagar:</th>
-                                                    <td>{{ date('F-Y', strtotime($fee->due_date)) }}</td>
+                                                    <td>{{ date('F', strtotime($fee->due_date)) }}</td>
                                                 </tr>
                                                 <tr>
                                                     <th class="text-gray-500 font-bold">Hora do Pagamento:</th>
@@ -175,8 +175,13 @@
                                         </table>
 
                                         <div class="flex justify-end mt-6">
-                                            <button  type="button" data-bs-dismiss="modal" class="bg-gray-500 text-white px-4 py-2 rounded">Fechar</button>
-                                            <button style="margin-left:0.5rem" type="button" onclick="closeModal()" class="bg-blue-500 text-white px-4 py-2 rounded">Imprimir</button>
+                                            <button style="margin-right: 0.5rem" type="button" data-bs-dismiss="modal" class="bg-gray-500 text-white px-4 py-2 rounded">Fechar</button>
+                                            <button onclick="printModal('paymentDetailsModal{{$fee->id}}')" class="bg-blue-800 text-white text-sm py-2 px-4 flex items-center rounded-lg hover:bg-gray-700 transition duration-300">
+                                                <svg class="w-4 h-4 fill-current" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="print" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                                    <path fill="currentColor" d="M464 128h-16V64a64 64 0 0 0-64-64H128a64 64 0 0 0-64 64v64H48a48 48 0 0 0-48 48v160a48 48 0 0 0 48 48h16v96a32 32 0 0 0 32 32h320a32 32 0 0 0 32-32v-96h16a48 48 0 0 0 48-48V176a48 48 0 0 0-48-48zM128 64h256v64H128zm256 384H128v-80h256zm64-128H64V192h384zm-48-64a16 16 0 1 1-16-16 16 16 0 0 1 16 16z"></path>
+                                                </svg>
+                                                <span class="ml-2 text-xs font-semibold">Print</span>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -242,16 +247,16 @@
             
         </div>
             {{--*End of the accountant section--}}
-        <div class="mt-8 bg-white rounded-lg shadow-lg " id="subjectTable">
+        <div class="mt-8 bg-white rounded-lg" id="subjectTable">
             <div class="w-full sm:w-2/2 mr-2 mb-6" >
-                <div class="bg-gray-600 text-white rounded-t-lg p-4">
+                <div class="bg-gray-300 text-gray-700 rounded-t-lg p-4">
                     <div class="flex justify-between items-center font-bold">
                         <div class="w-1/3 ">Code</div>
                         <div class="w-1/3 text-center">Subject</div>
                         <div class="w-1/3 text-right">Teacher</div>
                     </div>
                 </div>
-                <div class="bg-gray-100 rounded-b-lg">
+                <div class="bg-white rounded-b-lg">
                     @foreach ($class->subjects as $subject)
                         <div class="flex justify-between items-center border-b border-gray-200 p-4">
                             <div class="w-1/3 text-gray-800">{{ $subject->subject_code }}</div>
@@ -372,5 +377,48 @@
             }
         }
     </script>
+
+    <script>
+        function printModal(modalId) {
+            var modalContent = document.getElementById(modalId);
+            if (!modalContent) {
+                alert("Erro: Modal não encontrado.");
+                return;
+            }
+
+            var printWindow = window.open('', '_blank');
+            var printContent = '<html><head><title>Impressão</title>';
+
+            // Importa os estilos da página
+            var styles = document.querySelectorAll('link[rel="stylesheet"], style');
+            styles.forEach(style => {
+                printContent += style.outerHTML;
+            });
+
+            printContent += '</head><body>';
+
+            // Copia apenas o conteúdo da div do modal
+            var modalBody = modalContent.querySelector('.bg-white'); 
+            if (modalBody) {
+                printContent += modalBody.outerHTML;
+            } else {
+                alert("Erro: Não foi possível encontrar o conteúdo do modal.");
+                return;
+            }
+
+            printContent += '</body></html>';
+
+            // Abre uma nova aba e imprime
+            printWindow.document.open();
+            printWindow.document.write(printContent);
+            printWindow.document.close();
+
+            // Aguarda o carregamento e imprime
+            printWindow.onload = function() {
+                printWindow.print();
+                printWindow.close();
+            };
+        }
+        </script>
 
 @endsection
