@@ -110,7 +110,8 @@
                         <div class="w-2/12 px-4 py-3 flex items-center justify-end">
                             {{--!Start with the button that the can do payments--}}
                             @if($fee->status !== 'Pago')
-                                <a class="bg-blue-800" href="#paymentModal{{$fee->id}}" type="button" data-bs-toggle="modal" data-bs-target="#paymentModal{{$fee->id}}"
+                                <a onclick="openPaymentModal({{ $fee->id }})"
+                                 class="bg-blue-800" href="#" type="button" data-bs-toggle="modal" data-bs-target="#paymentModal{{$fee->id}}"
                                     style="color: white; border-radius: 0.3rem; padding: 6px 12px; display: flex; align-items: center; gap: 5px;">
                                     <svg class="h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                                         <path fill="currentColor"
@@ -119,12 +120,12 @@
                                     Pagar
                                 </a>
                             @else
-                                 <a style="border-radius: 0.3rem" href="#" class="ml-1 bg-green-600 block p-2 bg-green-600 text-white text-sm"
-                                    data-bs-toggle="modal" data-bs-target="#paymentDetailsModal{{$fee->id}}">
-                                        <svg class="h-5 w-5 fill-current text-white" aria-hidden="true" focusable="false" data-prefix="far" data-icon="eye" class="svg-inline--fa fa-eye fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-                                            <path fill="currentColor" d="M288 144a110.94 110.94 0 0 0-31.24 5 55.4 55.4 0 0 1 7.24 27 56 56 0 0 1-56 56 55.4 55.4 0 0 1-27-7.24A111.71 111.71 0 1 0 288 144zm284.52 97.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400c-98.65 0-189.09-55-237.93-144C98.91 167 189.34 112 288 112s189.09 55 237.93 144C477.1 345 386.66 400 288 400z"></path>
-                                        Ver Pagamento</svg>
-                                    
+                                 <a style="border-radius: 0.3rem" href="#" 
+                                    class="ml-1 bg-green-600 block p-2 text-white text-sm"
+                                    onclick="openPaymentDetailsModal({{ $fee->id }})">
+                                    <svg class="h-5 w-5 fill-current text-white" aria-hidden="true" focusable="false" data-prefix="far" data-icon="eye" class="svg-inline--fa fa-eye fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                                        <path fill="currentColor" d="M288 144a110.94 110.94 0 0 0-31.24 5 a55.4 55.4 0 0 1 7.24 27 56 56 0 0 1-56 56 55.4 55.4 0 0 1-27-7.24A111.71 111.71 0 1 0 288 144zm284.52 97.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400c-98.65 0-189.09-55-237.93-144C98.91 167 189.34 112 288 112s189.09 55 237.93 144C477.1 345 386.66 400 288 400z"></path>
+                                    </svg>
                                 </a>
 
                                 {{--?Payment method modal--}}
@@ -133,7 +134,7 @@
                                     aria-hidden="true" class="modal-bg hidden fixed top-0 left-0 right-0 bottom-0 w-full h-full overflow-auto z-50 flex items-center justify-center">
                                     <div class="bg-white relative p-10 max-w-lg w-full mx-4 sm:mx-auto my-10 sm:my-32 rounded-lg">
                                         <div class="absolute top-0 right-0 m-3 text-red-600 cursor-pointer">
-                                            <button onclick="closePaymentDetailsModal()" >
+                                            <button onclick="closeModal('paymentDetailsModal{{$fee->id}}')" >
                                                 <svg class="w-6 h-6 stroke-current" aria-hidden="true" focusable="false" data-prefix="far" data-icon="times-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                                     <path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm101.8-262.2L295.6 256l62.2 62.2c4.7 4.7 4.7 12.3 0 17l-22.6 22.6c-4.7 4.7-12.3 4.7-17 0L256 295.6l-62.2 62.2c-4.7 4.7-12.3 4.7-17 0l-22.6-22.6c-4.7-4.7-4.7-12.3 0-17l62.2-62.2-62.2-62.2c-4.7-4.7-4.7-12.3 0-17l22.6-22.6c4.7-4.7 12.3-4.7 17 0l62.2 62.2 62.2-62.2c4.7-4.7 12.3-4.7 17 0l22.6 22.6c4.7 4.7 4.7 12.3 0 17z"></path>
                                                 </svg>
@@ -175,7 +176,7 @@
                                         </table>
 
                                         <div class="flex justify-end mt-6">
-                                            <button style="margin-right: 0.5rem" type="button" data-bs-dismiss="modal" class="bg-gray-500 text-white px-4 py-2 rounded">Fechar</button>
+                                            <button onclick="closeModal('paymentDetailsModal{{$fee->id}}')"  style="margin-right: 0.5rem" type="button" data-bs-dismiss="modal" class="bg-gray-500 text-white px-4 py-2 rounded">Fechar</button>
                                             <button onclick="printModal('paymentDetailsModal{{$fee->id}}')" class="bg-blue-800 text-white text-sm py-2 px-4 flex items-center rounded-lg hover:bg-gray-700 transition duration-300">
                                                 <svg class="w-4 h-4 fill-current" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="print" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                                     <path fill="currentColor" d="M464 128h-16V64a64 64 0 0 0-64-64H128a64 64 0 0 0-64 64v64H48a48 48 0 0 0-48 48v160a48 48 0 0 0 48 48h16v96a32 32 0 0 0 32 32h320a32 32 0 0 0 32-32v-96h16a48 48 0 0 0 48-48V176a48 48 0 0 0-48-48zM128 64h256v64H128zm256 384H128v-80h256zm64-128H64V192h384zm-48-64a16 16 0 1 1-16-16 16 16 0 0 1 16 16z"></path>
@@ -195,7 +196,7 @@
                                 data-bs-backdrop="static" tabindex="-1" aria-labelledby="staticBackdropLabel"
                                 aria-hidden="true" class="modal-bg hidden fixed top-0 left-0 right-0 bottom-0 w-full h-full overflow-auto z-50 flex items-center justify-center">
                         <div class="bg-white relative p-10 max-w-lg w-full mx-4 sm:mx-auto my-10 sm:my-32 shadow-lg rounded-lg">
-                            <div onclick="closeModal()" class="absolute top-0 right-0 m-3 text-red-600 cursor-pointer">
+                            <div onclick="closeModal('paymentModal{{$fee->id}}')" class="absolute top-0 right-0 m-3 text-red-600 cursor-pointer">
                                 <svg class="w-6 h-6 stroke-current" aria-hidden="true" focusable="false" data-prefix="far" data-icon="times-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                     <path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm101.8-262.2L295.6 256l62.2 62.2c4.7 4.7 4.7 12.3 0 17l-22.6 22.6c-4.7 4.7-12.3 4.7-17 0L256 295.6l-62.2 62.2c-4.7 4.7-12.3 4.7-17 0l-22.6-22.6c-4.7-4.7-4.7-12.3 0-17l62.2-62.2-62.2-62.2c-4.7-4.7-4.7-12.3 0-17l22.6-22.6c4.7-4.7 12.3-4.7 17 0l62.2 62.2 62.2-62.2c4.7-4.7 12.3-4.7 17 0l22.6 22.6c4.7 4.7 4.7 12.3 0 17z"></path>
                                 </svg>
@@ -228,7 +229,7 @@
                                 </div>
 
                                 <div class="flex justify-end" style="margin-top: 1rem">
-                                    <button type="button" onclick="closeModal()" class="bg-gray-500 text-white px-4 py-2 rounded mr-2">Cancelar</button>
+                                    <button type="button" onclick="closeModal('paymentModal{{$fee->id}}')" class="bg-gray-500 text-white px-4 py-2 rounded mr-2">Cancelar</button>
                                     <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Confirmar Pagamento</button>
                                 </div>
                             </form>
@@ -419,6 +420,29 @@
                 printWindow.close();
             };
         }
+        </script>
+        <script>
+            function openPaymentDetailsModal(feeId) {
+                let modal = document.getElementById(`paymentDetailsModal${feeId}`);
+                if (modal) {
+                    modal.classList.remove("hidden");
+                } else {
+                    console.error(`Modal com ID paymentDetailsModal${feeId} não encontrado.`);
+                }
+            }
+
+            function closeModal(modalId) {
+                document.getElementById(modalId).classList.add("hidden");
+            }
+
+            function openPaymentModal(feeId) {
+                let modal = document.getElementById(`paymentModal${feeId}`);
+                if (modal) {
+                    modal.classList.remove("hidden");
+                } else {
+                    console.error(`Modal com ID paymentDetailsModal${feeId} não encontrado.`);
+                }
+            }
         </script>
 
 @endsection
