@@ -41,8 +41,8 @@
 </div>
 
 {{--?Student Notes--}}
-<div class="">
-    <h3 class="text-gray-700 uppercase font-bold mb-4">Student Notes - {{ $student->user->name }}</h3>
+<div style="margin-top: 1rem;">
+    {{-- <h3 class="text-gray-700 uppercase font-bold mb-4">Student Notes - {{ $student->user->name }}</h3> --}}
 
     @if ($student->notes->isEmpty())
         <p class="text-gray-600">No notes available.</p>

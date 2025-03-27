@@ -19,10 +19,10 @@
 
             <div class="mt-8 bg-white rounded border-b-4 border-gray-300">
                 <div class="flex items-center justify-between bg-gray-300 text-gray-700 rounded-tl rounded-tr">
-                    <div class="w-3/12 text-left text-white py-2 px-4 font-semibold">Date</div>
-                    <div class="w-3/12 text-left text-white py-2 px-4 font-semibold">Teacher</div>
-                    <div class="w-3/12 text-left text-white py-2 px-4 font-semibold">Class</div>
-                    <div class="w-3/12 text-right text-white py-2 px-4 font-semibold">Attendence</div>
+                    <div class="w-3/12 text-left py-2 px-4 font-semibold">Date</div>
+                    <div class="w-3/12 text-left py-2 px-4 font-semibold">Teacher</div>
+                    <div class="w-3/12 text-left py-2 px-4 font-semibold">Class</div>
+                    <div class="w-3/12 text-right py-2 px-4 font-semibold">Attendence</div>
                 </div>
                 @foreach ($attendances as $attendance)
                     <div class="flex items-center justify-between border border-gray-200">
