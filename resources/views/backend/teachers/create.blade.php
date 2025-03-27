@@ -194,12 +194,12 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <label class="block text-gray-700 font-semibold">Name</label>
-                    <input type="text" name="name" value="{{ old('name') }}" class="input-field">
+                    <input placeholder="Write your name" type="text" name="name" value="{{ old('name') }}" class="input-field">
                     @error('name') <p class="error-text">{{ $message }}</p> @enderror
                 </div>
                 <div>
                     <label class="block text-gray-700 font-semibold">Email</label>
-                    <input type="email" name="email" value="{{ old('email') }}" class="input-field">
+                    <input placeholder="ex:mauropeniel7@gmail.com" type="email" name="email" value="{{ old('email') }}" class="input-field">
                     @error('email') <p class="error-text">{{ $message }}</p> @enderror
                 </div>
             </div>
@@ -246,12 +246,12 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <label class="block text-gray-700 font-semibold">Current Address</label>
-                    <input type="text" name="current_address" value="{{ old('current_address') }}" class="input-field">
+                    <input placeholder="ex: Beira" type="text" name="current_address" value="{{ old('current_address') }}" class="input-field">
                     @error('current_address') <p class="error-text">{{ $message }}</p> @enderror
                 </div>
                 <div>
                     <label class="block text-gray-700 font-semibold">Permanent Address</label>
-                    <input type="text" name="permanent_address" value="{{ old('permanent_address') }}" class="input-field">
+                    <input placeholder="ex: Chimoio" type="text" name="permanent_address" value="{{ old('permanent_address') }}" class="input-field">
                     @error('permanent_address') <p class="error-text">{{ $message }}</p> @enderror
                 </div>
             </div>

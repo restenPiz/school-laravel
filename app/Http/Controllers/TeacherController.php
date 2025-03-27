@@ -43,7 +43,7 @@ class TeacherController extends Controller
             $profile = Str::slug($user->name).'-'.$user->id.'.'.$request->profile_picture->getClientOriginalExtension();
             $request->profile_picture->move(public_path('images/profile'), $profile);
         } else {
-            $profile = 'avatar.png';
+            $profile = '';
         }
         $user->update([
             'profile_picture' => $profile
