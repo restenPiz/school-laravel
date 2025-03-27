@@ -49,5 +49,38 @@
 
     @stack('scripts')
 
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+    <!-- jQuery (necessário para o DataTables) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Inicializando o DataTable
+            $('table').DataTable({
+                // Aqui você pode adicionar configurações adicionais do DataTable, se necessário
+                responsive: true
+            });
+
+            // Configuração do botão de exclusão
+            $(".deletebtn").on("click", function(event) {
+                event.preventDefault();
+                $("#deletemodal").toggleClass("hidden");
+                var url = $(this).attr('data-url');
+                $(".remove-record").attr("action", url);
+            });
+
+            $("#deletemodelclose").on("click", function(event) {
+                event.preventDefault();
+                $("#deletemodal").toggleClass("hidden");
+            });
+        });
+    </script>
+
+
 </body>
 </html>

@@ -110,7 +110,7 @@
                         <div class="w-2/12 px-4 py-3 flex items-center justify-end">
                             {{--!Start with the button that the can do payments--}}
                             @if($fee->status !== 'Pago')
-                                <a class="bg-blue-600" href="#paymentModal{{$fee->id}}" type="button" data-bs-toggle="modal" data-bs-target="#paymentModal{{$fee->id}}"
+                                <a class="bg-blue-800" href="#paymentModal{{$fee->id}}" type="button" data-bs-toggle="modal" data-bs-target="#paymentModal{{$fee->id}}"
                                     style="color: white; border-radius: 0.3rem; padding: 6px 12px; display: flex; align-items: center; gap: 5px;">
                                     <svg class="h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                                         <path fill="currentColor"
