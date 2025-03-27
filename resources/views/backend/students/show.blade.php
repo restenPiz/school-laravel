@@ -239,7 +239,7 @@
                 @endforeach 
             </div>
             {{--*Start with the accountant section--}}
-            <div style="margin-top:1rem" class="bg-gray-100 p-4 rounded-lg text-gray-800 font-semibold">
+            <div style="margin-top:1rem" class="bg-white p-4 rounded-lg text-gray-800 font-semibold">
                 <div class="flex justify-between">
                     <span class="text-lg">Total Amount Due:</span>
                     <span class="text-lg">{{ number_format($fees->sum('amount_due'), 2) }} MZN</span>

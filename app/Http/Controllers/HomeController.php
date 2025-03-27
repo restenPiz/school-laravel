@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Grade;
 use App\Parents;
+use App\Payment;
 use App\Student;
 use App\Teacher;
 use App\Subject;
@@ -32,10 +33,11 @@ class HomeController extends Controller
             $students = Student::latest()->get();
             $subjects = Subject::latest()->get();
             $classes = Grade::latest()->get();
+            $payments = Payment::all();
 
             toast('Welcome Admin', 'success');
 
-            return view('home', compact('parents','teachers','students','subjects','classes'));
+            return view('home', compact('payments', 'parents', 'teachers', 'students', 'subjects', 'classes'));
 
         } elseif ($user->hasRole('Teacher')) {
 

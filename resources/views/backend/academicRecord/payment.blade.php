@@ -58,7 +58,7 @@
                 </div>
 
                 <!-- Select de Ano -->
-                <div class="relative w-60" style="margin-left:1rem">
+                <div class="relative w-60" style="margin-left:1rem; width: 13rem;">
                     <select name="year"
                         class="block appearance-none w-full bg-gray-200 border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                         <option value="">-- Select Year --</option>
@@ -83,9 +83,7 @@
             </form>
         </div>
         <div class="mt-8 bg-white rounded border-b-4 border-gray-300">
-            <!-- Cabeçalho da Tabela -->
-            <div
-                class="flex flex-wrap items-center uppercase text-sm font-semibold bg-gray-300 text-gray-700 rounded-tl rounded-tr">
+            <div class="flex flex-wrap items-center uppercase text-sm font-semibold bg-gray-300 text-gray-700 rounded-tl rounded-tr">
                 <div class="w-2/12 px-4 py-3">Course</div>
                 <div class="w-2/12 px-4 py-3">Student Name</div>
                 <div class="w-2/12 px-4 py-3">Payment Method</div>
@@ -96,7 +94,7 @@
             </div>
 
             @foreach ($payments as $payment)
-                <div class="flex flex-wrap items-center text-gray-700 border-t-2 border-gray-300">
+                <div class="flex flex-wrap items-center text-gray-700 border-t-2 border-l-4 border-r-4 border-gray-300">
                     <!-- Valor a pagar -->
                     <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
                         {{ $payment->fee->class->class_name }}
