@@ -135,6 +135,13 @@
                 </div>
             @endforeach
         </div>
+        
+                <div style="margin-top:1rem" class="bg-white p-4 rounded-lg text-gray-800 font-semibold">
+                <div class="flex justify-between">
+                    <span class="text-lg">Total Amount Paid:</span>
+                    <span class="text-lg">{{ number_format($payments->sum('amount'), 2) }} MZN</span>
+                </div>
+            </div>
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
