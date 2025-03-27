@@ -17,7 +17,7 @@
         <!-- Log on to codeastro.com for more projects -->
         <div class="w-full mt-8 bg-white rounded">
             <form action="{{ route('attendance.index') }}" method="GET" class="md:flex md:items-center md:justify-between px-6 py-6 pb-0">
-                <div class="md:flex md:items-center mb-6 text-gray-700 uppercase font-bold">
+                {{-- <div class="md:flex md:items-center mb-6 text-gray-700 uppercase font-bold">
                     <div>
                         <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
                             Report:
@@ -28,12 +28,13 @@
                             <input name="type" class="mr-2 leading-tight" type="radio" value="class" checked>
                             <span class="text-sm">Class</span>
                         </label>
-                        <!-- <label class="ml-4 block text-gray-600 font-bold">
+                        <label class="ml-4 block text-gray-600 font-bold">
                             <input name="type" class="mr-2 leading-tight" type="radio" value="teacher" disabled>
                             <span class="text-sm">Teacher</span>
-                        </label> -->
+                        </label>
                     </div>
-                </div>
+                </div> --}}
+                <input name="type" class="mr-2 leading-tight" type="radio" value="class" checked>
                 <div class="md:flex md:items-center mb-6 text-gray-700 uppercase font-bold">
                     <div>
                         <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
@@ -58,35 +59,35 @@
                     <button class="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">Generate</button>
                 </div>
             </form>
-            <!-- Log on to codeastro.com for more projects -->
-            <div class="w-full px-6 py-6">
-                @foreach ($attendances as $classid => $datevalues)
-                    <h2 class="bg-gray-600 text-white font-semibold uppercase px-4 py-3">
-                        class {{ $classid }}
-                    </h2>
-                    <div class="flex flex-col bg-gray-200 mb-6">
-                        @foreach ($datevalues as $key => $attendancevals)
-                            <div class="text-left text-gray-800 py-2 px-4 font-semibold">
-                                <b><span >{{ $key }}</span></b>
-                                <div class="flex flex-col justify-between bg-gray-100">
-                                    @foreach ($attendancevals as $vals => $attendance)
-                                        <div class="flex flex-row justify-between w-64">
-                                            <div class="text-sm text-left text-gray-600 py-2 px-4 font-semibold">{{ $attendance->student->user->name ?? 'N/A' }}</div>
-                                            <div class="text-sm text-left text-gray-600 py-2 px-4 font-semibold">
-                                                @if ($attendance->attendence_status)
-                                                    <span class="text-xs text-white bg-green-500 px-2 py-1 rounded-custom">P</span>
-                                                @else
-                                                    <span class="text-xs text-white bg-red-500 px-2 py-1 rounded-custom">A</span>
-                                                @endif
-                                            </div>
+            <!-- Log on to codeastro.com for more projects -->   
+        </div>
+        <div class="w-full px-6 py-6">
+            @foreach ($attendances as $classid => $datevalues)
+                <h2 class="bg-gray-600 text-white font-semibold uppercase px-4 py-3">
+                    class {{ $classid }}
+                </h2>
+                <div class="flex flex-col bg-gray-200 mb-6">
+                    @foreach ($datevalues as $key => $attendancevals)
+                        <div class="text-left text-gray-800 py-2 px-4 font-semibold">
+                            <b><span >{{ $key }}</span></b>
+                            <div class="flex flex-col justify-between bg-gray-100">
+                                @foreach ($attendancevals as $vals => $attendance)
+                                    <div class="flex flex-row justify-between w-64">
+                                        <div class="text-sm text-left text-gray-600 py-2 px-4 font-semibold">{{ $attendance->student->user->name ?? 'N/A' }}</div>
+                                        <div class="text-sm text-left text-gray-600 py-2 px-4 font-semibold">
+                                            @if ($attendance->attendence_status)
+                                                <span class="text-xs text-white bg-green-500 px-2 py-1 rounded-custom">P</span>
+                                            @else
+                                                <span class="text-xs text-white bg-red-500 px-2 py-1 rounded-custom">A</span>
+                                            @endif
                                         </div>
-                                    @endforeach
-                                </div>
+                                    </div>
+                                @endforeach
                             </div>
-                        @endforeach
-                    </div>
-                @endforeach
-            </div>   
+                        </div>
+                    @endforeach
+                </div>
+            @endforeach
         </div>
         <!-- Log on to codeastro.com for more projects -->
     </div>
