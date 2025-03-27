@@ -199,7 +199,7 @@
                 </div>
                 <div>
                     <label class="block text-gray-700 font-semibold">Email</label>
-                    <input placeholder="ex:mauropeniel7@gmail.com" type="email" name="email" value="{{ old('email') }}" class="input-field">
+                    <input placeholder="mauropeniel7@gmail.com" type="email" name="email" value="{{ old('email') }}" class="input-field">
                     @error('email') <p class="error-text">{{ $message }}</p> @enderror
                 </div>
             </div>
