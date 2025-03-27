@@ -3,7 +3,7 @@
  @section('content')
      <div class="roles">
 
-         <div class="mt-8 bg-white rounded-lg shadow-lg p-6">
+         <div class="mt-8 p-6">
             <div class="w-full px-0 md:px-6 py-4">
                 <div>
                     <h2 class="text-gray-700 uppercase font-bold">My Attendance Record</h2><br>
@@ -15,7 +15,7 @@
                     <div class="w-1/4 text-right py-2 px-4 font-semibold">Attendance</div>
                 </div>
                 @foreach ($student->attendances as $attendance)
-                    <div class="flex items-center justify-between border border-gray-200 -mb-px">
+                    <div class="bg-white flex items-center justify-between border border-b-4 border-l-4 border-r-4 border-gray-300 -mb-px">
                         <div class="w-1/4 text-left text-gray-600 py-2 px-4 font-medium">{{ $attendance->attendence_date }}</div>
                         <div class="w-1/4 text-left text-gray-600 py-2 px-4 font-medium">{{ $attendance->class->class_name }}</div>
                         <div class="w-1/4 text-left text-gray-600 py-2 px-4 font-medium">{{ $attendance->teacher->user->name }}</div>

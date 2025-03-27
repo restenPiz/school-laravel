@@ -25,7 +25,7 @@
                     <div class="w-3/12 text-right py-2 px-4 font-semibold">Attendence</div>
                 </div>
                 @foreach ($attendances as $attendance)
-                    <div class="flex items-center justify-between border border-gray-200">
+                    <div class="bg-white flex items-center justify-between border border-b-4 border-l-4 border-r-4 border-gray-300">
                         <div class="w-3/12 text-sm text-left text-gray-600 py-2 px-4 font-semibold">{{ $attendance->attendence_date }}</div>
                         <div class="w-3/12 text-sm text-left text-gray-600 py-2 px-4 font-semibold">{{ $attendance->teacher->user->name }}</div>
                         <div class="w-3/12 text-sm text-left text-gray-600 py-2 px-4 font-semibold">{{ $attendance->class->class_name }}</div>
@@ -68,7 +68,7 @@
                 </div>
 
                 @foreach ($fees as $fee)
-                    <div class="flex flex-wrap items-center text-gray-700 border-t-2 border-gray-300">
+                    <div class="bg-white flex flex-wrap items-center text-gray-700 border border-b-4 border-l-4 border-r-4 border-gray-300">
                         <!-- Valor a pagar -->
                         <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
                             {{ number_format($fee->amount_due, 2) }} MZN
@@ -96,7 +96,7 @@
                 @endforeach
             </div>
             {{-- *Start with the accountant section --}}
-            <div style="margin-top:1rem" class="bg-gray-100 p-4 rounded-lg text-gray-800 font-semibold">
+            <div style="margin-top:1rem" class="bg-white p-4 rounded-lg text-gray-800 font-semibold">
                 <div class="flex justify-between">
                     <span class="text-lg">Total Amount Due:</span>
                     <span class="text-lg">{{ number_format($fees->sum('amount_due'), 2) }} MZN</span>

@@ -35,7 +35,7 @@
                 </div>
 
                 @foreach ($fees as $fee)
-                    <div class="flex flex-wrap items-center text-gray-700 border-t-2 border-gray-300">
+                    <div class="flex flex-wrap items-center text-gray-700 border border-b-4 border-l-4 border-r-4 border-gray-300">
                         <!-- Valor a pagar -->
                         <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
                             {{ number_format($fee->amount_due, 2) }} MZN

@@ -86,7 +86,7 @@
                 </div>
 
                 @foreach ($fees as $fee)
-                    <div class="flex flex-wrap items-center text-gray-700 border-t-2 border-gray-300">
+                    <div class="flex flex-wrap items-center text-gray-700 border-b-4 border-l-4 border-r-4 border-gray-300">
                         <!-- Valor a pagar -->
                         <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
                             {{ number_format($fee->amount_due, 2) }} MZN
@@ -259,7 +259,7 @@
                 </div>
                 <div class="bg-white rounded-b-lg">
                     @foreach ($class->subjects as $subject)
-                        <div class="flex justify-between items-center border-b border-gray-200 p-4">
+                        <div class="flex justify-between items-center border-b-4 border-l-4 border-r-4 border-gray-300 p-4">
                             <div class="w-1/3 text-gray-800">{{ $subject->subject_code }}</div>
                             <div class="w-1/3 text-center text-gray-800">{{ $subject->name }}</div>
                             <div class="w-1/3 text-right text-gray-800">{{ $subject->teacher->user->name }}</div>

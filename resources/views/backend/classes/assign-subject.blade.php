@@ -52,7 +52,7 @@
             </form>        
         </div>
         <!-- Log on to codeastro.com for more projects -->
-        <div class="w-full py-12">
+        <div class="w-full py-12 border-gray-300">
             <h2 class="text-gray-700 uppercase font-bold my-2">Students</h2>
             <div class="flex items-center bg-gray-300 text-gray-700">
                 <div class="w-1/4 text-left py-2 px-4 font-semibold">Name</div>
@@ -62,7 +62,7 @@
                 <div class="w-1/5 py-2 px-4 font-semibold"></div>
             </div>
             @foreach ($assigned->students as $student)
-                <div class="bg-white flex items-center justify-between border border-gray-200 mb-px">
+                <div class="bg-white flex items-center justify-between border mb-px border-b-4 border-l-4 border-r-4 border-gray-300">
                     <div class="w-1/4 text-left text-gray-600 py-2 px-4 font-medium">{{ $student->user->name }}</div>
                     <div class="w-1/4 text-left text-gray-600 py-2 px-4 font-medium">{{ $student->user->email }}</div>
                     <div class="w-1/4 text-right text-gray-600 py-2 px-4 font-medium">{{ $student->phone }}</div>
