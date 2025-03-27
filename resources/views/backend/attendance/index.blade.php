@@ -71,7 +71,7 @@
                                 <div class="flex flex-col justify-between bg-gray-100">
                                     @foreach ($attendancevals as $vals => $attendance)
                                         <div class="flex flex-row justify-between w-64">
-                                            <div class="text-sm text-left text-gray-600 py-2 px-4 font-semibold">{{ $attendance->student->user->name }}</div>
+                                            <div class="text-sm text-left text-gray-600 py-2 px-4 font-semibold">{{ $attendance->student->user->name ?? 'N/A' }}</div>
                                             <div class="text-sm text-left text-gray-600 py-2 px-4 font-semibold">
                                                 @if ($attendance->attendence_status)
                                                     <span class="text-xs text-white bg-green-500 px-2 py-1 rounded-custom">P</span>
