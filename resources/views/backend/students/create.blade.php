@@ -86,14 +86,13 @@
                 <input name="profile_picture"
                     class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
                     type="file">
-            </div>
+            {{-- </div>
         </div>
 
-    {{-- ?Second Section --}}
     <div style="margin-top:1rem" class="bg-white shadow-md rounded-lg p-6 max-w-8xl mx-auto">
         <div>
                 <h2 class="text-gray-700 uppercase font-bold">Another Personal Information</h2>
-            </div>
+            </div> --}}
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4" style="margin-top:1rem;">
             <div>
                 <label class="block text-gray-600 font-medium">
