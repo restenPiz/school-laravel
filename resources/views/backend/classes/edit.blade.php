@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+    <link rel="stylesheet" href="">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    </link>
     <div class="roles">
         <!-- Log on to codeastro.com for more projects -->
         <div class="flex items-center justify-between mb-6">
@@ -15,43 +18,35 @@
             </div>
         </div>
 
-        <div class="table w-full mt-8 bg-white rounded">
-            <form action="{{ route('classes.update',$class->id) }}" method="POST" class="w-full max-w-xl px-6 py-12">
+        <div class="bg-white shadow-md rounded-lg p-6 max-w-8xl mx-auto">
+            <form action="{{ route('classes.update',$class->id) }}" method="POST">
                 @csrf
                 @method('PUT')
-                <div class="md:flex md:items-center mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label  class="block text-gray-600 font-medium">
                             Class Name
                         </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <input name="class_name" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="text" value="{{ $class->class_name }}">
+                        <input name="class_name" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" type="text" value="{{ $class->class_name }}">
                         @error('class_name')
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>
                         @enderror
                     </div>
-                </div>
-                <div class="md:flex md:items-center mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                    <div>
+                        <label  class="block text-gray-600 font-medium">
                             Class Numeric
                         </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <input name="class_numeric" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="number" value="{{ $class->class_numeric }}">
+                        <input name="class_numeric" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" type="number" value="{{ $class->class_numeric }}">
                         @error('class_numeric')
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>
-                <div class="md:flex md:items-center mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                <div style="margin-top:1rem" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label  class="block text-gray-600 font-medium">
                             Assign Teacher
                         </label>
-                    </div>
-                    <div class="md:w-2/3 block text-gray-600 font-bold">
                         <div class="relative">
                             <select name="teacher_id" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
                                 <option value="">--Select Teacher--</option>
@@ -71,55 +66,41 @@
                             <p class="text-red-500 text-xs font-normal italic">{{ $message }}</p>
                         @enderror
                     </div>
-                </div><!-- Log on to codeastro.com for more projects -->
-                <div class="md:flex md:items-center mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                    <div>
+                        <label  class="block text-gray-600 font-medium">
                             Class Description
                         </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <input name="class_description" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="text" value="{{ $class->class_description }}">
+                        <input name="class_description" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" type="text" value="{{ $class->class_description }}">
                         @error('class_description')
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>
-                <div class="md:flex md:items-center mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                <div style="margin-top:1rem" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label  class="block text-gray-600 font-medium">
                             Registration Fee
                         </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <input name="registration_fee" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="text" value="{{ $class->registration_fee }}">
+                        <input name="registration_fee" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" type="text" value="{{ $class->registration_fee }}">
                         @error('registration_fee')
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>
                         @enderror
                     </div>
-                </div>
-
-                <div class="md:flex md:items-center mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                    <div>
+                        <label  class="block text-gray-600 font-medium">
                             Monthly Fee
                         </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <input name="monthly_fee" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="text" value="{{ $class->monthly_fee }}">
+                        <input name="monthly_fee" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" type="text" value="{{ $class->monthly_fee }}">
                         @error('monthly_fee')
                             <p class="text-red-500 text-xs italic">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>
 
-                <div class="md:flex md:items-center">
-                    <div class="md:w-1/3"></div>
-                    <div class="md:w-2/3">
-                        <button class="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">
-                            Update Class
-                        </button>
-                    </div>
+                 <div style="margin-top:1rem" class="flex justify-end">
+                    <button class="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">
+                        Update Class
+                    </button>
                 </div>
             </form>        
         </div>

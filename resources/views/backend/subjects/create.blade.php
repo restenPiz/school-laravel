@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+<link rel="stylesheet" href="">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+</link>
     <div class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg">
 
         <div class="flex items-center justify-between mb-6">
@@ -17,23 +20,25 @@
 
                 <div class="space-y-6">
                     <!-- Subject Name -->
-                    <div>
-                        <label for="name" class="block text-gray-600 font-medium">Subject Name</label>
-                        <input name="name" type="text" value="{{ old('name') }}" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" id="name">
-                        @error('name')
-                            <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                        @enderror
-                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="name" class="block text-gray-600 font-medium">Subject Name</label>
+                            <input name="name" type="text" value="{{ old('name') }}" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" id="name">
+                            @error('name')
+                                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                            @enderror
+                        </div>
 
-                    <!-- Subject Code -->
-                    <div style="margin-top:0.7rem">
-                        <label for="subject_code" class="block text-gray-600 font-medium">Subject Code</label>
-                        <input name="subject_code" type="number" value="{{ old('subject_code') }}" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" id="subject_code">
-                        @error('subject_code')
-                            <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                        @enderror
-                    </div>
+                        <!-- Subject Code -->
+                        <div >
+                            <label for="subject_code" class="block text-gray-600 font-medium">Subject Code</label>
+                            <input name="subject_code" type="number" value="{{ old('subject_code') }}" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" id="subject_code">
+                            @error('subject_code')
+                                <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                            @enderror
+                        </div>
 
+                    </div>
                     <!-- Subject Description -->
                     <div style="margin-top:0.7rem">
                         <label for="description" class="block text-gray-600 font-medium">Subject Description</label>

@@ -185,27 +185,32 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-gray-500 font-bold mb-1">Name</label>
-                        <input name="name" class="input-field" type="text" value="{{ $teacher->user->name }}">
+                        <label class="block text-gray-600 font-medium">Name</label>
+                        <input name="name" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" type="text" value="{{ $teacher->user->name }}">
                         @error('name')<p class="text-red-500 text-xs italic">{{ $message }}</p>@enderror
                     </div>
                     <div>
-                        <label class="block text-gray-500 font-bold mb-1">Email</label>
-                        <input name="email" class="input-field" type="email" value="{{ $teacher->user->email }}">
+                        <label class="block text-gray-600 font-medium">Email</label>
+                        <input name="email" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" type="email" value="{{ $teacher->user->email }}">
                         @error('email')<p class="text-red-500 text-xs italic">{{ $message }}</p>@enderror
                     </div>
                     <div>
                     <label class="block text-gray-700 font-semibold">Password</label>
-                    <input type="password" name="password" class="input-field">
+                    <input type="password" name="password" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
                     @error('password') <p class="error-text">{{ $message }}</p> @enderror
                 </div>
                     <div>
-                        <label class="block text-gray-500 font-bold mb-1">Phone</label>
-                        <input name="phone" class="input-field" type="text" value="{{ $teacher->phone }}">
+                        <label class="block text-gray-600 font-medium">Phone</label>
+                        <input name="phone" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" type="text" value="{{ $teacher->phone }}">
                         @error('phone')<p class="text-red-500 text-xs italic">{{ $message }}</p>@enderror
                     </div>
                     <div>
-                        <label class="block text-gray-500 font-bold mb-1">Gender</label>
+                        <label class="block text-gray-600 font-medium">Date of Birth</label>
+                        <input name="dateofbirth" id="datepicker-te" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" type="text" value="{{ $teacher->dateofbirth }}">
+                        @error('dateofbirth')<p class="text-red-500 text-xs italic">{{ $message }}</p>@enderror
+                    </div>
+                    <div>
+                        <label class="block text-gray-600 font-medium">Gender</label>
                         <div class="flex gap-4">
                             <label><input name="gender" type="radio" value="male" {{ ($teacher->gender == 'male') ? 'checked' : '' }}> Male</label>
                             <label><input name="gender" type="radio" value="female" {{ ($teacher->gender == 'female') ? 'checked' : '' }}> Female</label>
@@ -214,25 +219,20 @@
                         @error('gender')<p class="text-red-500 text-xs italic">{{ $message }}</p>@enderror
                     </div>
                     <div>
-                        <label class="block text-gray-500 font-bold mb-1">Date of Birth</label>
-                        <input name="dateofbirth" id="datepicker-te" class="input-field" type="text" value="{{ $teacher->dateofbirth }}">
-                        @error('dateofbirth')<p class="text-red-500 text-xs italic">{{ $message }}</p>@enderror
-                    </div>
-                    <div>
-                        <label class="block text-gray-500 font-bold mb-1">Current Address</label>
-                        <input name="current_address" class="input-field" type="text" value="{{ $teacher->current_address }}">
+                        <label class="block text-gray-600 font-medium">Current Address</label>
+                        <input name="current_address" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" type="text" value="{{ $teacher->current_address }}">
                         @error('current_address')<p class="text-red-500 text-xs italic">{{ $message }}</p>@enderror
                     </div>
                     <div>
-                        <label class="block text-gray-500 font-bold mb-1">Permanent Address</label>
-                        <input name="permanent_address" class="input-field" type="text" value="{{ $teacher->permanent_address }}">
+                        <label class="block text-gray-600 font-medium">Permanent Address</label>
+                        <input name="permanent_address" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" type="text" value="{{ $teacher->permanent_address }}">
                         @error('permanent_address')<p class="text-red-500 text-xs italic">{{ $message }}</p>@enderror
                     </div>
                 </div>
                 <div>
                     <div>
-                        <label class="block text-gray-500 font-bold mb-1">Profile Picture</label>
-                        <input name="profile_picture" class="input-field" type="file">
+                        <label class="block text-gray-600 font-medium">Profile Picture</label>
+                        <input name="profile_picture" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" type="file">
                     </div>
                 </div>
                 <div class="mt-4 text-center">

@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+  <link rel="stylesheet" href="">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    </link>
     <div class="roles">
 
         <div class="flex items-center justify-between mb-6">
@@ -15,132 +18,114 @@
             </div>
         </div>
         <!-- Log on to codeastro.com for more projects -->
-        <div class="table w-full mt-8 bg-white rounded">
-            <form action="{{ route('parents.store') }}" method="POST" class="w-full max-w-xl px-6 py-12" enctype="multipart/form-data">
+        <div class="bg-white shadow-md rounded-lg p-6 max-w-8xl mx-auto">
+            <form action="{{ route('parents.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="md:flex md:items-center mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
-                            Name
-                        </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <input name="name" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="text" value="{{ old('name') }}">
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-gray-600 font-medium">Name</label>
+                        <input placeholder="Write your name" type="text" name="name" value="{{ old('name') }}"
+                            class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
                         @error('name')
-                            <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                            <p class="error-text">{{ $message }}</p>
                         @enderror
                     </div>
-                </div>
-                <div class="md:flex md:items-center mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
-                            Email
-                        </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <input name="email" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="email" value="{{ old('email') }}">
+                    <div>
+                        <label class="block text-gray-600 font-medium">Email</label>
+                        <input placeholder="mauropeniel7@gmail.com" type="email" name="email"
+                            value="{{ old('email') }}"
+                            class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
                         @error('email')
-                            <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                            <p class="error-text">{{ $message }}</p>
                         @enderror
-                    </div>
-                </div>
-                <div class="md:flex md:items-center mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
-                            Password
-                        </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <input name="password" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="password">
-                        @error('password')
-                            <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-                <!-- Log on to codeastro.com for more projects -->
-                <div class="md:flex md:items-center mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
-                            Phone
-                        </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <input name="phone" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="text" value="{{ old('phone') }}">
-                        @error('phone')
-                            <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-                <div class="md:flex md:items-center mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
-                            Gender
-                        </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <div class="flex flex-row items-center">
-                            <label class="block text-gray-500 font-bold">
-                                <input name="gender" class="mr-2 leading-tight" type="radio" value="male">
-                                <span class="text-sm">Male</span>
-                            </label>
-                            <label class="ml-4 block text-gray-500 font-bold">
-                                <input name="gender" class="mr-2 leading-tight" type="radio" value="female">
-                                <span class="text-sm">Female</span>
-                            </label>
-                            <label class="ml-4 block text-gray-500 font-bold">
-                                <input name="gender" class="mr-2 leading-tight" type="radio" value="other">
-                                <span class="text-sm">Other</span>
-                            </label>
-                        </div>
-                        @error('gender')
-                            <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-                <div class="md:flex md:items-center mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
-                            Current Address
-                        </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <input name="current_address" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="text" value="{{ old('current_address') }}">
-                        @error('current_address')
-                            <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-                <div class="md:flex md:items-center mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
-                            Permanent Address
-                        </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <input name="permanent_address" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="text" value="{{ old('permanent_address') }}">
-                        @error('permanent_address')
-                            <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                        @enderror
-                    </div>
-                </div>
-                <div class="md:flex md:items-center mb-6">
-                    <div class="md:w-1/3">
-                        <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">
-                            Picture :
-                        </label>
-                    </div>
-                    <div class="md:w-2/3">
-                        <input name="profile_picture" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="file">
                     </div>
                 </div>
 
-                <div class="md:flex md:items-center">
-                    <div class="md:w-1/3"></div>
-                    <div class="md:w-2/3">
-                        <button class="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">
-                            Submit
-                        </button>
+                <!-- Segunda linha -->
+                <div style="margin-top:1rem" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-gray-600 font-medium">Password</label>
+                        <input type="password" name="password"
+                            class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                        @error('password')
+                            <p class="error-text">{{ $message }}</p>
+                        @enderror
                     </div>
+                    <div>
+                        <label class="block text-gray-600 font-medium">Phone</label>
+                        <input type="text" name="phone" value="{{ old('phone') }}"
+                            class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                        @error('phone')
+                            <p class="error-text">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <!-- Terceira linha -->
+                <div style="margin-top:1rem"  class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-gray-600 font-medium">Date of Birth</label>
+                        <input type="date" name="dateofbirth" value="{{ old('dateofbirth') }}"
+                            class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                        @error('dateofbirth')
+                            <p class="error-text">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div>
+                        <label class="block text-gray-600 font-medium">Gender</label>
+                        <div class="flex gap-4">
+                            <label class="flex items-center">
+                                <input class="bg-gray-600 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                    type="radio" name="gender" value="male" class="mr-2"> Male
+                            </label>
+                            <label class="flex items-center">
+                                <input class="bg-gray-600 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                    type="radio" name="gender" value="female" class="mr-2"> Female
+                            </label>
+                            <label class="flex items-center">
+                                <input class="bg-gray-600 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                    type="radio" name="gender" value="other" class="mr-2"> Other
+                            </label>
+                        </div>
+                        @error('gender')
+                            <p class="error-text">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <!-- Quarta linha -->
+                <div style="margin-top:1rem"  class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-gray-600 font-medium">Current Address</label>
+                        <input placeholder="ex: Beira" type="text" name="current_address"
+                            value="{{ old('current_address') }}"
+                            class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                        @error('current_address')
+                            <p class="error-text">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div>
+                        <label class="block text-gray-600 font-medium">Permanent Address</label>
+                        <input placeholder="ex: Chimoio" type="text" name="permanent_address"
+                            value="{{ old('permanent_address') }}"
+                            class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                        @error('permanent_address')
+                            <p class="error-text">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <!-- Quinta linha -->
+                <div style="margin-top:1rem" >
+                    <label class="block text-gray-600 font-medium">Profile Picture</label>
+                    <input type="file" name="profile_picture"
+                        class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <div style="margin-top:1rem"  class="flex justify-end">
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                        Submit
+                    </button>
                 </div>
             </form>        
         </div>
