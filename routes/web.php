@@ -78,7 +78,7 @@ Route::group(['middleware' => ['auth','role:Teacher']], function ()
 
     //?Start with files routes
     //*Add a class route here to make beautiful process in view
-    Route::get('/teachClasses/{id}', [FileController::class, 'classes'])->name('teacherClasses');
+    Route::get('/teacherClasses/{id}', [FileController::class, 'classes'])->name('teacherClasses');
     Route::get('/files', [FileController::class, 'index'])->name('files');
     Route::post('/storeFiles', [FileController::class, 'store'])->name('storefiles');
     Route::post('/updateFiles/{id}', [FileController::class, 'update'])->name('updatefiles');
