@@ -26,7 +26,8 @@
                     </a>
                 </div>
             </div>
-            <form action="/files/store" method="POST" enctype="multipart/form-data" class="space-y-4">
+            <form action="{{route('storeFiles')}}" method="POST" enctype="multipart/form-data" class="space-y-4">
+                @csrf
                 <div>
                     <label for="title" class="block font-medium text-gray-700">Título</label>
                     <input type="text" id="title" name="title" required class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
