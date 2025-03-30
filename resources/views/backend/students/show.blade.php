@@ -252,16 +252,16 @@
             <div class="w-full sm:w-2/2 mr-2 mb-6" >
                 <div class="bg-gray-300 text-gray-700 rounded-t-lg p-4">
                     <div class="flex justify-between items-center font-bold">
-                        <div class="w-1/3 ">Code</div>
-                        <div class="w-1/3 text-center">Subject</div>
+                        <div class="w-1/3 ">Subject Name</div>
+                        <div class="w-1/3 text-center">Another Name</div>
                         <div class="w-1/3 text-right">Teacher</div>
                     </div>
                 </div>
                 <div class="bg-white rounded-b-lg">
                     @foreach ($class->subjects as $subject)
                         <div class="flex justify-between items-center border-b-4 border-l-4 border-r-4 border-gray-300 p-4">
-                            <div class="w-1/3 text-gray-800">{{ $subject->subject_code }}</div>
-                            <div class="w-1/3 text-center text-gray-800">{{ $subject->name }}</div>
+                            <div class="w-1/3 text-gray-800">{{ $subject->name }}</div>
+                            <div class="w-1/3 text-center text-gray-800">{{ $subject->slug }}</div>
                             <div class="w-1/3 text-right text-gray-800">{{ $subject->teacher->user->name }}</div>
                         </div>
                     @endforeach
