@@ -82,8 +82,9 @@ Route::group(['middleware' => ['auth','role:Teacher']], function ()
     Route::get('/files/{id}', [FileController::class, 'files'])->name('files');
     Route::get('/teacherFile/{id}', [FileController::class, 'index'])->name('teacherFile');
     Route::post('/storeFiles', [FileController::class, 'store'])->name('storeFiles');
+    Route::get('/editFiles/{id}', [FileController::class, 'edit'])->name('editFiles');
     Route::post('/updateFiles/{id}', [FileController::class, 'update'])->name('updateFiles');
-    Route::post('/deleteFiles/{id}', [FileController::class, 'delete'])->name('deleteFiles');
+    Route::get('/deleteFiles/{id}', [FileController::class, 'delete'])->name('deleteFiles');
 });
 
 Route::group(['middleware' => ['auth','role:Parent']], function () 

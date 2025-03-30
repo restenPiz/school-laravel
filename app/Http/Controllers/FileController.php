@@ -63,4 +63,61 @@ class FileController extends Controller
 
         return redirect()->back();
     }
+    public function delete($id)
+    {
+        $file = File::findOrFail($id);
+        $file->delete();
+
+        toast('File excluded with successfuly', 'success');
+
+        return redirect()->back();
+    }
+    public function edit($id)
+    {
+        $file = File::findOrFail($id);
+
+        return view('backend.files.edit', compact('file'));
+    }
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'file' => 'nullable|file|max:10240', // O arquivo não é obrigatório para atualização
+            'class_id' => 'required|exists:grades,id',
+        ]);
+
+        $file = File::findOrFail($id);
+
+        if ($request->hasFile('file')) {
+            if ($file->file_path && \Storage::exists('public/' . $file->file_path)) {
+                \Storage::delete('public/' . $file->file_path);
+            }
+
+            $newFile = $request->file('file');
+            $filePath = $newFile->store('uploads/files', 'public');
+
+            $file->update([
+                'title' => $request->title,
+                'description' => $request->description,
+                'file_path' => $filePath,
+                'file_type' => $newFile->getClientOriginalExtension(),
+                'file_size' => $newFile->getSize(),
+                'teacher_id' => auth()->user()->teacher->id,
+                'class_id' => $request->class_id,
+            ]);
+
+            toast('Arquivo atualizado com sucesso!', 'success');
+        } else {
+            $file->update([
+                'title' => $request->title,
+                'description' => $request->description,
+                'class_id' => $request->class_id,
+            ]);
+
+            toast('Informações atualizadas com sucesso!', 'success');
+        }
+
+        return redirect()->back();
+    }
 }
