@@ -12,7 +12,7 @@
                         @foreach ($teacher->classes as $class)
                             <div class="w-full sm:w-1/2 text-center border border-gray-400 rounded">
                                 <div class="text-gray-800 uppercase font-semibold px-4 py-4 mb-2">{{ $class->class_name }}</div>
-                                <a href="{{ route('teacher.attendance.create',$class->id) }}" 
+                                <a href="{{ route('files',$class->id) }}" 
                                     class="bg-green-600 inline-block mb-4 text-xs text-white uppercase font-semibold px-4 py-2 border border-gray-200 rounded">Manage Files</a>
                             </div>
                         @endforeach
