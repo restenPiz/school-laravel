@@ -20,6 +20,11 @@ class Grade extends Model
         return $this->hasMany(Student::class,'class_id');
     }
 
+    public function files()
+    {
+        return $this->hasMany(File::class, 'class_id');
+    }
+
     public function subjects()
     {
         return $this->belongsToMany(Subject::class);

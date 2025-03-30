@@ -17,4 +17,15 @@ class FileController extends Controller
 
         return view('backend.files.class', compact('teacher'));
     }
+    public function files($id)
+    {
+        $class = Grade::with(['teacher', 'files'])->findOrFail($id);
+
+        return view('backend.files.file', compact('class'));
+    }
+    public function index($id)
+    {
+        $class = Grade::with(['teacher', 'files'])->findOrFail($id);
+        return view('backend.files.index', compact('class'));
+    }
 }

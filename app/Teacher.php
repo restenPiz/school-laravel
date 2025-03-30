@@ -20,6 +20,11 @@ class Teacher extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function files()
+    {
+        return $this->hasMany(File::class, 'teacher_id');
+    }
+
     public function subjects()
     {
         return $this->hasMany(Subject::class);
