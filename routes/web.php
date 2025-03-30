@@ -1,6 +1,7 @@
 <?php
 
 use App\fees;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SubjectController;
@@ -74,6 +75,10 @@ Route::group(['middleware' => ['auth','role:Teacher']], function ()
 
     //?Subject Route
     Route::get('/subjectTeacher/{id}', [SubjectController::class, 'teacher'])->name('subject.teacher');
+
+    //?Start with files routes
+    Route::get('/files', [FileController::class, 'index'])->name('files');
+    Route::get('/storeFiles', [FileController::class, 'store'])->name('storefiles');
 });
 
 Route::group(['middleware' => ['auth','role:Parent']], function () 
