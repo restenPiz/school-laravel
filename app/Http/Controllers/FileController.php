@@ -83,7 +83,7 @@ class FileController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'file' => 'nullable|file|max:10240', // O arquivo não é obrigatório para atualização
+            'file' => 'nullable|file|max:10240',
             'class_id' => 'required|exists:grades,id',
         ]);
 
