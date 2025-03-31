@@ -43,14 +43,17 @@ class GradeController extends Controller
             'monthly_fee' => 'required'
         ]);
 
-        Grade::create([
+        $grade = Grade::create([
             'class_name'        => $request->class_name,
             'class_numeric'     => $request->class_numeric,
-            'teacher_id'        => $request->teacher_id,
+            // 'teacher_id'        => $request->teacher_id,
             'class_description' => $request->class_description,
             'registration_fee' => $request->registration_fee,
             'monthly_fee' => $request->monthly_fee
         ]);
+        $grade->teacher()->sync($request->teacher_id);
+
+        toast('Course created with successfuly', 'success');
 
         return redirect()->route('classes.index');
     }
@@ -105,7 +108,7 @@ class GradeController extends Controller
     public function assignSubject($classid)
     {
         $subjects   = Subject::latest()->get();
-        $assigned   = Grade::with(['subjects','students'])->findOrFail($classid);
+        $assigned   = Grade::with(['subjects','students','teacher'])->findOrFail($classid);
 
         return view('backend.classes.assign-subject', compact('classid','subjects','assigned'));
     }
