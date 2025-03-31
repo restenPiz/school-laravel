@@ -89,19 +89,18 @@
                         @enderror
                     </div>
                     <div>
-                    <label class="block text-gray-600 font-medium">
-                        Assign Teacher
-                    </label>
-                    <div class="space-y-2">
-                        @foreach ($teachers as $teacher)
-                            <div class="flex items-center">
-                                <input type="checkbox" id="option-{{ $teacher->id }}" name="teacher_id[]" value="{{ $teacher->id }}" class="bg-gray-200 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                                <label for="option-{{ $teacher->id }}" class="ml-2 text-gray-700">{{ $teacher->user->name }}</label>
-                            </div>
-                        @endforeach
+                        <label class="block text-gray-600 font-medium">
+                            Assign Teacher
+                        </label>
+                        <div class="space-y-2">
+                            @foreach ($teachers as $teacher)
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="option-{{ $teacher->id }}" name="teacher_id[]" value="{{ $teacher->id }}" class="bg-gray-200 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                                    <label for="option-{{ $teacher->id }}" class="ml-2 text-gray-700">{{ $teacher->user->name }}</label>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
-                </div>
-
                 </div>
 
                 <div style="margin-top:1rem" class="flex justify-end">

@@ -37,7 +37,7 @@ class GradeController extends Controller
         $request->validate([
             'class_name'        => 'required|string|max:255|unique:grades',
             'class_numeric'     => 'required|numeric',
-            'teacher_id'        => 'required|numeric',
+            'teacher_id' => 'required|array',
             'class_description' => 'required|string|max:255',
             'registration_fee' => 'required',
             'monthly_fee' => 'required'
