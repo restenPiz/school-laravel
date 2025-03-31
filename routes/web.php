@@ -104,4 +104,8 @@ Route::group(['middleware' => ['auth','role:Student']], function () {
 
     //?Notes Students routs
     Route::get('/studentNotes/{id}', [NoteController::class, 'student'])->name('notes.students');
+
+    //?Student File Section
+    Route::get('/studentClasses/{id}', [FileController::class, 'studentClasses'])->name('studentClasses');
+    Route::get('/studentFiles/{id}', [FileController::class, 'studentFiles'])->name('studentFiles');
 });

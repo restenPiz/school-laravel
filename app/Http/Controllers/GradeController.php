@@ -121,6 +121,7 @@ class GradeController extends Controller
 
         toast('Course assigned with subject', 'success');
 
-        return redirect()->route('classes.index');
+        return redirect()->back();
+        // return redirect()->route('classes.index');
     }
 }

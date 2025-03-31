@@ -10,10 +10,10 @@
                     <h3 class="text-gray-700 uppercase font-bold mb-2">Subject List 
                     </h3>
                     <div class="flex flex-wrap items-center">
-                        @foreach ($teacher->subjects as $class)
+                        @foreach ($student->class->subjects as $class)
                             <div class="w-full sm:w-1/2 text-center border border-gray-400 rounded">
                                 <div class="text-gray-800 uppercase font-semibold px-4 py-4 mb-2">{{ $class->name }}</div>
-                                <a href="{{ route('files',$class->id) }}" 
+                                <a href="{{ route('studentFiles',$class->id) }}" 
                                     class="bg-green-600 inline-block mb-4 text-xs text-white uppercase font-semibold px-4 py-2 border border-gray-200 rounded">Manage Files</a>
                             </div>
                         @endforeach

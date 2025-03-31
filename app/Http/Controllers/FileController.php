@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\File;
 use App\Grade;
 use App\Student;
+use App\Subject;
 use App\Teacher;
 use App\User;
 use Illuminate\Http\Request;
@@ -21,13 +22,13 @@ class FileController extends Controller
     }
     public function files($id)
     {
-        $class = Grade::with(['teacher', 'files'])->findOrFail($id);
+        $class = Subject::with(['teacher', 'files'])->findOrFail($id);
 
         return view('backend.files.file', compact('class'));
     }
     public function index($id)
     {
-        $class = Grade::with(['teacher', 'files'])->findOrFail($id);
+        $class = Subject::with(['teacher', 'files'])->findOrFail($id);
         return view('backend.files.index', compact('class'));
     }
     public function store(Request $request)
@@ -35,8 +36,7 @@ class FileController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'file' => 'required|file|max:10240', // Máximo 10MB
-            'class_id' => 'required|exists:grades,id',
+            'file' => 'required|file|max:10240',
         ]);
 
         if ($request->hasFile('file')) {
@@ -51,7 +51,7 @@ class FileController extends Controller
                 'file_size' => $file->getSize(),
                 'visibility' => 'restricted',
                 'teacher_id' => auth()->user()->teacher->id,
-                'class_id' => $request->class_id,
+                'subject_id' => $request->class_id,
             ]);
 
             toast('Arquivo enviado com sucesso!', 'success');
@@ -84,7 +84,7 @@ class FileController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'file' => 'nullable|file|max:10240',
-            'class_id' => 'required|exists:grades,id',
+            // 'class_id' => 'required|exists:grades,id',
         ]);
 
         $file = File::findOrFail($id);
@@ -104,7 +104,7 @@ class FileController extends Controller
                 'file_type' => $newFile->getClientOriginalExtension(),
                 'file_size' => $newFile->getSize(),
                 'teacher_id' => auth()->user()->teacher->id,
-                'class_id' => $request->class_id,
+                'subject_id' => $request->class_id,
             ]);
 
             toast('Arquivo atualizado com sucesso!', 'success');
@@ -112,7 +112,7 @@ class FileController extends Controller
             $file->update([
                 'title' => $request->title,
                 'description' => $request->description,
-                'class_id' => $request->class_id,
+                'subject_id' => $request->class_id,
             ]);
 
             toast('Informações atualizadas com sucesso!', 'success');
@@ -120,4 +120,20 @@ class FileController extends Controller
 
         return redirect()->back();
     }
+
+    //?Student Section
+    public function studentClasses($id)
+    {
+        $user = User::findOrFail($id);
+        $student = Student::with(['user', 'class'])->withCount('class')->findOrFail($user->student->id);
+
+        return view('backend.files.studentClass', compact('student'));
+    }
+    public function studentFiles($id)
+    {
+        $class = Subject::with(['teacher', 'files'])->findOrFail($id);
+
+        return view('backend.files.studentFile', compact('class'));
+    }
+
 }
