@@ -10,7 +10,7 @@ class File extends Model
 
     protected $fillable = [
         'teacher_id',
-        'class_id',
+        'subject_id',
         'title',
         'description',
         'file_path',
@@ -26,8 +26,8 @@ class File extends Model
     {
         return $this->belongsTo(Teacher::class);
     }
-    public function class()
+    public function subject()
     {
-        return $this->belongsTo(Grade::class);
+        return $this->belongsTo(Subject::class);
     }
 }

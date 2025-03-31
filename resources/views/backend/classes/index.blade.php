@@ -19,7 +19,7 @@
                 <div class="w-2/12 px-4 py-3">Name</div>
                 <div class="w-1/12 px-4 py-3">Students</div>
                 <div class="w-4/12 px-4 py-3 text-center">Subject Code</div>
-                <div class="w-2/12 px-4 py-3 text-right">Actions</div>
+                <div class="w-2/12 px-4 py-3 text-right"></div>
             </div>
             @foreach ($classes as $class)
                 <div class="flex flex-wrap items-center text-gray-700 border-t-2 border-l-4 border-r-4 border-gray-300">

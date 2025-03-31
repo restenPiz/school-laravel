@@ -21,8 +21,8 @@ class CreateFilesTable extends Migration
             $table->unsignedBigInteger('teacher_id');
             $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
 
-            $table->unsignedBigInteger('class_id');
-            $table->foreign('class_id')->references('id')->on('grades')->onDelete('cascade');
+            $table->unsignedBigInteger('subject_id');
+            $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
 
             $table->timestamps();
         });

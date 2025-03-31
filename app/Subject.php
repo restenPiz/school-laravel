@@ -18,6 +18,10 @@ class Subject extends Model
     {
         return $this->belongsTo(Teacher::class);
     }
+    public function files()
+    {
+        return $this->hasMany(File::class, 'subject_id');
+    }
     public function notes()
     {
         return $this->hasMany(Note::class);
