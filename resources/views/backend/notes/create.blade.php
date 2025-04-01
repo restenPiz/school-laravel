@@ -74,9 +74,9 @@
 
             <input type="hidden" name="student_id" value="{{ $student->id }}">
 
-            <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-500 focus:ring-2 focus:ring-blue-400 transition-colors">
+            <button style="margin-top:1rem" type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-500 focus:ring-2 focus:ring-blue-400 transition-colors">
                 Registrar Notas
-            </button>
+            </buttonn>
         </form>
     @endif
 </div>
@@ -185,26 +185,43 @@
                                                     @enderror
                                                 </div>
 
+                                                {{--?Start writing some inputs (First, Second, Third, Work)--}}
                                                 <div class="mb-4">
-                                                    <label class="block text-gray-500 font-bold mb-2">Type of Avaliation</label>
-                                                    <select name="type" class="w-full bg-gray-200 border rounded py-2 px-3">
-                                                        <option value="{{$note->type}}">{{$note->type}}</option>
-                                                        <option value="first">First Avaliation</option>
-                                                        <option value="second">Second Avaliation</option>
-                                                        <option value="third">Third Avaliation</option>
-                                                    </select>
-                                                    @error('type')
-                                                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                                                    @enderror
-                                                </div>
-
-                                                <div class="mb-4">
-                                                    <label class="block text-gray-500 font-bold mb-2">Note</label>
-                                                    <input value="{{$note->note}}" name="note" type="number" class="w-full bg-gray-200 border rounded py-2 px-3">
+                                                    <label class="block text-gray-500 font-bold mb-2">First Test</label>
+                                                    <input value="{{$note->first}}" name="first" type="number" class="w-full bg-gray-200 border rounded py-2 px-3">
                                                     @error('note')
                                                         <p class="text-red-500 text-xs italic">{{ $message }}</p>
                                                     @enderror
                                                 </div>
+                                                <div class="mb-4">
+                                                    <label class="block text-gray-500 font-bold mb-2">Second Test</label>
+                                                    <input value="{{$note->second}}" name="second" type="number" class="w-full bg-gray-200 border rounded py-2 px-3">
+                                                    @error('note')
+                                                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                                <div class="mb-4">
+                                                    <label class="block text-gray-500 font-bold mb-2">Third Test</label>
+                                                    <input value="{{$note->third}}" name="first" type="number" class="w-full bg-gray-200 border rounded py-2 px-3">
+                                                    @error('note')
+                                                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                                <div class="mb-4">
+                                                    <label class="block text-gray-500 font-bold mb-2">Work</label>
+                                                    <input value="{{$note->work}}" name="work" type="number" class="w-full bg-gray-200 border rounded py-2 px-3">
+                                                    @error('note')
+                                                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                                <div class="mb-4" id="exam-input">
+                                                    <label class="block text-gray-500 font-bold mb-2">Exam</label>
+                                                    <input value="{{$note->exam}}" name="exam" type="number" class="w-full bg-gray-200 border rounded py-2 px-3">
+                                                    @error('note')
+                                                        <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+
                                                 <input type="hidden" name="student_id" value="{{ $student->id }}">
                                                 <div class="flex justify-end mt-6">
                                                     <button onclick="closeModal('editModal{{$note->id}}')" type="button" data-bs-dismiss="modal" class="bg-gray-500 text-white px-4 py-2 rounded">Fechar</button>
@@ -223,8 +240,13 @@
                         <h3 class="text-gray-700 uppercase font-bold mb-4">Notas do Aluno</h3>
 
                             @if($media !== null)
-                                <p><strong>Média: </strong>{{ $media }}</p>
-                                <p style=""><strong>Status: </strong>{{ ucfirst($status) }}</p>
+                                @if ($status=='aprovado')
+                                <p style="color:green"><strong>Média: </strong>{{ $media }}</p>
+                                    <p style="color:green"><strong>Status: </strong>{{ ucfirst($status) }}</p>
+                                @else
+                                    <p style="color:red"><strong>Média: </strong>{{ $media }}</p>
+                                    <p style="color:red"><strong>Status: </strong>{{ ucfirst($status) }}</p>
+                                @endif
                             @else
                                 <p><strong>Notas insuficientes para calcular a média.</strong></p>
                             @endif

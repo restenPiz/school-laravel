@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Grade;
+use Illuminate\Validation\Rule;
 use App\Note;
 use App\Student;
 use App\Subject;
@@ -29,15 +30,20 @@ class NoteController extends Controller
     }
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'first' => 'min:0|max:20|unique:notes',
-        //     'second' => 'min:0|max:20|unique:notes',
-        //     'third' => 'min:0|max:20|unique:notes',
-        //     'work' => 'min:0|max:20|unique:notes',
-        //     'exam' => 'min:0|max:20|unique:notes',
-        //     'subject_id' => 'required',
-        //     'student_id' => 'required',
-        // ]);
+        $validated = $request->validate([
+            'first' => 'nullable|numeric|min:0|max:20|unique:notes,first,NULL,id,student_id,' . $request->student_id,
+            'second' => 'nullable|numeric|min:0|max:20|unique:notes,second,NULL,id,student_id,' . $request->student_id,
+            'third' => 'nullable|numeric|min:0|max:20|unique:notes,third,NULL,id,student_id,' . $request->student_id,
+            'work' => 'nullable|numeric|min:0|max:20|unique:notes,work,NULL,id,student_id,' . $request->student_id,
+            'exam' => 'nullable|numeric|min:0|max:20|unique:notes,exam,NULL,id,student_id,' . $request->student_id,
+            'subject_id' => 'required|exists:subjects,id',
+            'student_id' => 'required|exists:students,id',
+        ]);
+
+        if (!$validated) {
+            toast($validated, 'error');
+            return back();
+        }
 
         $note = Note::create(
             [
