@@ -21,65 +21,80 @@
         <div class="flex flex-col md:flex-row gap-8">
             <!-- Formulário -->
             <div class="w-full md:w-1/2 bg-white rounded p-6">
-                @if($student->status == 'excluido')
-                    <div class="alert alert-danger">
-                        O aluno foi excluído devido à média inferior a 10. Não é possível lançar mais notas.
-                    </div>
-                @else
-                    <form action="{{ route('notes.store') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
+    @if($student->status == 'excluido')
+        <div class="alert alert-danger">
+            O aluno foi excluído devido à média inferior a 10. Não é possível lançar mais notas.
+        </div>
+    @else
+        <form action="{{ route('notes.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
 
-                        <div class="mb-4">
-                            <label class="block text-gray-600 font-medium">Subject</label>
-                            <select name="subject_id" class="w-full bg-gray-200 border rounded py-2 px-3">
-                                <option value="">--Select Subject--</option>
-                                @foreach($student->class->subjects as $subject)
-                                    <option value="{{ $subject->id }}">{{ $subject->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('subject_id')
-                                <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <!-- Primeira Nota -->
-                        <div class="form-group">
-                            <label class="block text-gray-600 font-medium" for="first">Primeira Nota</label>
-                            <input type="number" name="first" id="first" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" value="{{ old('first') }}">
-                        </div>
-
-                        <!-- Segunda Nota -->
-                        <div class="form-group">
-                            <label class="block text-gray-600 font-medium" for="second">Segunda Nota</label>
-                            <input type="number" name="second" id="second" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" value="{{ old('second') }}">
-                        </div>
-
-                        <!-- Terceira Nota -->
-                        <div class="form-group">
-                            <label class="block text-gray-600 font-medium" for="third">Terceira Nota</label>
-                            <input type="number" name="third" id="third" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" value="{{ old('third') }}">
-                        </div>
-
-                        <!-- Nota do Trabalho -->
-                        <div class="form-group">
-                            <label class="block text-gray-600 font-medium" for="work">Nota do Trabalho</label>
-                            <input type="number" name="work" id="work" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" value="{{ old('work') }}">
-                        </div>
-
-                        <!-- Nota do Exame -->
-                        <div class="form-group">
-                            <label class="block text-gray-600 font-medium" for="exam">Nota de Exame</label>
-                            <input type="number" name="exam" id="exam" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" value="{{ old('exam') }}">
-                        </div>
-
-                        <input type="hidden" name="student_id" value="{{ $student->id }}">
-
-                        <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-500 focus:ring-2 focus:ring-blue-400 transition-colors">
-                            Registrar Notas
-                        </button>
-                    </form>
-                @endif
+            <div class="mb-4">
+                <label class="block text-gray-600 font-medium">Subject</label>
+                <select name="subject_id" class="w-full bg-gray-200 border rounded py-2 px-3">
+                    <option value="">--Select Subject--</option>
+                    @foreach($student->class->subjects as $subject)
+                        <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                    @endforeach
+                </select>
+                @error('subject_id')
+                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                @enderror
             </div>
+
+            <!-- Primeira Nota -->
+            <div class="form-group">
+                <label class="block text-gray-600 font-medium" for="first">Primeira Nota</label>
+                <input type="number" name="first" id="first" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" value="{{ old('first') }}">
+            </div>
+
+            <!-- Segunda Nota -->
+            <div class="form-group">
+                <label class="block text-gray-600 font-medium" for="second">Segunda Nota</label>
+                <input type="number" name="second" id="second" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" value="{{ old('second') }}">
+            </div>
+
+            <!-- Terceira Nota -->
+            <div class="form-group">
+                <label class="block text-gray-600 font-medium" for="third">Terceira Nota</label>
+                <input type="number" name="third" id="third" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" value="{{ old('third') }}">
+            </div>
+
+            <!-- Nota do Trabalho -->
+            <div class="form-group">
+                <label class="block text-gray-600 font-medium" for="work">Nota do Trabalho</label>
+                <input type="number" name="work" id="work" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" value="{{ old('work') }}">
+            </div>
+
+            <!-- Nota do Exame (Será exibido apenas se o aluno for aprovado) -->
+            <div id="exam-input" class="form-group" style="display: none;">
+                <label class="block text-gray-600 font-medium" for="exam">Nota de Exame</label>
+                <input type="number" name="exam" id="exam" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" value="{{ old('exam') }}">
+            </div>
+
+            <input type="hidden" name="student_id" value="{{ $student->id }}">
+
+            <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-500 focus:ring-2 focus:ring-blue-400 transition-colors">
+                Registrar Notas
+            </button>
+        </form>
+    @endif
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Pega o status do aluno direto da variável do servidor
+        var studentStatus = '{{ $status }}';
+        var examInput = document.getElementById('exam-input'); // O campo de nota de exame
+        
+        // Se o status for "aprovado", mostra o campo de exame
+        if (studentStatus == 'aprovado') {
+            examInput.style.display = 'block'; // Exibe o campo de exame
+        } else {
+            examInput.style.display = 'none'; // Caso contrário, esconde o campo
+        }
+    });
+</script>
 
 
 
@@ -205,15 +220,15 @@
                         @endforeach
                     </div>
                     <div class="w-full md:w-1/2 bg-white rounded p-6">
-    <h3 class="text-gray-700 uppercase font-bold mb-4">Notas do Aluno</h3>
+                        <h3 class="text-gray-700 uppercase font-bold mb-4">Notas do Aluno</h3>
 
-    @if($media !== null)
-        <p><strong>Média: </strong>{{ $media }}</p>
-        <p><strong>Status: </strong>{{ ucfirst($status) }}</p>
-    @else
-        <p><strong>Notas insuficientes para calcular a média.</strong></p>
-    @endif
-</div>
+                            @if($media !== null)
+                                <p><strong>Média: </strong>{{ $media }}</p>
+                                <p style=""><strong>Status: </strong>{{ ucfirst($status) }}</p>
+                            @else
+                                <p><strong>Notas insuficientes para calcular a média.</strong></p>
+                            @endif
+                    </div>
                 @endif
             </div>
         </div>
@@ -234,9 +249,9 @@
             document.getElementById(modalId).classList.add("hidden");
         }
     </script>
-    <script>
+    {{-- <script>
     if ({{ $student->status == 'excluido' ? 'true' : 'false' }}) {
         document.getElementById("exam").disabled = true;
     }
-</script>
+</script> --}}
 @endsection
