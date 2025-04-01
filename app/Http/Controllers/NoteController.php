@@ -128,22 +128,19 @@ class NoteController extends Controller
 
         // Inicializando a média e status
         $media = null;
-        $status = 'excluido'; // Caso ainda não tenha todas as notas
+        $status = 'excluido';
 
-        // Verifica se todas as notas foram lançadas
         if ($note1 !== null && $note2 !== null && $note3 !== null && $note4 !== null) {
-            // Calcula a média se todas as notas foram lançadas
+
             $media = ($note1 + $note2 + $note3 + $note4) / 4;
 
-            // Verifica a situação do aluno baseado na média
             if ($media >= 10) {
                 $status = 'aprovado';
             } else {
-                $status = 'excluido';  // Aqui você pode adicionar alguma lógica para determinar se o aluno vai para exame
+                $status = 'excluido';
             }
         }
 
-        // Retorna a view com as informações do aluno, média e status
         return view('backend.notes.create', compact('student', 'media', 'status'));
     }
     public function update(Request $request, $id)

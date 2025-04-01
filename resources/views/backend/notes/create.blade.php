@@ -202,7 +202,7 @@
                                                 </div>
                                                 <div class="mb-4">
                                                     <label class="block text-gray-500 font-bold mb-2">Third Test</label>
-                                                    <input value="{{$note->third}}" name="first" type="number" class="w-full bg-gray-200 border rounded py-2 px-3">
+                                                    <input value="{{$note->third}}" name="third" type="number" class="w-full bg-gray-200 border rounded py-2 px-3">
                                                     @error('note')
                                                         <p class="text-red-500 text-xs italic">{{ $message }}</p>
                                                     @enderror
