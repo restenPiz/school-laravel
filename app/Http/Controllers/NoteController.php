@@ -19,19 +19,25 @@ class NoteController extends Controller
         $classes = Grade::all();
         $subjects = Subject::all();
 
+        //*Condicoes para calculo da situacao do estudante
+        $note1 = DB::table('notes')->where('first')->get();
+        $note2 = DB::table('notes')->where('second')->get();
+        $note3 = DB::table('notes')->where('third')->get();
+        $note1 = DB::table('notes')->where('work')->get();
+
         return view('backend.notes.index', compact('students', 'classes', 'subjects'));
     }
     public function store(Request $request)
     {
-        $request->validate([
-            'first' => 'min:0|max:20',
-            'second' => 'min:0|max:20',
-            'third' => 'min:0|max:20',
-            'work' => 'min:0|max:20',
-            'exam' => 'min:0|max:20',
-            'subject_id' => 'required',
-            'student_id' => 'required',
-        ]);
+        // $request->validate([
+        //     'first' => 'min:0|max:20|unique:notes',
+        //     'second' => 'min:0|max:20|unique:notes',
+        //     'third' => 'min:0|max:20|unique:notes',
+        //     'work' => 'min:0|max:20|unique:notes',
+        //     'exam' => 'min:0|max:20|unique:notes',
+        //     'subject_id' => 'required',
+        //     'student_id' => 'required',
+        // ]);
 
         $note = Note::create(
             [
@@ -44,6 +50,28 @@ class NoteController extends Controller
                 'exam' => $request->exam,
             ]
         );
+
+        $notes = DB::table('notes')->where('student_id', $note->student_id)->get();
+
+        $note1 = $notes->where('first', '!=', null)->first();
+        $note2 = $notes->where('second', '!=', null)->first();
+        $note3 = $notes->where('third', '!=', null)->first();
+        $note4 = $notes->where('work', '!=', null)->first();
+
+        $media = null;
+        $status = 'excluido';
+
+        if ($note1 && $note2 && $note3 && $note4) {
+            $media = ($note1->first + $note2->second + $note3->third + $note4->work) / 4;
+
+            if ($media >= 10) {
+                $status = 'aprovado';
+            } else {
+                $status = 'excluido';
+            }
+        }
+
+        $note->update(['status' => $status]);
 
         return redirect()->back()->with('success', 'Notas lançadas com sucesso!');
     }
@@ -76,7 +104,41 @@ class NoteController extends Controller
     public function create($id)
     {
         $student = Student::findOrFail($id);
-        return view('backend.notes.create', compact('student'));
+
+        // Verifica se o aluno já tem notas registradas
+        $notes = DB::table('notes')->where('student_id', $student->id)->get();
+
+        // Verifica se todas as notas foram lançadas
+        $first = $notes->where('first', '!=', null)->first();
+        $second = $notes->where('second', '!=', null)->first();
+        $third = $notes->where('third', '!=', null)->first();
+        $work = $notes->where('work', '!=', null)->first();
+
+        // Inicializando as variáveis das notas
+        $note1 = $first ? $first->first : null;
+        $note2 = $second ? $second->second : null;
+        $note3 = $third ? $third->third : null;
+        $note4 = $work ? $work->work : null;
+
+        // Inicializando a média e status
+        $media = null;
+        $status = 'excluido'; // Caso ainda não tenha todas as notas
+
+        // Verifica se todas as notas foram lançadas
+        if ($note1 !== null && $note2 !== null && $note3 !== null && $note4 !== null) {
+            // Calcula a média se todas as notas foram lançadas
+            $media = ($note1 + $note2 + $note3 + $note4) / 4;
+
+            // Verifica a situação do aluno baseado na média
+            if ($media >= 10) {
+                $status = 'aprovado';
+            } else {
+                $status = 'excluido';  // Aqui você pode adicionar alguma lógica para determinar se o aluno vai para exame
+            }
+        }
+
+        // Retorna a view com as informações do aluno, média e status
+        return view('backend.notes.create', compact('student', 'media', 'status'));
     }
     public function update(Request $request, $id)
     {
