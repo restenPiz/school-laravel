@@ -48,9 +48,9 @@
 
                         <div class="bg-white flex flex-wrap items-center text-gray-700 border border-b-4 border-l-4 border-r-4 border-gray-300">
                             <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $subjectName }}</div>
-                            <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $first ?? '—' }}</div>
-                            <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $second ?? '—' }}</div>
-                            <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $third ?? '—' }}</div>
+                            <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $note->first ?? '—' }}</div>
+                            <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $note->second ?? '—' }}</div>
+                            <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $note->third ?? '—' }}</div>
                             <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
                                 {{ $examNote !== null ? $examNote : '—' }}
                             </div>

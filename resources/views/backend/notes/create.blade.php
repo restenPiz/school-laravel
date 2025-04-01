@@ -297,9 +297,16 @@
                             @if ($status == 'aprovado')
                                 <p style="color:green"><strong>Média: </strong>{{ $media }}</p>
                                 <p style="color:green"><strong>Status: </strong>{{ ucfirst($status) }}</p>
-                            @else
+                            @elseif($status == 'excluido')
                                 <p style="color:red"><strong>Média: </strong>{{ $media }}</p>
                                 <p style="color:red"><strong>Status: </strong>{{ ucfirst($status) }}</p>
+                            
+                            @elseif($status == 'reprovado no exame')
+                            <p style="color:red"><strong>Média: </strong>{{ $media }}</p>
+                            <p style="color:red"><strong>Status: </strong>{{ ucfirst($status) }}</p>
+                            @else
+                            <p style="color:green"><strong>Média: </strong>{{ $media }}</p>
+                            <p style="color:green"><strong>Status: </strong>{{ ucfirst($status) }}</p>
                             @endif
                         @else
                             <p><strong>Notas insuficientes para calcular a média.</strong></p>
