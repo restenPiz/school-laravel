@@ -9,9 +9,12 @@ class Note extends Model
     protected $table = 'notes';
 
     protected $fillable = [
-        'id',
-        'note',
-        'type',
+        'first',
+        'second',
+        'third',
+        'work',
+        'exam',
+        'status',
         'subject_id',
         'student_id',
     ];

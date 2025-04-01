@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+<link rel="stylesheet" href="">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+</link>
     <div class="roles">
         <div class="flex items-center justify-between mb-6">
             <div>
@@ -17,52 +20,68 @@
         <!-- Layout Flexível para Formulário e Tabela -->
         <div class="flex flex-col md:flex-row gap-8">
             <!-- Formulário -->
-            <div class="w-full md:w-1/2 bg-white rounded p-6">
-                <form action="{{ route('notes.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="mb-4">
-                        <label class="block text-gray-500 font-bold mb-2">Subject</label>
-                        <select name="subject_id" class="w-full bg-gray-200 border rounded py-2 px-3">
-                            <option value="">--Select Subject--</option>
-                            @foreach($student->class->subjects as $subject)
-                                <option value="{{ $subject->id }}">{{ $subject->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('subject_id')
-                            <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                        @enderror
-                    </div>
+<div class="w-full md:w-1/2 bg-white rounded p-6">
+    @if($student->status == 'excluido')
+        <div class="alert alert-danger">
+            O aluno foi excluído devido à média inferior a 10. Não é possível lançar mais notas.
+        </div>
+    @else
+        <form action="{{ route('notes.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
 
-                    <div class="mb-4">
-                        <label class="block text-gray-500 font-bold mb-2">Type of Avaliation</label>
-                        <select name="type" class="w-full bg-gray-200 border rounded py-2 px-3">
-                            <option value="">--Select the Type of Avaliation--</option>
-                            <option value="first">First Avaliation</option>
-                            <option value="second">Second Avaliation</option>
-                            <option value="third">Third Avaliation</option>
-                        </select>
-                        @error('type')
-                            <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="block text-gray-500 font-bold mb-2">Note</label>
-                        <input name="note" type="number" class="w-full bg-gray-200 border rounded py-2 px-3">
-                        @error('note')
-                            <p class="text-red-500 text-xs italic">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <input type="hidden" name="student_id" value="{{ $student->id }}">
-
-                    <div>
-                        <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded w-full">
-                            Submit
-                        </button>
-                    </div>
-                </form>
+            <div class="mb-4">
+                <label class="block text-gray-600 font-medium">Subject</label>
+                <select name="subject_id" class="w-full bg-gray-200 border rounded py-2 px-3">
+                    <option value="">--Select Subject--</option>
+                    @foreach($student->class->subjects as $subject)
+                        <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                    @endforeach
+                </select>
+                @error('subject_id')
+                    <p class="text-red-500 text-xs italic">{{ $message }}</p>
+                @enderror
             </div>
+
+            <!-- Primeira Nota -->
+            <div class="form-group">
+                <label class="block text-gray-600 font-medium" for="first">Primeira Nota</label>
+                <input type="number" name="first" id="first" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" value="{{ old('first') }}">
+            </div>
+
+            <!-- Segunda Nota -->
+            <div class="form-group">
+                <label class="block text-gray-600 font-medium" for="second">Segunda Nota</label>
+                <input type="number" name="second" id="second" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" value="{{ old('second') }}">
+            </div>
+
+            <!-- Terceira Nota -->
+            <div class="form-group">
+                <label class="block text-gray-600 font-medium" for="third">Terceira Nota</label>
+                <input type="number" name="third" id="third" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" value="{{ old('third') }}">
+            </div>
+
+            <!-- Nota do Trabalho -->
+            <div class="form-group">
+                <label class="block text-gray-600 font-medium" for="work">Nota do Trabalho</label>
+                <input type="number" name="work" id="work" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" value="{{ old('work') }}">
+            </div>
+
+            <!-- Nota do Exame -->
+            <div class="form-group">
+                <label class="block text-gray-600 font-medium" for="exam">Nota de Exame</label>
+                <input type="number" name="exam" id="exam" class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500" value="{{ old('exam') }}">
+            </div>
+
+            <input type="hidden" name="student_id" value="{{ $student->id }}">
+
+            <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-500 focus:ring-2 focus:ring-blue-400 transition-colors">
+                Registrar Notas
+            </button>
+        </form>
+    @endif
+</div>
+
+
 
             <!-- Tabela de Notas -->
             <div class="w-full md:w-1/2 bg-white rounded p-6">
@@ -90,21 +109,30 @@
                             <div class="w-2/12 px-4 py-3">Note</div>
                             <div class="w-2/12 px-4 py-3"></div>
                         </div>
-                        @foreach($student->notes as $note)
-                            <div class="flex flex-wrap items-center text-gray-700 border-t-2 border-gray-300">
-                                <div class="w-4/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $note->subject->name }}</div>
-                                <div class="w-3/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ ucfirst($note->type) }}</div>
-                                <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $note->note }}</div>
-                                <div class="w-2/12 flex items-center justify-end px-3">
-                                    <a onclick="openEditModal({{ $note->id }})" 
-                                    href="#" class="ml-1" type="button" data-bs-toggle="modal" data-bs-target="#editModal{{$note->id}}">
-                                        <svg class="h-6 w-6 fill-current text-green-600" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pen-square" class="svg-inline--fa fa-pen-square fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M400 480H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48v352c0 26.5-21.5 48-48 48zM238.1 177.9L102.4 313.6l-6.3 57.1c-.8 7.6 5.6 14.1 13.3 13.3l57.1-6.3L302.2 242c2.3-2.3 2.3-6.1 0-8.5L246.7 178c-2.5-2.4-6.3-2.4-8.6-.1zM345 165.1L314.9 135c-9.4-9.4-24.6-9.4-33.9 0l-23.1 23.1c-2.3 2.3-2.3 6.1 0 8.5l55.5 55.5c2.3 2.3 6.1 2.3 8.5 0L345 199c9.3-9.3 9.3-24.5 0-33.9z"></path></svg>
-                                    </a>
-                                    <a href="{{route('notes.delete',['id'=>$note->id])}}" class="deletestudent ml-1 bg-red-600 block p-1 border border-red-600 rounded-sm" title="Delete">
-                                        <svg class="h-3 w-3 fill-current text-gray-100" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash" class="svg-inline--fa fa-trash fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"></path></svg>
-                                    </a>
-                                </div>
-                            </div>
+                         @foreach($student->notes as $note)
+                            @foreach (['first', 'second', 'third', 'work', 'exam'] as $type)
+                                @if($note->$type !== null) <!-- Verifica se a nota existe -->
+                                    <div class="flex flex-wrap items-center text-gray-700 border-t-2 border-gray-300">
+                                        <div class="w-4/12 px-4 py-3 text-sm font-semibold text-gray-600">
+                                            {{ $note->subject->name }}
+                                        </div>
+                                        <div class="w-3/12 px-4 py-3 text-sm font-semibold text-gray-600">
+                                            {{ ucfirst($type) }}
+                                        </div>
+                                        <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
+                                            {{ $note->$type }}
+                                        </div>
+                                        <div class="w-2/12 flex items-center justify-end px-3">
+                                            <a onclick="openEditModal({{ $note->id }})" href="#" class="ml-1" type="button" data-bs-toggle="modal" data-bs-target="#editModal{{$note->id}}">
+                                                <svg class="h-6 w-6 fill-current text-green-600" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="pen-square" class="svg-inline--fa fa-pen-square fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M400 480H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48v352c0 26.5-21.5 48-48 48zM238.1 177.9L102.4 313.6l-6.3 57.1c-.8 7.6 5.6 14.1 13.3 13.3l57.1-6.3L302.2 242c2.3-2.3 2.3-6.1 0-8.5L246.7 178c-2.5-2.4-6.3-2.4-8.6-.1zM345 165.1L314.9 135c-9.4-9.4-24.6-9.4-33.9 0l-23.1 23.1c-2.3 2.3-2.3 6.1 0 8.5l55.5 55.5c2.3 2.3 6.1 2.3 8.5 0L345 199c9.3-9.3 9.3-24.5 0-33.9z"></path></svg>
+                                            </a>
+                                            <a href="{{route('notes.delete',['id'=>$note->id])}}" class="deletestudent ml-1 bg-red-600 block p-1 border border-red-600 rounded-sm" title="Delete">
+                                                <svg class="h-3 w-3 fill-current text-gray-100" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash" class="svg-inline--fa fa-trash fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"></path></svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                @endif
+                                @endforeach
 
                             {{--?Start with modal edit--}}
                                 <div id="editModal{{$note->id}}" data-bs-keyboard="false"

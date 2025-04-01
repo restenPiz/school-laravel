@@ -24,32 +24,30 @@ class NoteController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'note' => 'required|numeric|min:0|max:20',
-            'type' => 'required',
-            'subject_id' => 'required|exists:subjects,id',
-            'student_id' => 'required|exists:students,id',
+            'first' => 'min:0|max:20',
+            'second' => 'min:0|max:20',
+            'third' => 'min:0|max:20',
+            'work' => 'min:0|max:20',
+            'exam' => 'min:0|max:20',
+            'subject_id' => 'required',
+            'student_id' => 'required',
         ]);
 
-        $existingNote = Note::where('student_id', $request->student_id)
-            ->where('subject_id', $request->subject_id)
-            ->where('type', $request->type)
-            ->first();
+        $note = Note::create(
+            [
+                'student_id' => $request->student_id,
+                'subject_id' => $request->subject_id,
+                'first' => $request->first,
+                'second' => $request->second,
+                'third' => $request->third,
+                'work' => $request->work,
+                'exam' => $request->exam,
+            ]
+        );
 
-        if ($existingNote) {
-            return redirect()->back()->with('error', 'Este estudante já possui uma nota para esta avaliação.');
-        }
-
-        Note::create([
-            'note' => $request->note,
-            'type' => $request->type,
-            'subject_id' => $request->subject_id,
-            'student_id' => $request->student_id,
-        ]);
-
-        toast('Note added with successfuly', 'success');
-
-        return redirect()->back()->with('success', 'Nota lançada com sucesso!');
+        return redirect()->back()->with('success', 'Notas lançadas com sucesso!');
     }
+
     public function delete($id)
     {
         $notes = Note::findOrFail($id);

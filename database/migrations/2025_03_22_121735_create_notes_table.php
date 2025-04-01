@@ -10,8 +10,14 @@ class CreateNotesTable extends Migration
     {
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
-            $table->string('note');
-            $table->enum('type', ['first', 'second', 'third', 'exame']);
+            $table->decimal('first', 5, 2)->nullable();
+            $table->decimal('second', 5, 2)->nullable();
+            $table->decimal('third', 5, 2)->nullable();
+            $table->decimal('work', 5, 2)->nullable();
+            $table->decimal('exam', 5, 2)->nullable();
+
+            // Atualizar o status, que deve ser baseado nas notas
+            $table->enum('status', ['aprovado', 'excluido'])->default('aprovado');
 
             //?Foreign Keys
             $table->unsignedBigInteger('subject_id');
