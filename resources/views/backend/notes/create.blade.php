@@ -214,13 +214,13 @@
                                                         <p class="text-red-500 text-xs italic">{{ $message }}</p>
                                                     @enderror
                                                 </div>
-                                                <div class="mb-4" id="exam-input">
+                                                {{-- <div class="mb-4" id="exam-input">
                                                     <label class="block text-gray-500 font-bold mb-2">Exam</label>
                                                     <input value="{{$note->exam}}" name="exam" type="number" class="w-full bg-gray-200 border rounded py-2 px-3">
                                                     @error('note')
                                                         <p class="text-red-500 text-xs italic">{{ $message }}</p>
                                                     @enderror
-                                                </div>
+                                                </div> --}}
 
                                                 <input type="hidden" name="student_id" value="{{ $student->id }}">
                                                 <div class="flex justify-end mt-6">

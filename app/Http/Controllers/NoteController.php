@@ -148,24 +148,52 @@ class NoteController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'note' => 'required|numeric|min:0|max:20',
-            'type' => 'required',
-            'subject_id' => 'required',
-            'student_id' => 'required',
+        $validated = $request->validate([
+            'first' => 'nullable|numeric|min:0|max:20|unique:notes,first,NULL,id,student_id,' . $request->student_id . ',id,' . $id,
+            'second' => 'nullable|numeric|min:0|max:20|unique:notes,second,NULL,id,student_id,' . $request->student_id . ',id,' . $id,
+            'third' => 'nullable|numeric|min:0|max:20|unique:notes,third,NULL,id,student_id,' . $request->student_id . ',id,' . $id,
+            'work' => 'nullable|numeric|min:0|max:20|unique:notes,work,NULL,id,student_id,' . $request->student_id . ',id,' . $id,
+            'exam' => 'nullable|numeric|min:0|max:20|unique:notes,exam,NULL,id,student_id,' . $request->student_id . ',id,' . $id,
+            'subject_id' => 'required|exists:subjects,id',
+            'student_id' => 'required|exists:students,id',
         ]);
 
-        $notes = Note::findOrFail($id);
+        $note = Note::findOrFail($id);
 
-        $notes->update([
-            'note' => $request->note,
-            'type' => $request->type,
+        $note->update([
+            'first' => $request->first,
+            'second' => $request->second,
+            'third' => $request->third,
+            'work' => $request->work,
+            'exam' => $request->exam,
             'subject_id' => $request->subject_id,
             'student_id' => $request->student_id,
         ]);
-        toast('Datas updated with successfuly', 'success');
 
-        return redirect()->back()->with('success', 'Nota actualizada com sucesso!');
+        $notes = DB::table('notes')->where('student_id', $note->student_id)->get();
+
+        $note1 = $notes->where('first', '!=', null)->first();
+        $note2 = $notes->where('second', '!=', null)->first();
+        $note3 = $notes->where('third', '!=', null)->first();
+        $note4 = $notes->where('work', '!=', null)->first();
+
+        $media = null;
+        $status = 'excluido';
+
+        if ($note1 && $note2 && $note3 && $note4) {
+            $media = ($note1->first + $note2->second + $note3->third + $note4->work) / 4;
+
+            if ($media >= 10) {
+                $status = 'aprovado';
+            } else {
+                $status = 'excluido';
+            }
+        }
+
+        $note->update(['status' => $status]);
+
+        return redirect()->back()->with('success', 'Notas atualizadas com sucesso!');
+
     }
     public function student($id)
     {
