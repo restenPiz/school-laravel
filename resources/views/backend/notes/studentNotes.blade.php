@@ -30,17 +30,29 @@
                         <div class="w-2/12 px-4 py-3">Second Avaliation</div>
                         <div class="w-2/12 px-4 py-3">Third Avaliation</div>
                         <div class="w-2/12 px-4 py-3">Work</div>
-                        <div class="w-2/12 px-4 py-3">Status</div>
+                        
+                        <div class="w-2/12 px-4 py-3"></div>
                     </div>
 
                     @foreach ($studentNotesBySubject as $subjectId => $notes)
+                        @php
+                            $validNotes = array_filter([$notes['first'], $notes['second'], $notes['third'], $notes['work'], $notes['exam']]);
+                            $average = !empty($validNotes) ? array_sum($validNotes) / count($validNotes) : 0;
+
+                            $status = $average < 10 ? 'Excluído' : 'Aprovado';
+                        @endphp
                         <div class="flex flex-wrap items-center text-gray-700 border border-b-4 border-l-4 border-r-4 border-gray-300">
                             <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $notes['subject_name'] }}</div>
                             <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $notes['first'] ?? '—' }}</div>
                             <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $notes['second'] ?? '—' }}</div>
                             <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $notes['third'] ?? '—' }}</div>
                             <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $notes['work'] ?? '—' }}</div>
-                            <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $notes['status'] }}</div>
+                           <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
+                                {{ $status }} - 
+                                <span class="bg-gray-200 text-sm px-2 border rounded-full">
+                                     ({{ number_format($average, 2) }})
+                                </span>
+                            </div>
                         </div>
                     @endforeach
                 </div>

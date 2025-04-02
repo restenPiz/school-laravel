@@ -194,10 +194,6 @@ class NoteController extends Controller
     }
     public function student($id)
     {
-        // $user = User::findOrFail($id);
-        // $student = Student::findOrFail($user->student->id);
-
-        // return view('backend.notes.studentNotes', compact('student'));
         $user = User::findOrFail($id);
         $student = Student::with(['notes', 'notes.subject', 'user', 'parent', 'class', 'attendances'])->find($user->student->id);
 

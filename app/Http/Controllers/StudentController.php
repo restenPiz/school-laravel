@@ -151,7 +151,8 @@ class StudentController extends Controller
             $profile = Str::slug($student->user->name).'-'.$student->user->id.'.'.$request->profile_picture->getClientOriginalExtension();
             $request->profile_picture->move(public_path('images/profile'), $profile);
         } else {
-            $profile = $student->user->profile_picture;
+            // $profile = $student->user->profile_picture;
+            $profile = '';
         }
 
         $student->user()->update([
