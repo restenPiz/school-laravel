@@ -1,10 +1,26 @@
 @extends('layouts.app')
 @section('content')
     <div class="roles">
-        <div class="">
-            <h3 class="text-gray-700 uppercase font-bold mb-4">Student Notes - {{ $student->user->name }}</h3>
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h2 class="text-2xl font-bold text-gray-600">{{$student->user->name}} - Notes</h2>
+            </div>
+            <div class="flex flex-wrap items-center">
+                <button style="margin-right:0.5rem" onclick="printSelectedSections(['student_info', 'fee'])" class="bg-blue-800 text-white text-sm py-2 px-4 flex items-center rounded-lg hover:bg-gray-700 transition duration-300">
+                    <svg class="w-4 h-4 fill-current" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="print" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path fill="currentColor" d="M464 128h-16V64a64 64 0 0 0-64-64H128a64 64 0 0 0-64 64v64H48a48 48 0 0 0-48 48v160a48 48 0 0 0 48 48h16v96a32 32 0 0 0 32 32h320a32 32 0 0 0 32-32v-96h16a48 48 0 0 0 48-48V176a48 48 0 0 0-48-48zM128 64h256v64H128zm256 384H128v-80h256zm64-128H64V192h384zm-48-64a16 16 0 1 1-16-16 16 16 0 0 1 16 16z"></path>
+                    </svg>
+                    <span class="ml-2 text-xs font-semibold">Print</span>
+                </button>
 
-            @if ($student->notes->isEmpty())
+                <a href="{{ route('student.index') }}" class="bg-gray-800 text-white text-sm py-2 px-4 flex items-center rounded-lg hover:bg-gray-700 transition duration-300">
+                    <svg class="w-4 h-4 fill-current" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="long-arrow-alt-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z"></path></svg>
+                    <span class="ml-2 text-xs font-semibold">Back</span>
+                </a>
+            </div>
+        </div>
+        <div style="margin-top: 1rem;">
+            @if (empty($studentNotesBySubject))
                 <p class="text-gray-600">No notes available.</p>
             @else
                 <div class="mt-8 bg-white rounded border-b-4 border-gray-300">
@@ -13,60 +29,18 @@
                         <div class="w-2/12 px-4 py-3">First Avaliation</div>
                         <div class="w-2/12 px-4 py-3">Second Avaliation</div>
                         <div class="w-2/12 px-4 py-3">Third Avaliation</div>
-                        <div class="w-2/12 px-4 py-3">Exam Note</div>
-                         <div class="w-2/12 px-4 py-3">Status</div> <!-- Nova coluna para a nota do exame -->
+                        <div class="w-2/12 px-4 py-3">Work</div>
+                        <div class="w-2/12 px-4 py-3">Status</div>
                     </div>
 
-                    @php
-                        // Agrupar notas por disciplina e por tipo de avaliação
-                        $studentNotesBySubject = [];
-
-                        foreach ($student->notes as $note) {
-                            $studentNotesBySubject[$note->subject->name][$note->type] = $note->note;
-                        }
-                    @endphp
-
-                    @foreach ($studentNotesBySubject as $subjectName => $notes)
-                        @php
-                            $first = $notes['first'] ?? null;
-                            $second = $notes['second'] ?? null;
-                            $third = $notes['third'] ?? null;
-                            $status = 'Pendente';
-                            $examNote = null;
-
-                            if ($first !== null && $second !== null && $third !== null) {
-                                $average = ($first + $second + $third) / 3;
-                                
-                                if ($average < 10) {
-                                    $status = 'Excluído';
-                                } else {
-                                    $status = 'Aprovado';
-                                    $examNote = rand(10, 20); // Simula a nota do exame (pode substituir pela real)
-                                }
-                            }
-                        @endphp
-
-                        <div class="bg-white flex flex-wrap items-center text-gray-700 border border-b-4 border-l-4 border-r-4 border-gray-300">
-                            <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $subjectName }}</div>
-                            <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $note->first ?? '—' }}</div>
-                            <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $note->second ?? '—' }}</div>
-                            <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $note->third ?? '—' }}</div>
-                            <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
-                                {{ $examNote !== null ? $examNote : '—' }}
-                            </div>
-                            @if($status=='Pendente')
-                            <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
-                                <span class="bg-yellow-200 text-sm px-2 border rounded-full">{{ $status }}</span>
-                            </div>
-                            @elseif($status=='Excluído')
-                            <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
-                                <span class="bg-red-200 text-sm px-2 border rounded-full">{{ $status }}</span>
-                            </div>
-                            @else
-                            <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
-                                <span class="bg-green-200 text-sm px-2 border rounded-full">{{ $status }}</span>
-                            </div>
-                            @endif
+                    @foreach ($studentNotesBySubject as $subjectId => $notes)
+                        <div class="flex flex-wrap items-center text-gray-700 border border-b-4 border-l-4 border-r-4 border-gray-300">
+                            <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $notes['subject_name'] }}</div>
+                            <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $notes['first'] ?? '—' }}</div>
+                            <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $notes['second'] ?? '—' }}</div>
+                            <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $notes['third'] ?? '—' }}</div>
+                            <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $notes['work'] ?? '—' }}</div>
+                            <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $notes['status'] }}</div>
                         </div>
                     @endforeach
                 </div>

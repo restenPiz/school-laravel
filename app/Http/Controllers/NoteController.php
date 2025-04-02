@@ -194,9 +194,42 @@ class NoteController extends Controller
     }
     public function student($id)
     {
-        $user = User::findOrFail($id);
-        $student = Student::findOrFail($user->student->id);
+        // $user = User::findOrFail($id);
+        // $student = Student::findOrFail($user->student->id);
 
-        return view('backend.notes.studentNotes', compact('student'));
+        // return view('backend.notes.studentNotes', compact('student'));
+        $user = User::findOrFail($id);
+        $student = Student::with(['notes', 'notes.subject', 'user', 'parent', 'class', 'attendances'])->find($user->student->id);
+
+        // Agrupar as notas por subject_id
+        $studentNotesBySubject = [];
+        foreach ($student->notes as $note) {
+            $subjectId = $note->subject_id;
+            if (!isset($studentNotesBySubject[$subjectId])) {
+                $studentNotesBySubject[$subjectId] = [
+                    'subject_name' => $note->subject->name,
+                    'first' => null,
+                    'second' => null,
+                    'third' => null,
+                    'work' => null,
+                    'exam' => null,
+                    'status' => $note->status,
+                ];
+            }
+
+            // Atribuir as notas para cada tipo de avaliação
+            if ($note->first !== null)
+                $studentNotesBySubject[$subjectId]['first'] = $note->first;
+            if ($note->second !== null)
+                $studentNotesBySubject[$subjectId]['second'] = $note->second;
+            if ($note->third !== null)
+                $studentNotesBySubject[$subjectId]['third'] = $note->third;
+            if ($note->work !== null)
+                $studentNotesBySubject[$subjectId]['work'] = $note->work;
+            if ($note->exam !== null)
+                $studentNotesBySubject[$subjectId]['exam'] = $note->exam;
+        }
+
+        return view('backend.notes.studentNotes', compact('student', 'studentNotesBySubject'));
     }
 }
