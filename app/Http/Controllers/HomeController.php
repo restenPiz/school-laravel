@@ -54,13 +54,45 @@ class HomeController extends Controller
             return view('home', compact('parents'));
 
         } elseif ($user->hasRole('Student')) {
-            
-            $student = Student::with(['user','parent','class','attendances'])->findOrFail($user->student->id);
 
+            // $student = Student::with(['user','parent','class','attendances'])->findOrFail($user->student->id);
+
+            // toast('Welcome Student', 'success');
+
+            // return view('home', compact('student'));
+
+            $student = Student::with(['notes', 'notes.subject', 'user', 'parent', 'class', 'attendances'])->find($user->student->id);
+
+            // Agrupar as notas por subject_id
+            $studentNotesBySubject = [];
+            foreach ($student->notes as $note) {
+                $subjectId = $note->subject_id;
+                if (!isset($studentNotesBySubject[$subjectId])) {
+                    $studentNotesBySubject[$subjectId] = [
+                        'subject_name' => $note->subject->name,
+                        'first' => null,
+                        'second' => null,
+                        'third' => null,
+                        'work' => null,
+                        'exam' => null,
+                        'status' => $note->status,
+                    ];
+                }
+
+                // Atribuir as notas para cada tipo de avaliação
+                if ($note->first !== null)
+                    $studentNotesBySubject[$subjectId]['first'] = $note->first;
+                if ($note->second !== null)
+                    $studentNotesBySubject[$subjectId]['second'] = $note->second;
+                if ($note->third !== null)
+                    $studentNotesBySubject[$subjectId]['third'] = $note->third;
+                if ($note->work !== null)
+                    $studentNotesBySubject[$subjectId]['work'] = $note->work;
+                if ($note->exam !== null)
+                    $studentNotesBySubject[$subjectId]['exam'] = $note->exam;
+            }
             toast('Welcome Student', 'success');
-
-            return view('home', compact('student'));
-
+            return view('home', compact('student', 'studentNotesBySubject'));
         } else {
             return 'NO ROLE ASSIGNED YET!';
         }
