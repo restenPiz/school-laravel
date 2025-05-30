@@ -4,7 +4,7 @@
     <div class="roles">
 
         <div class="">
-            <h1 class="text-2xl font-bold text-gray-800 text-center">Fees of student "{{ Auth::user()->name }}"</h1><br>
+            <h1 class="text-2xl font-bold text-gray-800 text-left">Fees of student "{{ Auth::user()->name }}"</h1><br>
             <div class="flex flex-wrap gap-4">
                 <select name="year" id="yearFilter" onchange="filterFees()" class="block font-bold appearance-none w-1/3 bg-gray-200 border border-gray-200 text-gray-600 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                     <option value="">Select the year</option>
