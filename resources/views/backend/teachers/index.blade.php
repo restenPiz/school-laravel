@@ -36,7 +36,7 @@
                                name="search_name"
                                value="{{ request('search_name') }}"
                                placeholder="Enter teacher name..."
-                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                               class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
                     </div>
 
                     <!-- Search by Email -->
@@ -47,7 +47,7 @@
                                name="search_email"
                                value="{{ request('search_email') }}"
                                placeholder="Enter email..."
-                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                               class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
                     </div>
 
                     <!-- Filter by Subject -->
@@ -55,7 +55,7 @@
                         <label for="subject_filter" class="block text-sm font-medium text-gray-700 mb-1">Subject</label>
                         <select id="subject_filter"
                                 name="subject_filter"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
                             <option value="">All Subjects</option>
                             @if(isset($subjects))
                                 @foreach($subjects as $subject)
@@ -72,7 +72,7 @@
                         <label for="sort_by" class="block text-sm font-medium text-gray-700 mb-1">Sort By</label>
                         <select id="sort_by"
                                 name="sort_by"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                class="mt-1 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500">
                             <option value="name_asc" {{ request('sort_by') == 'name_asc' ? 'selected' : '' }}>Name (A-Z)</option>
                             <option value="name_desc" {{ request('sort_by') == 'name_desc' ? 'selected' : '' }}>Name (Z-A)</option>
                             <option value="email_asc" {{ request('sort_by') == 'email_asc' ? 'selected' : '' }}>Email (A-Z)</option>
