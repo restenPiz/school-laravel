@@ -22,7 +22,7 @@ Route::post('/profile/changepassword', 'HomeController@changePassword')->name('p
 //*Student routes responsible for search the students connected by grade
 Route::get('/get-students-by-class/{classId}', 'StudentController@getStudentsByClass');
 
-Route::group(['middleware' => ['auth','role:Admin']], function () 
+Route::group(['middleware' => ['auth','role:Admin']], function ()
 {
     Route::get('/roles-permissions', 'RolePermissionController@roles')->name('roles-permissions');
     Route::get('/role-create', 'RolePermissionController@createRole')->name('role.create');
@@ -60,7 +60,7 @@ Route::group(['middleware' => ['auth','role:Admin']], function ()
     Route::get('/fees/filter', 'AcademicRecordController@feesFilter')->name('feesFilter');
 });
 
-Route::group(['middleware' => ['auth','role:Teacher']], function () 
+Route::group(['middleware' => ['auth','role:Teacher']], function ()
 {
     Route::post('attendance', 'AttendanceController@store')->name('teacher.attendance.store');
     Route::get('attendance-create/{classid}', 'AttendanceController@createByTeacher')->name('teacher.attendance.create');
@@ -87,7 +87,7 @@ Route::group(['middleware' => ['auth','role:Teacher']], function ()
     Route::get('/deleteFiles/{id}', [FileController::class, 'delete'])->name('deleteFiles');
 });
 
-Route::group(['middleware' => ['auth','role:Parent']], function () 
+Route::group(['middleware' => ['auth','role:Parent']], function ()
 {
     Route::get('attendance/{attendance}', 'AttendanceController@show')->name('attendance.show');
 });
