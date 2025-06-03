@@ -21,8 +21,8 @@
         <!-- Imagem do Estudante Centralizada -->
         <div class="w-full md:w-auto flex justify-center items-center relative">
             <div class="w-40 h-40 rounded-full border-4 border-gray-300 bg-white p-1 shadow-md absolute top-1/2 transform -translate-y-1/2">
-                <img class="w-full h-full rounded-full" 
-                     src="{{ asset('images/profile/' .$student->user->profile_picture) }}" 
+                <img class="w-full h-full rounded-full"
+                     src="{{ asset('images/profile/' .$student->user->profile_picture) }}"
                      alt="Student Avatar">
             </div>
         </div>
