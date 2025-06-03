@@ -30,6 +30,7 @@ class NoteController extends Controller
     }
     public function store(Request $request)
     {
+        //? Validate the request data
         $validated = $request->validate([
             'first' => 'nullable|numeric|min:0|max:20|unique:notes,first,NULL,id,student_id,' . $request->student_id,
             'second' => 'nullable|numeric|min:0|max:20|unique:notes,second,NULL,id,student_id,' . $request->student_id,
@@ -45,6 +46,7 @@ class NoteController extends Controller
             return back();
         }
 
+        //?Creating a new note
         $note = Note::create(
             [
                 'student_id' => $request->student_id,

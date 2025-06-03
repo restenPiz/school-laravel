@@ -25,7 +25,7 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        
+
         if ($user->hasRole('Admin')) {
 
             $parents = Parents::latest()->get();
@@ -41,7 +41,9 @@ class HomeController extends Controller
 
         } elseif ($user->hasRole('Teacher')) {
 
-            $teacher = Teacher::with(['user','subjects','classes','students'])->withCount('subjects','classes')->findOrFail($user->teacher->id);
+            $teacher = Teacher::with(['user','subjects','classes','students'])->withCount('subjects','classes')
+                ->findOrFail($user->teacher->id);
+
             toast('Welcome Teacher', 'success');
             return view('home', compact('teacher'));
 
@@ -96,20 +98,20 @@ class HomeController extends Controller
         } else {
             return 'NO ROLE ASSIGNED YET!';
         }
-        
+
     }
 
-    public function profile() 
+    public function profile()
     {
         return view('profile.index');
     }
 
-    public function profileEdit() 
+    public function profileEdit()
     {
         return view('profile.edit');
     }
 
-    public function profileUpdate(Request $request) 
+    public function profileUpdate(Request $request)
     {
         $request->validate([
             'name'  => 'required|string|max:255',
@@ -136,12 +138,12 @@ class HomeController extends Controller
         return redirect()->route('profile');
     }
     public function changePasswordForm()
-    {  
+    {
         return view('profile.changepassword');
     }
 
     public function changePassword(Request $request)
-    {     
+    {
         if (!(Hash::check($request->get('currentpassword'), Auth::user()->password))) {
             toast('our current password does not matches with the password you provided! Please try again.', 'error');
             return back()->with([
