@@ -16,9 +16,9 @@
 
         <!-- Filter Section -->
         <div class="bg-white rounded border-b-4 border-gray-300 mb-6">
-            <div class="px-4 py-3 bg-gray-100 rounded-t">
+            {{-- <div class="px-4 py-3 bg-gray-100 rounded-t">
                 <h3 class="text-sm font-semibold text-gray-700 uppercase">Filter Students</h3>
-            </div>
+            </div> --}}
             <div class="px-4 py-4">
                 <form method="GET" action="{{ route('students.index') }}" class="flex flex-wrap gap-4 items-end">
                     <!-- Search by Name -->
