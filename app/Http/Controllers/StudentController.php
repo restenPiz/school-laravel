@@ -23,7 +23,7 @@ class StudentController extends Controller
 
         return view('backend.studentSection.fee', compact('fees'));
     }
-    //?Method to return with student datas 
+    //?Method to return with student datas
     public function getStudentsByClass($classId)
     {
         $students = Student::where('class_id', $classId)->get(['id', 'user_id']); // Ajuste conforme sua modelagem
@@ -36,11 +36,41 @@ class StudentController extends Controller
 
         return response()->json(['students' => $students]);
     }
-    public function index()
-    {
-        $students = Student::with('class')->latest()->paginate(10);
+    // public function index()
+    // {
+    //     $students = Student::with('class')->latest()->paginate(10);
 
-        return view('backend.students.index', compact('students'));
+    //     return view('backend.students.index', compact('students'));
+    // }
+
+    public function index(Request $request)
+    {
+        $query = Student::with(['user', 'class']);
+
+        // Search by student name
+        if ($request->filled('search')) {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('name', 'LIKE', '%' . $request->search . '%');
+            });
+        }
+
+        // Filter by class
+        if ($request->filled('class_id')) {
+            $query->where('class_id', $request->class_id);
+        }
+
+        // Search by email
+        if ($request->filled('email')) {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('email', 'LIKE', '%' . $request->email . '%');
+            });
+        }
+
+        $students = $query->latest()->paginate(10);
+
+        $classes = Grade::orderBy('class_name')->get();
+
+        return view('backend.students.index', compact('students', 'classes'));
     }
     public function create()
     {
