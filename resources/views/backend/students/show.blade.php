@@ -45,8 +45,8 @@
                 <!-- Imagem do Estudante Centralizada -->
                 <div class="w-full md:w-auto flex justify-center items-center relative">
                     <div class="w-40 h-40 rounded-full border-4 border-gray-300 bg-white p-1 shadow-md absolute top-1/2 transform -translate-y-1/2">
-                        <img class="w-full h-full rounded-full" 
-                            src="{{ asset('images/profile/' .$student->user->profile_picture) }}" 
+                        <img class="w-full h-full rounded-full"
+                            src="{{ asset('images/profile/' .$student->user->profile_picture) }}"
                             alt="Student Avatar">
                     </div>
                 </div>
@@ -120,7 +120,7 @@
                                     Pagar
                                 </a>
                             @else
-                                 <a style="border-radius: 0.3rem" href="#" 
+                                 <a style="border-radius: 0.3rem" href="#"
                                     class="ml-1 bg-green-600 block p-2 text-white text-sm"
                                     onclick="openPaymentDetailsModal({{ $fee->id }})">
                                     <svg class="h-5 w-5 fill-current text-white" aria-hidden="true" focusable="false" data-prefix="far" data-icon="eye" class="svg-inline--fa fa-eye fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
@@ -227,6 +227,21 @@
                                     <label class="block text-gray-500 font-bold mb-1">Transaction Reference</label>
                                     <input name="transaction_reference" class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" type="text">
                                 </div>
+                                <div class="mt-6">
+                                    <label class="block text-gray-500 font-bold mb-1">Receipt slip</label>
+                                    <div class="flex items-center justify-center w-full">
+                                        <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                                <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                                                </svg>
+                                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                                <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                                            </div>
+                                            <input id="dropzone-file" type="file" class="hidden bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500" />
+                                        </label>
+                                    </div>
+                                </div>
 
                                 <div class="flex justify-end" style="margin-top: 1rem">
                                     <button type="button" onclick="closeModal('paymentModal{{$fee->id}}')" class="bg-gray-500 text-white px-4 py-2 rounded mr-2">Cancelar</button>
@@ -236,7 +251,7 @@
                         </div>
                     </div>
 
-                @endforeach 
+                @endforeach
             </div>
             {{--*Start with the accountant section--}}
             <div style="margin-top:1rem" class="bg-white p-4 rounded-lg text-gray-800 font-semibold">
@@ -245,7 +260,7 @@
                     <span class="text-lg">{{ number_format($fees->sum('amount_due'), 2) }} MZN</span>
                 </div>
             </div>
-            
+
         </div>
             {{--*End of the accountant section--}}
         <div class="mt-8 bg-white rounded-lg" id="subjectTable">
@@ -270,7 +285,7 @@
         </div>
         </div>
     </div>
-    
+
     <script>
         function filterFees() {
             let year = document.getElementById('yearFilter').value;
@@ -358,7 +373,7 @@
     <script>
         function printSelectedSections(sectionIds) {
             var printContent = '';
-            
+
             // Pega o conteúdo de cada elemento e adiciona na variável printContent
             sectionIds.forEach(function(id) {
                 var element = document.getElementById(id);
@@ -399,7 +414,7 @@
             printContent += '</head><body>';
 
             // Copia apenas o conteúdo da div do modal
-            var modalBody = modalContent.querySelector('.bg-white'); 
+            var modalBody = modalContent.querySelector('.bg-white');
             if (modalBody) {
                 printContent += modalBody.outerHTML;
             } else {
