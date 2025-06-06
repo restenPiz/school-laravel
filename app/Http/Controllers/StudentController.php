@@ -36,12 +36,6 @@ class StudentController extends Controller
 
         return response()->json(['students' => $students]);
     }
-    // public function index()
-    // {
-    //     $students = Student::with('class')->latest()->paginate(10);
-
-    //     return view('backend.students.index', compact('students'));
-    // }
 
     public function index(Request $request)
     {
