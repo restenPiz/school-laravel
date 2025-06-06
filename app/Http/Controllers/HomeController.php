@@ -57,12 +57,6 @@ class HomeController extends Controller
 
         } elseif ($user->hasRole('Student')) {
 
-            // $student = Student::with(['user','parent','class','attendances'])->findOrFail($user->student->id);
-
-            // toast('Welcome Student', 'success');
-
-            // return view('home', compact('student'));
-
             $student = Student::with(['notes', 'notes.subject', 'user', 'parent', 'class', 'attendances'])->find($user->student->id);
 
             // Agrupar as notas por subject_id
