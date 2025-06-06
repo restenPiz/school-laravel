@@ -17,10 +17,29 @@ class ParentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $parents = Parents::with(['user','children'])->latest()->paginate(10);
-        
+        $query = Parents::with(['user','children.user']);
+
+        // Apply filters
+        if ($request->filled('search')) {
+            $query->whereHas('user', function($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        if ($request->filled('email')) {
+            $query->whereHas('user', function($q) use ($request) {
+                $q->where('email', 'like', '%' . $request->email . '%');
+            });
+        }
+
+        if ($request->filled('phone')) {
+            $query->where('phone', 'like', '%' . $request->phone . '%');
+        }
+
+        $parents = $query->latest()->paginate(10);
+
         return view('backend.parents.index', compact('parents'));
     }
 
@@ -57,7 +76,7 @@ class ParentsController extends Controller
             'email'     => $request->email,
             'password'  => Hash::make($request->password)
         ]);
-        
+
         if ($request->hasFile('profile_picture')) {
             $profile = Str::slug($user->name).'-'.$user->id.'.'.$request->profile_picture->getClientOriginalExtension();
             $request->profile_picture->move(public_path('images/profile'), $profile);
@@ -89,7 +108,7 @@ class ParentsController extends Controller
 
     public function edit($id)
     {
-        $parent = Parents::with('user')->findOrFail($id); 
+        $parent = Parents::with('user')->findOrFail($id);
 
         return view('backend.parents.edit', compact('parent'));
     }
@@ -131,6 +150,7 @@ class ParentsController extends Controller
 
         return redirect()->route('parents.index');
     }
+
     public function destroy($id)
     {
         $parent = Parents::findOrFail($id);
