@@ -30,7 +30,7 @@
                         <div class="w-2/12 px-4 py-3">Second Avaliation</div>
                         <div class="w-2/12 px-4 py-3">Third Avaliation</div>
                         <div class="w-2/12 px-4 py-3">Work</div>
-                        
+
                         <div class="w-2/12 px-4 py-3"></div>
                     </div>
 
@@ -48,7 +48,7 @@
                             <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $notes['third'] ?? '—' }}</div>
                             <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">{{ $notes['work'] ?? '—' }}</div>
                            <div class="w-2/12 px-4 py-3 text-sm font-semibold text-gray-600">
-                                {{ $status }} - 
+                                {{ $status }} -
                                 <span class="bg-gray-200 text-sm px-2 border rounded-full">
                                      ({{ number_format($average, 2) }})
                                 </span>
@@ -63,7 +63,7 @@
     <script>
         function printSelectedSections(sectionIds) {
             var printContent = '';
-            
+
             // Pega o conteúdo de cada elemento e adiciona na variável printContent
             sectionIds.forEach(function(id) {
                 var element = document.getElementById(id);
