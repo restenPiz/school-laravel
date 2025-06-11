@@ -45,15 +45,15 @@ class AttendanceController extends Controller
                 return view('backend.attendance.index', compact('attendances','months'));
 
             }
-            
+
         }
         $attendances = [];
-        
+
         return view('backend.attendance.index', compact('attendances','months'));
     }
     public function create()
     {
-        
+
     }
 
     public function createByTeacher($classid)
@@ -64,6 +64,7 @@ class AttendanceController extends Controller
     }
     public function store(Request $request)
     {
+        // dd($request->all());
         $classid    = $request->class_id;
         $attenddate = date('Y-m-d');
 
