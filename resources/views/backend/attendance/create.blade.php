@@ -51,8 +51,8 @@
                                 </label>
                             </div>
                             <input type="hidden" name="class_id" value="{{ $student->class_id }}">
-                            {{-- <input type="hidden" name="teacher_id" value="{{ $class->teacher_id }}"> --}}
-                            <input type="hidden" name="teacher_id" value="{{ Auth::user()->id }}">
+                            <input type="hidden" name="teacher_id" value="{{ $class->teacher_id }}">
+                            {{-- <input type="hidden" name="teacher_id" value="{{ Auth::user()->id }}"> --}}
                         </div>
                     @endforeach
 

@@ -97,7 +97,7 @@
                 <h3 class="text-xl font-bold text-gray-900">My Classes</h3>
                 <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">5 Active Classes</span>
             </div>
-            
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 @foreach ($teacher->classes as $class)
                 <!-- Class Card 1 -->
@@ -113,15 +113,6 @@
                     </button>
                 </div>
                 @endforeach
-                <!-- Add New Class Card -->
-                {{-- <div class="bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg p-4 flex items-center justify-center hover:border-gray-400 transition-colors">
-                    <div class="text-center text-gray-500">
-                        <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                        </svg>
-                        <p class="text-sm font-medium">Add New Class</p>
-                    </div>
-                </div> --}}
             </div>
         </div>
 
