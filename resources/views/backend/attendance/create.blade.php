@@ -49,10 +49,10 @@
                                     <input name="attendences[{{ $student->id }}]" class="leading-tight" type="radio" value="absent">
                                     <span class="text-sm">Absent</span>
                                 </label>
-                                <h1>{{$class->teacher->user_id}}</h1>
+                                <h1>{{ $class->teacher->first()->id }}</h1>
                             </div>
                             <input type="hidden" name="class_id" value="{{ $student->class_id }}">
-                            <input type="hidden" name="teacher_id" value="{{ $class->teacher_id }}">
+                            <input type="hidden" name="teacher_id" value="{{ $class->teacher->first()->id }}">
                             {{-- <input type="hidden" name="teacher_id" value="{{ Auth::user()->id }}"> --}}
                         </div>
                     @endforeach

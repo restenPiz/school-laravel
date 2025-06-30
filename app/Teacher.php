@@ -29,7 +29,7 @@ class Teacher extends Model
     }
     public function classes()
     {
-        return $this->hasMany(Grade::class);
+        return $this->belongsToMany(Grade::class);
     }
     public function students()
     {
