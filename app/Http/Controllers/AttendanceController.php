@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use App\Attendance;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use DB;
 
 class AttendanceController extends Controller
 {
@@ -65,50 +66,54 @@ class AttendanceController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
+        // $teacher = Teacher::findOrFail(auth()->user()->teacher->id);
         $classid    = $request->class_id;
-        $attenddate = date('Y-m-d');
+       $class   = Grade::find($classid);
+        dd($class->id);
+        // $classid    = $request->class_id;
+        // $attenddate = date('Y-m-d');
 
-        $teacher = Teacher::findOrFail(auth()->user()->teacher->id);
-        $class   = Grade::find($classid);
+        // $teacher = Teacher::findOrFail(auth()->user()->teacher->id);
+        // $class   = Grade::find($classid);
 
-        if($teacher->id !== $class->teacher_id) {
-            toast('You are not assign for this class attendence!', 'info');
-            return redirect()->route('teacher.attendance.create', $classid);
-        }
+        // if($teacher->id !== $class->teacher_id) {
+        //     toast('You are not assign for this class attendence!', 'info');
+        //     return redirect()->route('teacher.attendance.create', $classid);
+        // }
 
-        $dataexist = Attendance::whereDate('attendence_date',$attenddate)
-                                ->where('class_id',$classid)
-                                ->get();
+        // $dataexist = Attendance::whereDate('attendence_date',$attenddate)
+        //                         ->where('class_id',$classid)
+        //                         ->get();
 
-        if (count($dataexist) !== 0 ) {
-            toast('Attendance already taken!', 'error');
-            return redirect()->route('teacher.attendance.create', $classid);
-        }
+        // if (count($dataexist) !== 0 ) {
+        //     toast('Attendance already taken!', 'error');
+        //     return redirect()->route('teacher.attendance.create', $classid);
+        // }
 
-        $request->validate([
-            'class_id'      => 'required|numeric',
-            'teacher_id'    => 'required|numeric',
-            'attendences'   => 'required'
-        ]);
+        // $request->validate([
+        //     'class_id'      => 'required|numeric',
+        //     'teacher_id'    => 'required|numeric',
+        //     'attendences'   => 'required'
+        // ]);
 
-        foreach ($request->attendences as $studentid => $attendence) {
+        // foreach ($request->attendences as $studentid => $attendence) {
 
-            if( $attendence == 'present' ) {
-                $attendence_status = true;
-            } else if( $attendence == 'absent' ){
-                $attendence_status = false;
-            }
+        //     if( $attendence == 'present' ) {
+        //         $attendence_status = true;
+        //     } else if( $attendence == 'absent' ){
+        //         $attendence_status = false;
+        //     }
 
-            Attendance::create([
-                'class_id'          => $request->class_id,
-                'teacher_id'        => $request->teacher_id,
-                'student_id'        => $studentid,
-                'attendence_date'   => $attenddate,
-                'attendence_status' => $attendence_status
-            ]);
-        }
+        //     Attendance::create([
+        //         'class_id'          => $request->class_id,
+        //         'teacher_id'        => $request->teacher_id,
+        //         'student_id'        => $studentid,
+        //         'attendence_date'   => $attenddate,
+        //         'attendence_status' => $attendence_status
+        //     ]);
+        // }
 
-        return back();
+        // return back();
     }
 
     public function show($attendance, Attendance $att)

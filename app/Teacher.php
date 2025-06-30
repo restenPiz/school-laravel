@@ -29,9 +29,9 @@ class Teacher extends Model
     }
     public function classes()
     {
-        return $this->belongsToMany(Grade::class);
+        return $this->hasMany(Grade::class);
     }
-    public function students() 
+    public function students()
     {
         return $this->classes()->withCount('students');
     }

@@ -10,6 +10,7 @@ class Grade extends Model
         'class_name',
         'class_numeric',
         'teacher_id',
+        'class_id',
         'class_description',
         'registration_fee',
         'monthly_fee'
@@ -17,7 +18,7 @@ class Grade extends Model
 
     public function students()
     {
-        return $this->hasMany(Student::class,'class_id');
+        return $this->hasMany(Student::class, 'class_id');
     }
 
     // public function files()
@@ -29,8 +30,8 @@ class Grade extends Model
     {
         return $this->belongsToMany(Subject::class);
     }
-    public function teacher() 
+    public function teacher()
     {
-        return $this->belongsToMany(Teacher::class);
+        return $this->belongsTo(Teacher::class);
     }
 }
