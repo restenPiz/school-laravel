@@ -26,96 +26,153 @@ class AttendanceController extends Controller
     public function index()
     {
         $months = Attendance::select('attendence_date')
-                            ->orderBy('attendence_date')
-                            ->get()
-                            ->groupBy(function ($val) {
-                                return Carbon::parse($val->attendence_date)->format('m');
-                            });
+            ->orderBy('attendence_date')
+            ->get()
+            ->groupBy(function ($val) {
+                return Carbon::parse($val->attendence_date)->format('m');
+            });
 
-        if( request()->has(['type', 'month']) ) {
+        if (request()->has(['type', 'month'])) {
             $type = request()->input('type');
             $month = request()->input('month');
 
-            if($type == 'class') {
+            if ($type == 'class') {
                 $attendances = Attendance::whereMonth('attendence_date', $month)
-                                     ->select('attendence_date','student_id','attendence_status','class_id')
-                                     ->orderBy('class_id','asc')
-                                     ->get()
-                                     ->groupBy(['class_id','attendence_date']);
+                    ->select('attendence_date', 'student_id', 'attendence_status', 'class_id')
+                    ->orderBy('class_id', 'asc')
+                    ->get()
+                    ->groupBy(['class_id', 'attendence_date']);
 
-                return view('backend.attendance.index', compact('attendances','months'));
+                return view('backend.attendance.index', compact('attendances', 'months'));
 
             }
 
         }
         $attendances = [];
 
-        return view('backend.attendance.index', compact('attendances','months'));
+        return view('backend.attendance.index', compact('attendances', 'months'));
     }
     public function create()
     {
 
     }
 
+    // public function createByTeacher($classid)
+    // {
+    //     $class = Grade::with(['students', 'subjects', 'teacher'])->findOrFail($classid);
+
+    //     return view('backend.attendance.create', compact('class'));
+    // }
+    // public function store(Request $request)
+    // {
+    //     // dd($request->all());
+    //     $teacher = Teacher::findOrFail(auth()->user()->teacher->id);
+    //     //     $classid    = $request->class_id;
+    //     //    $class   = Grade::find($classid);
+    //     //     dd($class->id);
+    //     $classid = $request->class_id;
+    //     $attenddate = date('Y-m-d');
+
+    //     $teacher = Teacher::findOrFail(auth()->user()->teacher->id);
+    //     $class = Grade::find($classid);
+
+    //     if ($teacher->id !== $class->teacher_id) {
+    //         toast('You are not assign for this class attendence!', 'info');
+    //         return redirect()->route('teacher.attendance.create', $classid);
+    //     }
+
+    //     $dataexist = Attendance::whereDate('attendence_date', $attenddate)
+    //         ->where('class_id', $classid)
+    //         ->get();
+
+    //     if (count($dataexist) !== 0) {
+    //         toast('Attendance already taken!', 'error');
+    //         return redirect()->route('teacher.attendance.create', $classid);
+    //     }
+
+    //     $request->validate([
+    //         'class_id' => 'required|numeric',
+    //         'teacher_id' => 'required|numeric',
+    //         'attendences' => 'required'
+    //     ]);
+
+    //     foreach ($request->attendences as $studentid => $attendence) {
+
+    //         if ($attendence == 'present') {
+    //             $attendence_status = true;
+    //         } else if ($attendence == 'absent') {
+    //             $attendence_status = false;
+    //         }
+
+    //         Attendance::create([
+    //             'class_id' => $request->class_id,
+    //             'teacher_id' => $request->teacher_id,
+    //             'student_id' => $studentid,
+    //             'attendence_date' => $attenddate,
+    //             'attendence_status' => $attendence_status
+    //         ]);
+    //     }
+
+    //     return back();
+    // }
+
     public function createByTeacher($classid)
     {
-        $class = Grade::with(['students','subjects','teacher'])->findOrFail($classid);
+        $class = Grade::with(['students.user', 'subjects', 'teacher'])->findOrFail($classid);
 
         return view('backend.attendance.create', compact('class'));
     }
+
     public function store(Request $request)
     {
+        // Debug: Descomente para ver os dados recebidos
         // dd($request->all());
-        // $teacher = Teacher::findOrFail(auth()->user()->teacher->id);
-        $classid    = $request->class_id;
-       $class   = Grade::find($classid);
-        dd($class->id);
-        // $classid    = $request->class_id;
-        // $attenddate = date('Y-m-d');
 
-        // $teacher = Teacher::findOrFail(auth()->user()->teacher->id);
-        // $class   = Grade::find($classid);
+        $request->validate([
+            'class_id' => 'required|numeric',
+            'teacher_id' => 'required|numeric',
+            'attendences' => 'required|array'
+        ]);
 
-        // if($teacher->id !== $class->teacher_id) {
-        //     toast('You are not assign for this class attendence!', 'info');
-        //     return redirect()->route('teacher.attendance.create', $classid);
-        // }
+        $teacher = Teacher::findOrFail(auth()->user()->teacher->id);
+        $classid = $request->class_id;
+        $attenddate = date('Y-m-d');
+        $class = Grade::with('teacher')->find($classid);
 
-        // $dataexist = Attendance::whereDate('attendence_date',$attenddate)
-        //                         ->where('class_id',$classid)
-        //                         ->get();
+        // Verificação corrigida para relacionamento many-to-many
+        $isTeacherAssigned = $class->teacher->contains('id', $teacher->id);
 
-        // if (count($dataexist) !== 0 ) {
-        //     toast('Attendance already taken!', 'error');
-        //     return redirect()->route('teacher.attendance.create', $classid);
-        // }
+        if (!$isTeacherAssigned) {
+            toast('You are not assigned to this class attendance!', 'info');
+            return redirect()->route('teacher.attendance.create', $classid);
+        }
 
-        // $request->validate([
-        //     'class_id'      => 'required|numeric',
-        //     'teacher_id'    => 'required|numeric',
-        //     'attendences'   => 'required'
-        // ]);
+        // Verifica se já existe attendance para hoje
+        $dataexist = Attendance::whereDate('attendence_date', $attenddate)
+            ->where('class_id', $classid)
+            ->get();
 
-        // foreach ($request->attendences as $studentid => $attendence) {
+        if ($dataexist->count() > 0) {
+            toast('Attendance already taken!', 'error');
+            return redirect()->route('teacher.attendance.create', $classid);
+        }
 
-        //     if( $attendence == 'present' ) {
-        //         $attendence_status = true;
-        //     } else if( $attendence == 'absent' ){
-        //         $attendence_status = false;
-        //     }
+        // Processa a attendance
+        foreach ($request->attendences as $studentid => $attendence) {
+            $attendence_status = ($attendence === 'present') ? true : false;
 
-        //     Attendance::create([
-        //         'class_id'          => $request->class_id,
-        //         'teacher_id'        => $request->teacher_id,
-        //         'student_id'        => $studentid,
-        //         'attendence_date'   => $attenddate,
-        //         'attendence_status' => $attendence_status
-        //     ]);
-        // }
+            Attendance::create([
+                'class_id' => $request->class_id,
+                'teacher_id' => $request->teacher_id,
+                'student_id' => $studentid,
+                'attendence_date' => $attenddate,
+                'attendence_status' => $attendence_status
+            ]);
+        }
 
-        // return back();
+        toast('Attendance saved successfully!', 'success');
+        return back();
     }
-
     public function show($attendance, Attendance $att)
     {
         $attendances = Attendance::where('student_id', $attendance)->get();
