@@ -101,7 +101,7 @@
                                     </div>
                                 </div>
 
-                                <div class="flex items-start space-x-3">
+                                {{-- <div class="flex items-start space-x-3">
                                     <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
                                     <div>
                                         <p class="text-sm font-medium text-gray-600">Class</p>
@@ -115,47 +115,7 @@
                                         <p class="text-sm font-medium text-gray-600">Roll Number</p>
                                         <p class="text-lg font-semibold text-gray-900">{{ $student->roll_number }}</p>
                                     </div>
-                                </div>
-
-                                <div class="flex items-start space-x-3">
-                                    <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-600">Phone</p>
-                                        <p class="text-lg font-semibold text-gray-900">{{ $student->phone }}</p>
-                                    </div>
-                                </div>
-
-                                <div class="flex items-start space-x-3">
-                                    <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-600">Gender</p>
-                                        <p class="text-lg font-semibold text-gray-900">{{ $student->gender }}</p>
-                                    </div>
-                                </div>
-
-                                <div class="flex items-start space-x-3">
-                                    <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-600">Date of Birth</p>
-                                        <p class="text-lg font-semibold text-gray-900">{{ $student->dateofbirth }}</p>
-                                    </div>
-                                </div>
-
-                                <div class="flex items-start space-x-3">
-                                    <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-600">Current Address</p>
-                                        <p class="text-lg font-semibold text-gray-900">{{ $student->current_address }}</p>
-                                    </div>
-                                </div>
-
-                                <div class="flex items-start space-x-3">
-                                    <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-600">Permanent Address</p>
-                                        <p class="text-lg font-semibold text-gray-900">{{ $student->permanent_address }}</p>
-                                    </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -168,11 +128,11 @@
                                      src="{{ asset('images/profile/' .$student->user->profile_picture) }}"
                                      alt="Student Avatar">
                             </div>
-                            <div class="absolute -bottom-2 -right-2 w-12 h-12 bg-green-500 rounded-full border-4 border-white flex items-center justify-center shadow-lg">
+                            {{-- <div class="absolute -bottom-2 -right-2 w-12 h-12 bg-green-500 rounded-full border-4 border-white flex items-center justify-center shadow-lg">
                                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                 </svg>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
 
@@ -205,7 +165,7 @@
                                     </div>
                                 </div>
 
-                                <div class="flex items-start space-x-3">
+                                {{-- <div class="flex items-start space-x-3">
                                     <div class="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
                                     <div>
                                         <p class="text-sm font-medium text-gray-600">Phone</p>
@@ -219,7 +179,7 @@
                                         <p class="text-sm font-medium text-gray-600">Address</p>
                                         <p class="text-lg font-semibold text-gray-900">{{ $student->parent->current_address }}</p>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
