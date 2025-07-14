@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use RealRashid\SweetAlert\Facades\Alert;
+use DB;
 
 class StudentController extends Controller
 {
@@ -19,14 +20,14 @@ class StudentController extends Controller
     {
         $user = User::findOrFail($id);
         $studentId = $user->student->id;
-        $fees = Fees::where('student_id', $studentId)->orderBy('id', 'asc')->get();
+        $fees = DB::table('fees')->where('student_id', $studentId)->orderBy('id', 'asc')->get();
 
         return view('backend.studentSection.fee', compact('fees'));
     }
     //?Method to return with student datas
     public function getStudentsByClass($classId)
     {
-        $students = Student::where('class_id', $classId)->get(['id', 'user_id']); // Ajuste conforme sua modelagem
+        $students = Student::where('class_id', $classId)->get(['id', 'user_id']);
         $students = $students->map(function ($student) {
             return [
                 'id' => $student->id,
