@@ -20,7 +20,17 @@ class StudentController extends Controller
     {
         $user = User::findOrFail($id);
         $studentId = $user->student->id;
-        $fees = DB::table('fees')->where('student_id', $studentId)->orderBy('id', 'asc')->get();
+
+        $fees = DB::table('fees')
+            ->where('student_id', $studentId)
+            ->orderByRaw("CASE
+            WHEN due_date < CURDATE() AND status != 'Pago' THEN 1  -- Overdue fees first
+            WHEN due_date >= CURDATE() AND status != 'Pago' THEN 2 -- Upcoming fees
+            WHEN status = 'Pago' THEN 3                            -- Paid fees last
+            END")
+            ->orderBy('due_date')
+            ->orderBy('id')
+            ->get();
 
         return view('backend.studentSection.fee', compact('fees'));
     }
